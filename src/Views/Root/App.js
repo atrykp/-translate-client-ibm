@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import GlobalStyle from "../../Theme/GlobalStyles";
+import Dropdown from "../../components/Molecules/Dropdown";
 
 function App() {
   const [word, setWord] = useState("");
@@ -7,9 +8,15 @@ function App() {
   useEffect(() => {
     getLanguages();
   }, []);
+  let languagesArr = [];
   const getLanguages = async () => {
     let response = await fetch(`http://localhost:5000/`);
     let languagesObj = await response.json();
+    console.log(languagesObj);
+    languagesObj.result.languages.forEach((element) =>
+      languagesArr.push(element.language)
+    );
+    console.log(languagesArr);
   };
 
   const handleChange = (e) => {
@@ -28,6 +35,7 @@ function App() {
       <input type="text" onChange={handleChange} />
       <button onClick={handleClick}>translate</button>
       <h1>{transleted}</h1>
+      <Dropdown>Pl</Dropdown>
     </>
   );
 }
