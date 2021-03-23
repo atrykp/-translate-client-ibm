@@ -1,5 +1,5 @@
-import style from "./App.module.scss";
 import { useEffect, useState } from "react";
+import GlobalStyle from "../../Theme/GlobalStyles";
 
 function App() {
   const [word, setWord] = useState("");
@@ -23,6 +23,8 @@ function App() {
   };
   return (
     <>
+      <GlobalStyle />
+      <p>translator</p>
       <input type="text" onChange={handleChange} />
       <button onClick={handleClick}>translate</button>
       <h1>{transleted}</h1>
