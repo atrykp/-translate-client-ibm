@@ -3,13 +3,14 @@ import styled from "styled-components";
 const StyledListWrapper = styled.div`
   display: grid;
   background-color: #c1b8ed;
-  width: 20%;
+  width: 100%;
   border-radius: 10px;
 `;
 const StyledLink = styled.a`
   text-align: center;
-  padding: 1%;
+  padding: 10px 0;
   display: block;
+  color: white;
 `;
 
 const List = () => {
