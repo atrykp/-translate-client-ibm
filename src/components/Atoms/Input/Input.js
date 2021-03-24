@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 const Input = styled.input`
   font-size: 1.6rem;
@@ -10,6 +10,11 @@ const Input = styled.input`
   &:focus {
     border: 2px solid #9489cc;
   }
+  ${({ secondary }) =>
+    secondary &&
+    css`
+      background-color: red;
+    `}
 `;
 
 export default Input;

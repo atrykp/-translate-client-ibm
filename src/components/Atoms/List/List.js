@@ -13,6 +13,7 @@ const StyledLink = styled.a`
   color: white;
   cursor: pointer;
   transition: 0.2s;
+  font-weight: ${({ theme }) => theme.fontWeight.normal};
 
   &:hover {
     background-color: lightcoral;

@@ -9,6 +9,10 @@ const theme = {
     medium: "1.5rem",
     large: "1.8rem",
   },
+  fontWeight: {
+    light: "300",
+    normal: "500",
+  },
 };
 
 export default theme;
