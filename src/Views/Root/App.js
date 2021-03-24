@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import GlobalStyle from "../../Theme/GlobalStyles";
 import Dropdown from "../../components/Molecules/Dropdown";
+import Input from "../../components/Atoms/Input/Input";
 
 function App() {
   const [word, setWord] = useState("");
@@ -36,6 +37,7 @@ function App() {
       <button onClick={handleClick}>translate</button>
       <h1>{transleted}</h1>
       <Dropdown>Pl</Dropdown>
+      <Input type="text" />
     </>
   );
 }

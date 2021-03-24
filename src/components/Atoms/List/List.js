@@ -11,6 +11,13 @@ const StyledLink = styled.a`
   padding: 10px 0;
   display: block;
   color: white;
+  cursor: pointer;
+  transition: 0.2s;
+
+  &:hover {
+    background-color: lightcoral;
+    border-radius: 10px;
+  }
 `;
 
 const List = () => {

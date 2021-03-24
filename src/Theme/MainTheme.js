@@ -4,9 +4,10 @@ const theme = {
     secondary: "blue",
   },
   fontSize: {
-    small: "1.1rem",
-    medium: "1.4rem",
-    large: "1.7rem",
+    xsmall: "1.1rem",
+    small: "1.3rem",
+    medium: "1.5rem",
+    large: "1.8rem",
   },
 };
 
