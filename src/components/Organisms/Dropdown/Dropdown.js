@@ -1,10 +1,10 @@
 import styled from "styled-components";
-import RoundButton from "../Atoms/RoundButton/RoundButton";
-import List from "../Atoms/List/List";
+import RoundButton from "../../Atoms/RoundButton/RoundButton";
+import List from "../../Molecules/List/List";
 
 const StyledWrapper = styled.div`
   text-align: center;
-  max-width: 150px;
+  width: 180px;
 `;
 const Dropdown = () => {
   return (

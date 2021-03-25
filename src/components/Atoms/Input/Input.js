@@ -8,11 +8,13 @@ const Input = styled.input`
   outline: none;
 
   &:focus {
-    border: 2px solid ${({ theme }) => theme.colors.primaryDark};
+    border: 1px solid ${({ theme }) => theme.colors.primaryDark};
   }
   ${({ secondary }) =>
     secondary &&
     css`
+      width: 100%;
+      padding: 5px 10px;
       font-size: ${({ theme }) => theme.fontSize.small};
     `}
 `;

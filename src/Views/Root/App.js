@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import GlobalStyle from "../../Theme/GlobalStyles";
-import Dropdown from "../../components/Molecules/Dropdown";
+import Dropdown from "../../components/Organisms/Dropdown/Dropdown";
 import { ThemeProvider } from "styled-components";
 import theme from "../../Theme/MainTheme";
 import Button from "../../components/Atoms/Button/Button";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import MainPage from "../MainPage/MainPage";
 
 function App() {
   const [word, setWord] = useState("");
@@ -32,9 +34,10 @@ function App() {
     setTransleted(backTxt);
   };
   return (
-    <>
+    <Router>
       <ThemeProvider theme={theme}>
         <GlobalStyle />
+        {/* <Route path="/" component={MainPage} /> */}
         <p>translator</p>
         <input type="text" onChange={handleChange} />
         <button onClick={handleClick}>translate</button>
@@ -42,7 +45,7 @@ function App() {
         <Dropdown>Pl</Dropdown>
         <Button>Translate</Button>
       </ThemeProvider>
-    </>
+    </Router>
   );
 }
 
