@@ -4,17 +4,17 @@ const RoundButton = styled.button`
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  background-color: #c1b8ed;
+  background-color: ${({ theme }) => theme.colors.primaryLight};
   border: none;
   border: 1px solid transparent;
-  color: white;
-  font-weight: bold;
-  font-size: 2rem;
+  color: ${({ theme }) => theme.colors.lightTxt};
+  font-weight: ${({ theme }) => theme.fontWeight.normal};
+  font-size: ${({ theme }) => theme.fontSize.large};
   cursor: pointer;
   outline: none;
   transition: 0.2s linear;
   &:hover {
-    background-color: #9489cc;
+    background-color: ${({ theme }) => theme.colors.primaryDark};
   }
   &:active {
     border-color: gray;

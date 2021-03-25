@@ -5,7 +5,7 @@ const theme = {
     darkTxt: "#4F494E",
 
     mediumTxt: "#575762",
-    lightTXT: "#fefeff",
+    lightTxt: "#fefeff",
   },
   fontSize: {
     xsmall: "1.1rem",
