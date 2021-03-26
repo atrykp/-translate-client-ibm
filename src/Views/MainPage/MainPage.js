@@ -1,6 +1,6 @@
-import MainPageTemplate from "../../templates/MainTemplate";
+import MainTemplate from "../../templates/MainTemplate";
 
 const MainPage = () => {
-  return <MainPageTemplate></MainPageTemplate>;
+  return <MainTemplate></MainTemplate>;
 };
 export default MainPage;

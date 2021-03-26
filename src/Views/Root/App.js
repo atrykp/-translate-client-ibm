@@ -37,13 +37,14 @@ function App() {
     <Router>
       <ThemeProvider theme={theme}>
         <GlobalStyle />
-        {/* <Route path="/" component={MainPage} /> */}
+
         <p>translator</p>
         <input type="text" onChange={handleChange} />
         <button onClick={handleClick}>translate</button>
         <h1>{transleted}</h1>
         <Dropdown>Pl</Dropdown>
         <Button>Translate</Button>
+        <Route path="/" component={MainPage} />
       </ThemeProvider>
     </Router>
   );
