@@ -1,8 +1,8 @@
 import styled from "styled-components";
-import MainPage from "../Views/MainPage/MainPage";
+import BottomBar from "../components/Organisms/BottomBar/BottomBar";
 
 const MainTemplate = () => {
-  return <h1>bottom</h1>;
+  return <BottomBar></BottomBar>;
 };
 
 export default MainTemplate;
