@@ -11,7 +11,7 @@ const Link = styled.a`
   text-decoration: none;
 
   &:hover {
-    background-color: ${({ theme }) => theme.colors.primaryDark};
+    background-color: ${({ theme }) => theme.colors.secondaryDark};
     border-radius: 10px;
   }
 `;

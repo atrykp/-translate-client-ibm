@@ -4,7 +4,7 @@ import Input from "../../Atoms/Input/Input";
 
 const StyledListWrapper = styled.div`
   display: ${({ visible }) => (visible ? "grid" : "none")};
-  background-color: ${({ theme }) => theme.colors.primaryLight};
+  background-color: ${({ theme }) => theme.colors.secondary};
   border-radius: 10px;
 `;
 

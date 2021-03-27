@@ -6,7 +6,7 @@ import translator from "../../../assets/Icons/translation.svg";
 const StyledWrapper = styled.div`
   display: flex;
 
-  background-color: ${({ theme }) => theme.colors.primaryDark};
+  background-color: ${({ theme }) => theme.colors.primary};
   height: 10vh;
   border-radius: 10px;
   justify-items: center;
@@ -19,7 +19,7 @@ const StyledLink = styled(Link)`
   height: 100%;
   width: 50%;
   transition: transform 0.2s ease-in;
-  font-size: ${({ theme }) => theme.fontSize.large};
+  font-size: ${({ theme }) => theme.fontSize.medium};
   background-image: url(${({ image }) => image});
   background-size: 40%;
   background-repeat: no-repeat;

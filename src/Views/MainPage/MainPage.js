@@ -10,6 +10,7 @@ import swap from "../../assets/Icons/swap.svg";
 const StyledWrapper = styled.div`
   height: 100vh;
   display: grid;
+  grid-template-rows: 2fr 1fr 1fr 5fr 1fr;
   align-items: center;
 `;
 const StyledDropdownWrapper = styled.div`
@@ -29,17 +30,25 @@ const StyledRoundButton = styled(RoundButton)`
 const StyledButton = styled(Button)`
   width: 80%;
   justify-self: center;
-  align-self: start;
-  height: 35%;
+
+  height: 70%;
 `;
 const StyledInput = styled(Input)`
   width: 90%;
   justify-self: center;
   align-self: start;
-  height: 35%;
+  height: 80%;
 `;
 const Output = styled.div`
   display: grid;
+
+  justify-content: center;
+  align-content: center;
+  background-color: ${({ theme }) => theme.colors.secondaryLight};
+  border-radius: 10px;
+  height: 80%;
+  width: 95%;
+  justify-self: center;
 `;
 
 const MainPage = () => {
@@ -53,7 +62,10 @@ const MainPage = () => {
       <StyledInput />
       <StyledButton>tłumacz</StyledButton>
       <Output>
-        <Header>hello</Header>
+        <Header>
+          hello
+          <mollitia className=""></mollitia>
+        </Header>
       </Output>
       <StyledBottonBarWrapper>
         <MainTemplate />

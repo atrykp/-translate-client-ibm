@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
 const Button = styled.button`
-  background-color: ${({ theme }) => theme.colors.primaryDark};
-  font-size: ${({ theme }) => theme.fontSize.large};
+  background-color: ${({ theme }) => theme.colors.secondary};
+  font-size: ${({ theme }) => theme.fontSize.medium};
   color: ${({ theme }) => theme.colors.lightTxt};
   border-radius: 40px;
   padding: 10px 30px;
@@ -13,7 +13,7 @@ const Button = styled.button`
   cursor: pointer;
 
   &:hover {
-    background-color: ${({ theme }) => theme.colors.primaryLight};
+    background-color: ${({ theme }) => theme.colors.secondaryDark};
   }
 `;
 
