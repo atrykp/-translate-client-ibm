@@ -4,6 +4,7 @@ import Dropdown from "../../components/Organisms/Dropdown/Dropdown";
 import Input from "../../components/Atoms/Input/Input";
 import Button from "../../components/Atoms/Button/Button";
 import RoundButton from "../../components/Atoms/RoundButton/RoundButton";
+import Header from "../../components/Atoms/Header/Header";
 import swap from "../../assets/Icons/swap.svg";
 
 const StyledWrapper = styled.div`
@@ -37,6 +38,9 @@ const StyledInput = styled(Input)`
   align-self: start;
   height: 35%;
 `;
+const Output = styled.div`
+  display: grid;
+`;
 
 const MainPage = () => {
   return (
@@ -48,6 +52,9 @@ const MainPage = () => {
       </StyledDropdownWrapper>
       <StyledInput />
       <StyledButton>tłumacz</StyledButton>
+      <Output>
+        <Header>hello</Header>
+      </Output>
       <StyledBottonBarWrapper>
         <MainTemplate />
       </StyledBottonBarWrapper>
