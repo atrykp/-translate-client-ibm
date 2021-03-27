@@ -55,6 +55,8 @@ const Output = styled.div`
 const MainPage = () => {
   const [currentWord, setCurrentWord] = useState("");
   const [transleted, setTransleted] = useState("");
+  const [fromLanguage, setFromLanguage] = useState("en");
+  const [toLanguage, setToLanguage] = useState("pl");
 
   const handleClick = async () => {
     let response = await fetch(
@@ -72,9 +74,9 @@ const MainPage = () => {
   return (
     <StyledWrapper>
       <StyledDropdownWrapper>
-        <Dropdown />
+        <Dropdown setLanguage={setFromLanguage} language={fromLanguage} />
         <StyledRoundButton />
-        <Dropdown />
+        <Dropdown setLanguage={setToLanguage} language={toLanguage} />
       </StyledDropdownWrapper>
       <StyledInput onChange={(e) => handleChange(e)} />
       <StyledButton onClick={handleClick}>tłumacz</StyledButton>

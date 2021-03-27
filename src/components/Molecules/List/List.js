@@ -5,24 +5,28 @@ import { useEffect, useState } from "react";
 
 const StyledListWrapper = styled.div`
   position: absolute;
-  display: ${({ visible }) => (visible ? "grid" : "none")};
+  display: ${({ isActive }) => (isActive ? "grid" : "none")};
   background-color: ${({ theme }) => theme.colors.secondary};
   border-radius: 10px;
   height: 250px;
   overflow: auto;
 `;
 
-const List = () => {
+const List = ({ setLanguage, isActive }) => {
   const [languagesArr, setLanguagesArr] = useState([]);
 
   useEffect(() => {
-    getLanguages();
-  }, []);
+    if (isActive) {
+      getLanguages();
+    }
+  }, [isActive]);
 
   const setLanguagesToList = (array) => {
     setLanguagesArr(
       array.map((element) => (
-        <Link onClick={() => console.log(element)}>{element}</Link>
+        <Link onClick={() => setLanguage(element.language)}>
+          {element.languageName}
+        </Link>
       ))
     );
   };
@@ -32,13 +36,16 @@ const List = () => {
     let languagesObj = await response.json();
     console.log(languagesObj);
     languagesObj.result.languages.forEach((element) =>
-      arrayLanguage.push(`${element.language} - ${element.language_name} `)
+      arrayLanguage.push({
+        language: element.language,
+        languageName: element.language_name,
+      })
     );
     setLanguagesToList(arrayLanguage);
   };
 
   return (
-    <StyledListWrapper visible>
+    <StyledListWrapper isActive={isActive}>
       <Input secondary placeholder="search" />
       {languagesArr}
     </StyledListWrapper>
