@@ -6,6 +6,7 @@ import Button from "../../components/Atoms/Button/Button";
 import RoundButton from "../../components/Atoms/RoundButton/RoundButton";
 import Header from "../../components/Atoms/Header/Header";
 import swap from "../../assets/Icons/swap.svg";
+import { useState } from "react";
 
 const StyledWrapper = styled.div`
   height: 100vh;
@@ -52,6 +53,22 @@ const Output = styled.div`
 `;
 
 const MainPage = () => {
+  const [currentWord, setCurrentWord] = useState("");
+  const [transleted, setTransleted] = useState("");
+
+  const handleClick = async () => {
+    let response = await fetch(
+      `http://localhost:5000/translate/${currentWord}`
+    );
+    let translateObj = await response.json();
+    let backTxt = translateObj.result.translations[0].translation;
+    setTransleted(backTxt);
+  };
+
+  const handleChange = ({ target }) => {
+    setCurrentWord(target.value);
+  };
+
   return (
     <StyledWrapper>
       <StyledDropdownWrapper>
@@ -59,13 +76,10 @@ const MainPage = () => {
         <StyledRoundButton />
         <Dropdown />
       </StyledDropdownWrapper>
-      <StyledInput />
-      <StyledButton>tłumacz</StyledButton>
+      <StyledInput onChange={(e) => handleChange(e)} />
+      <StyledButton onClick={handleClick}>tłumacz</StyledButton>
       <Output>
-        <Header>
-          hello
-          <mollitia className=""></mollitia>
-        </Header>
+        <Header>{transleted}</Header>
       </Output>
       <StyledBottonBarWrapper>
         <MainTemplate />

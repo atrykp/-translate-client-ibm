@@ -5,6 +5,7 @@ import List from "../../Molecules/List/List";
 const StyledWrapper = styled.div`
   text-align: center;
   width: 180px;
+  position: relative;
 `;
 const Dropdown = () => {
   return (
