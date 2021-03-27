@@ -9,7 +9,8 @@ import swap from "../../assets/Icons/swap.svg";
 import { useState } from "react";
 
 const StyledWrapper = styled.div`
-  height: 100vh;
+  height: 100%;
+  width: 100%;
   display: grid;
   grid-template-rows: 2fr 1fr 1fr 5fr 1fr;
   align-items: center;
@@ -60,7 +61,7 @@ const MainPage = () => {
 
   const handleClick = async () => {
     let response = await fetch(
-      `http://localhost:5000/translate/${currentWord}`
+      `http://localhost:5000/translate/${currentWord}/${fromLanguage}/${toLanguage}`
     );
     let translateObj = await response.json();
     let backTxt = translateObj.result.translations[0].translation;

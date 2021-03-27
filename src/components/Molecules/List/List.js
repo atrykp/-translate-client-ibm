@@ -12,7 +12,7 @@ const StyledListWrapper = styled.div`
   overflow: auto;
 `;
 
-const List = ({ setLanguage, isActive }) => {
+const List = ({ setLanguage, isActive, setIsActive }) => {
   const [languagesArr, setLanguagesArr] = useState([]);
 
   useEffect(() => {
@@ -24,7 +24,13 @@ const List = ({ setLanguage, isActive }) => {
   const setLanguagesToList = (array) => {
     setLanguagesArr(
       array.map((element) => (
-        <Link onClick={() => setLanguage(element.language)}>
+        <Link
+          key={Math.floor(Math.random() * 112345223)}
+          onClick={() => {
+            setLanguage(element.language);
+            setIsActive(false);
+          }}
+        >
           {element.languageName}
         </Link>
       ))
@@ -34,7 +40,6 @@ const List = ({ setLanguage, isActive }) => {
     let arrayLanguage = [];
     let response = await fetch(`http://localhost:5000/`);
     let languagesObj = await response.json();
-    console.log(languagesObj);
     languagesObj.result.languages.forEach((element) =>
       arrayLanguage.push({
         language: element.language,
@@ -47,7 +52,7 @@ const List = ({ setLanguage, isActive }) => {
   return (
     <StyledListWrapper isActive={isActive}>
       <Input secondary placeholder="search" />
-      {languagesArr}
+      {languagesArr ? languagesArr : "Ładuję.."}
     </StyledListWrapper>
   );
 };

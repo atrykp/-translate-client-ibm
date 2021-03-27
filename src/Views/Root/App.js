@@ -1,7 +1,7 @@
 import GlobalStyle from "../../Theme/GlobalStyles";
 import { ThemeProvider } from "styled-components";
 import theme from "../../Theme/MainTheme";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 import MainPage from "../MainPage/MainPage";
 
 function App() {

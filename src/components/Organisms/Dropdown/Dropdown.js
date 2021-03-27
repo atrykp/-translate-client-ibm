@@ -10,14 +10,16 @@ const StyledWrapper = styled.div`
 `;
 const Dropdown = ({ setLanguage, language }) => {
   const [isActive, setIsActive] = useState(false);
-  console.log(isActive);
-
   return (
     <StyledWrapper>
       <RoundButton onClick={() => setIsActive((prevValue) => !prevValue)}>
         {language}
       </RoundButton>
-      <List setLanguage={setLanguage} isActive={isActive} />
+      <List
+        setLanguage={setLanguage}
+        isActive={isActive}
+        setIsActive={setIsActive}
+      />
     </StyledWrapper>
   );
 };
