@@ -3,13 +3,12 @@ import Link from "../../Atoms/Link/Link";
 import Input from "../../Atoms/Input/Input";
 
 const StyledListWrapper = styled.div`
-  display: grid;
-
+  display: ${({ visible }) => (visible ? "grid" : "none")};
   background-color: ${({ theme }) => theme.colors.primaryLight};
   border-radius: 10px;
 `;
 
-const List = () => {
+const List = ({ visible = null }) => {
   return (
     <StyledListWrapper>
       <Input secondary placeholder="search" />

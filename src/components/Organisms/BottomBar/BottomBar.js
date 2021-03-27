@@ -4,9 +4,8 @@ import Link from "../../Atoms/Link/Link";
 import translator from "../../../assets/Icons/translation.svg";
 
 const StyledWrapper = styled.div`
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  margin-top: 100px;
+  display: flex;
+
   background-color: ${({ theme }) => theme.colors.primaryDark};
   height: 10vh;
   border-radius: 10px;
@@ -14,29 +13,32 @@ const StyledWrapper = styled.div`
 `;
 
 const StyledLink = styled(Link)`
+  display: grid;
+  align-items: center;
   color: white;
-  width: 80px;
-  height: 80px;
+  height: 100%;
+  width: 50%;
   transition: transform 0.2s ease-in;
-  border-radius: 50px;
+  font-size: ${({ theme }) => theme.fontSize.large};
   background-image: url(${({ image }) => image});
-  background-size: 50%;
+  background-size: 40%;
   background-repeat: no-repeat;
   background-position: center;
+  padding: 0;
+
   &.active {
-    transform: scale(1.3) translateY(-30%);
-    border-radius: 50px;
-    border: 5px solid white;
+    border-radius: 10px;
+    background-color: ${({ theme }) => theme.colors.primaryLight};
   }
 `;
 
 const BottomBar = () => {
   return (
     <StyledWrapper>
-      <StyledLink as={NavLink} exact to="/" image={translator}></StyledLink>
       <StyledLink as={NavLink} to="/list">
         lista
       </StyledLink>
+      <StyledLink as={NavLink} exact to="/" image={translator}></StyledLink>
       <StyledLink as={NavLink} to="/flashcards">
         fiszki
       </StyledLink>

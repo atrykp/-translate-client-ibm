@@ -8,6 +8,7 @@ const Link = styled.a`
   cursor: pointer;
   transition: 0.3s;
   font-weight: ${({ theme }) => theme.fontWeight.normal};
+  text-decoration: none;
 
   &:hover {
     background-color: ${({ theme }) => theme.colors.primaryDark};
