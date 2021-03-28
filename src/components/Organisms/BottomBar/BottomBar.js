@@ -33,14 +33,14 @@ const BottomBar = () => {
   return (
     <StyledWrapper>
       <StyledLink as={NavLink} to="/list">
-        <span class="material-icons">list</span>
+        <span className="material-icons">list</span>
       </StyledLink>
       <StyledLink as={NavLink} exact to="/">
-        <span class="material-icons">translate</span>
+        <span className="material-icons">translate</span>
       </StyledLink>
 
       <StyledLink as={NavLink} to="/flashcards">
-        <span class="material-icons">quiz</span>
+        <span className="material-icons">quiz</span>
       </StyledLink>
     </StyledWrapper>
   );
