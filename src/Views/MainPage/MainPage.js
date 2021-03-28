@@ -9,7 +9,7 @@ import swap from "../../assets/Icons/swap.svg";
 import { useState } from "react";
 
 const StyledWrapper = styled.div`
-  height: 100%;
+  height: 100vh;
   width: 100%;
   display: grid;
   grid-template-rows: 2fr 1fr 1fr 5fr 1fr;
@@ -28,12 +28,15 @@ const StyledRoundButton = styled(RoundButton)`
   background-repeat: no-repeat;
   background-position: center;
   background-color: transparent;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
 `;
+
 const StyledButton = styled(Button)`
   width: 80%;
   justify-self: center;
 
   height: 70%;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 `;
 const StyledInput = styled(Input)`
   width: 90%;
@@ -51,6 +54,7 @@ const Output = styled.div`
   height: 80%;
   width: 95%;
   justify-self: center;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
 `;
 
 const MainPage = () => {
@@ -71,12 +75,16 @@ const MainPage = () => {
   const handleChange = ({ target }) => {
     setCurrentWord(target.value);
   };
+  const switchLanguages = () => {
+    setFromLanguage(toLanguage);
+    setToLanguage(fromLanguage);
+  };
 
   return (
     <StyledWrapper>
       <StyledDropdownWrapper>
         <Dropdown setLanguage={setFromLanguage} language={fromLanguage} />
-        <StyledRoundButton />
+        <StyledRoundButton onClick={switchLanguages} />
         <Dropdown setLanguage={setToLanguage} language={toLanguage} />
       </StyledDropdownWrapper>
       <StyledInput onChange={(e) => handleChange(e)} />

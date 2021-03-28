@@ -7,8 +7,8 @@ import MainPage from "../MainPage/MainPage";
 function App() {
   return (
     <Router>
+      <GlobalStyle />
       <ThemeProvider theme={theme}>
-        <GlobalStyle />
         <Route path="/" component={MainPage} />
       </ThemeProvider>
     </Router>

@@ -10,6 +10,7 @@ const StyledWrapper = styled.div`
   height: 10vh;
   border-radius: 10px;
   justify-items: center;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
 `;
 
 const StyledLink = styled(Link)`
@@ -20,10 +21,6 @@ const StyledLink = styled(Link)`
   width: 50%;
   transition: transform 0.2s ease-in;
   font-size: ${({ theme }) => theme.fontSize.medium};
-  background-image: url(${({ image }) => image});
-  background-size: 40%;
-  background-repeat: no-repeat;
-  background-position: center;
   padding: 0;
 
   &.active {
@@ -36,11 +33,14 @@ const BottomBar = () => {
   return (
     <StyledWrapper>
       <StyledLink as={NavLink} to="/list">
-        lista
+        <span class="material-icons">list</span>
       </StyledLink>
-      <StyledLink as={NavLink} exact to="/" image={translator}></StyledLink>
+      <StyledLink as={NavLink} exact to="/">
+        <span class="material-icons">translate</span>
+      </StyledLink>
+
       <StyledLink as={NavLink} to="/flashcards">
-        fiszki
+        <span class="material-icons">quiz</span>
       </StyledLink>
     </StyledWrapper>
   );
