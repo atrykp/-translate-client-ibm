@@ -17,10 +17,8 @@ const List = ({ setLanguage, isActive, setIsActive }) => {
   const [languagesArr, setLanguagesArr] = useState([]);
 
   useEffect(() => {
-    if (isActive) {
-      getLanguages();
-    }
-  }, [isActive]);
+    getLanguages();
+  }, []);
 
   const setLanguagesToList = (array) => {
     setLanguagesArr(
