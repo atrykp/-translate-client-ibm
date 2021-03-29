@@ -10,6 +10,7 @@ const StyledListWrapper = styled.div`
   border-radius: 10px;
   height: 250px;
   overflow: auto;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 `;
 
 const List = ({ setLanguage, isActive, setIsActive }) => {

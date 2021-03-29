@@ -5,7 +5,8 @@ import List from "../../Molecules/List/List";
 
 const StyledWrapper = styled.div`
   text-align: center;
-  width: 180px;
+  width: 43vw;
+  max-width: 200px;
   position: relative;
 `;
 const Dropdown = ({ setLanguage, language }) => {

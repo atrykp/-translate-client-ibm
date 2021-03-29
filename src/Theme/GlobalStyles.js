@@ -9,9 +9,11 @@ const GlobalStyle = createGlobalStyle`
 html{
     font-size: 0.625rem;
     font-family: 'Montserrat', sans-serif;
+
 }
  body {
     font-size:1.6rem;
+
 
   }
   .material-icons {

@@ -1,23 +1,21 @@
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 import Link from "../../Atoms/Link/Link";
-import translator from "../../../assets/Icons/translation.svg";
 
 const StyledWrapper = styled.div`
   display: flex;
-
   background-color: ${({ theme }) => theme.colors.primary};
-  height: 10vh;
-  border-radius: 10px;
+  min-height: 60px;
+  border-radius: 10px 10px 0 0;
   justify-items: center;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+  box-shadow: 0 -7px 10px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
 `;
 
 const StyledLink = styled(Link)`
   display: grid;
   align-items: center;
   color: white;
-  height: 100%;
+  min-height: 100%;
   width: 50%;
   transition: transform 0.2s ease-in;
   font-size: ${({ theme }) => theme.fontSize.medium};

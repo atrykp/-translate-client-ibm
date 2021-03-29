@@ -10,7 +10,6 @@ import { useState } from "react";
 
 const StyledWrapper = styled.div`
   height: 100vh;
-  width: 100%;
   display: grid;
   grid-template-rows: 2fr 1fr 1fr 5fr 1fr;
   align-items: center;
@@ -18,9 +17,14 @@ const StyledWrapper = styled.div`
 const StyledDropdownWrapper = styled.div`
   display: grid;
   grid-template-columns: 1fr 0.2fr 1fr;
+  justify-self: center;
+  min-height: 50px;
 `;
 const StyledBottonBarWrapper = styled.div`
   align-self: end;
+  width: 100%;
+  max-width: 600px;
+  justify-self: center;
 `;
 const StyledRoundButton = styled(RoundButton)`
   background-image: url(${swap});
@@ -33,26 +37,29 @@ const StyledRoundButton = styled(RoundButton)`
 
 const StyledButton = styled(Button)`
   width: 80%;
+  max-width: 300px;
   justify-self: center;
-
-  height: 70%;
+  min-height: 70%;
+  max-height: 50px;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 `;
 const StyledInput = styled(Input)`
   width: 90%;
+  max-width: 600px;
   justify-self: center;
   align-self: start;
-  height: 80%;
+  min-height: 80%;
+  max-height: 50px;
 `;
 const Output = styled.div`
   display: grid;
-
   justify-content: center;
   align-content: center;
   background-color: ${({ theme }) => theme.colors.secondaryLight};
   border-radius: 10px;
-  height: 80%;
+  min-height: 80%;
   width: 95%;
+  max-width: 500px;
   justify-self: center;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
 `;
