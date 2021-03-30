@@ -11,6 +11,7 @@ const StyledListWrapper = styled.div`
   height: 250px;
   overflow: auto;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  z-index: 1;
 `;
 
 const List = ({ setLanguage, isActive, setIsActive }) => {
@@ -39,6 +40,7 @@ const List = ({ setLanguage, isActive, setIsActive }) => {
   const getLanguages = async () => {
     let arrayLanguage = [];
     let response = await fetch(`https://translate-app-serv.herokuapp.com/`);
+    // let response = await fetch(`http://localhost:5000/`);
     console.log(response);
     let languagesObj = await response.json();
     languagesObj.result.languages.forEach((element) =>

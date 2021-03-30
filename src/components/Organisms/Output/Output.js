@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import Header from "../../Atoms/Header/Header";
 import { useState } from "react";
+import Paragraph from "../../Atoms/Paragraph/Paragraph";
 
 const StyledOutput = styled.div`
   position: relative;
@@ -23,17 +24,42 @@ const StyledSpan = styled.span`
   right: 15px;
   font-size: 4rem;
   cursor: pointer;
+  transition: 0.2s ease-in-out;
 `;
 
-const Output = () => {
+const StyledCounterWrapper = styled.div`
+  position: absolute;
+  top: 10px;
+  left: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const Output = ({ translation }) => {
   const [isActive, setIsActive] = useState(false);
 
+  const handleClick = () => {
+    setIsActive((prevState) => !prevState);
+  };
   return (
     <StyledOutput>
-      <Header>helo</Header>
-      <StyledSpan className="material-icons helo" active={isActive}>
-        playlist_add
-      </StyledSpan>
+      <Header>{translation}</Header>
+      {translation && (
+        <StyledSpan
+          onClick={handleClick}
+          className="material-icons"
+          active={isActive}
+        >
+          playlist_add
+        </StyledSpan>
+      )}
+      {isActive && (
+        <StyledCounterWrapper>
+          <Paragraph>counter</Paragraph>
+          <Paragraph>1</Paragraph>
+        </StyledCounterWrapper>
+      )}
     </StyledOutput>
   );
 };

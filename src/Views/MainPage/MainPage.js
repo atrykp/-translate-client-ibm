@@ -55,7 +55,7 @@ const StyledInput = styled(Input)`
 
 const MainPage = () => {
   const [currentWord, setCurrentWord] = useState("");
-  const [transleted, setTransleted] = useState("");
+  const [translation, setTranslation] = useState("");
   const [fromLanguage, setFromLanguage] = useState("en");
   const [toLanguage, setToLanguage] = useState("pl");
 
@@ -64,10 +64,11 @@ const MainPage = () => {
   const handleClick = async () => {
     let response = await fetch(
       `https://translate-app-serv.herokuapp.com/translate/${currentWord}/${fromLanguage}/${toLanguage}`
+      // `http://localhost:5000/translate/${currentWord}/${fromLanguage}/${toLanguage}`
     );
     let translateObj = await response.json();
     let backTxt = translateObj.result.translations[0].translation;
-    setTransleted(backTxt);
+    setTranslation(backTxt);
   };
 
   const handleChange = ({ target }) => {
@@ -87,7 +88,7 @@ const MainPage = () => {
       </StyledDropdownWrapper>
       <StyledInput onChange={(e) => handleChange(e)} />
       <StyledButton onClick={handleClick}>tłumacz</StyledButton>
-      <Output />
+      <Output translation={translation} />
       <StyledBottonBarWrapper>
         <MainTemplate />
       </StyledBottonBarWrapper>
