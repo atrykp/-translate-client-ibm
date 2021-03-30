@@ -7,9 +7,11 @@ import RoundButton from "../../components/Atoms/RoundButton/RoundButton";
 import Header from "../../components/Atoms/Header/Header";
 import swap from "../../assets/Icons/swap.svg";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 
 const StyledWrapper = styled.div`
-  height: 100vh;
+  min-height: 100vh;
+  min-height: -webkit-fill-available;
   display: grid;
   grid-template-rows: 2fr 1fr 1fr 5fr 1fr;
   align-items: center;
@@ -39,7 +41,7 @@ const StyledButton = styled(Button)`
   width: 80%;
   max-width: 300px;
   justify-self: center;
-  min-height: 70%;
+  min-height: 45px;
   max-height: 50px;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 `;
@@ -48,8 +50,7 @@ const StyledInput = styled(Input)`
   max-width: 600px;
   justify-self: center;
   align-self: start;
-  min-height: 80%;
-  max-height: 50px;
+  height: 50px;
 `;
 const Output = styled.div`
   display: grid;
@@ -57,7 +58,7 @@ const Output = styled.div`
   align-content: center;
   background-color: ${({ theme }) => theme.colors.secondaryLight};
   border-radius: 10px;
-  min-height: 80%;
+  min-height: 250px;
   width: 95%;
   max-width: 500px;
   justify-self: center;
@@ -69,6 +70,8 @@ const MainPage = () => {
   const [transleted, setTransleted] = useState("");
   const [fromLanguage, setFromLanguage] = useState("en");
   const [toLanguage, setToLanguage] = useState("pl");
+
+  const tryStore = useSelector((state) => console.log(state.listReducer));
 
   const handleClick = async () => {
     let response = await fetch(

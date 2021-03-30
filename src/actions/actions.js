@@ -1,7 +1,7 @@
-const ADD_WORD = "ADD_WORD";
-const DELETE_WORD = "DELETE_WORD";
-const EDIT_WORD = "EDIT_WORD";
-const UPDATE_WORD_COUNTER = "EDIT_WORD";
+export const ADD_WORD = "ADD_WORD";
+export const REMOVE_WORD = "REMOVE_WORD";
+export const EDIT_WORD = "EDIT_WORD";
+export const UPDATE_WORD_COUNTER = "EDIT_WORD";
 
 export const addWord = (obj) => ({
   type: ADD_WORD,
@@ -11,10 +11,10 @@ export const addWord = (obj) => ({
   },
 });
 
-export const deleteWord = (id) => ({
-  type: DELETE_WORD,
+export const removeWord = (id) => ({
+  type: REMOVE_WORD,
   payload: {
-    id: 1,
+    id,
   },
 });
 
