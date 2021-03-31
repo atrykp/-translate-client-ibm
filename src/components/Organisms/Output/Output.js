@@ -2,6 +2,9 @@ import styled from "styled-components";
 import Header from "../../Atoms/Header/Header";
 import { useState } from "react";
 import Paragraph from "../../Atoms/Paragraph/Paragraph";
+import { useDispatch } from "react-redux";
+import { addWord } from "../../../actions/actions";
+import { useEffect } from "react";
 
 const StyledOutput = styled.div`
   position: relative;
@@ -36,15 +39,31 @@ const StyledCounterWrapper = styled.div`
   align-items: center;
 `;
 
-const Output = ({ translation }) => {
+const Output = ({ translationObj }) => {
+  const { translation, id } = translationObj;
+  let { counter } = translationObj;
+  const dispatch = useDispatch();
   const [isActive, setIsActive] = useState(false);
+  console.log(translationObj);
+  useEffect(() => {
+    if (translationObj.counter < 1) {
+      setIsActive(false);
+    } else if (translationObj.counter > 1) {
+      setIsActive(true);
+    }
+  }, [translationObj]);
 
   const handleClick = () => {
-    setIsActive((prevState) => !prevState);
+    if (translationObj.counter === 0) {
+      setIsActive((prevState) => !prevState);
+      counter += 1;
+      dispatch(addWord({ ...translationObj, counter }));
+    }
   };
+
   return (
     <StyledOutput>
-      <Header>{translation}</Header>
+      <Header>{translationObj.translation}</Header>
       {translation && (
         <StyledSpan
           onClick={handleClick}
@@ -57,7 +76,7 @@ const Output = ({ translation }) => {
       {isActive && (
         <StyledCounterWrapper>
           <Paragraph>counter</Paragraph>
-          <Paragraph>1</Paragraph>
+          <Paragraph>{counter ? counter : 1}</Paragraph>
         </StyledCounterWrapper>
       )}
     </StyledOutput>

@@ -7,10 +7,12 @@ import RoundButton from "../../components/Atoms/RoundButton/RoundButton";
 import Output from "../../components/Organisms/Output/Output";
 import swap from "../../assets/Icons/swap.svg";
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import findInMyArray from "../../helpers/findInMyArray";
+import { updateWordCounter } from "../../actions/actions";
 
 const StyledWrapper = styled.div`
-  min-height: 100vh;
+  height: 100vh;
   min-height: -webkit-fill-available;
   display: grid;
   grid-template-rows: 2fr 1fr 1fr 5fr 1fr;
@@ -26,7 +28,8 @@ const StyledBottonBarWrapper = styled.div`
   align-self: end;
   width: 100%;
   max-width: 600px;
-  justify-self: center;
+
+  margin: 0 auto;
 `;
 const StyledRoundButton = styled(RoundButton)`
   background-image: url(${swap});
@@ -58,17 +61,44 @@ const MainPage = () => {
   const [translation, setTranslation] = useState("");
   const [fromLanguage, setFromLanguage] = useState("en");
   const [toLanguage, setToLanguage] = useState("pl");
+  const dispatch = useDispatch();
 
   const listArr = useSelector((state) => state.listReducer);
+  console.log(listArr);
 
+  const makeId = () => {
+    let ID = "";
+    let characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    for (var i = 0; i < 12; i++) {
+      ID += characters.charAt(Math.floor(Math.random() * 36));
+    }
+    return ID;
+  };
   const handleClick = async () => {
     let response = await fetch(
-      `https://translate-app-serv.herokuapp.com/translate/${currentWord}/${fromLanguage}/${toLanguage}`
-      // `http://localhost:5000/translate/${currentWord}/${fromLanguage}/${toLanguage}`
+      // `https://translate-app-serv.herokuapp.com/translate/${currentWord}/${fromLanguage}/${toLanguage}`
+      `http://localhost:5000/translate/${currentWord}/${fromLanguage}/${toLanguage}`
     );
     let translateObj = await response.json();
     let backTxt = translateObj.result.translations[0].translation;
-    setTranslation(backTxt);
+
+    const translatedObj = {
+      currentWord,
+      translation: backTxt,
+      fromLanguage,
+      toLanguage,
+      id: makeId(),
+      counter: 0,
+    };
+
+    const translated = findInMyArray(translatedObj, listArr);
+
+    if (translated) {
+      dispatch(updateWordCounter(translated.id));
+      setTranslation(translated);
+    } else {
+      setTranslation(translatedObj);
+    }
   };
 
   const handleChange = ({ target }) => {
@@ -88,7 +118,7 @@ const MainPage = () => {
       </StyledDropdownWrapper>
       <StyledInput onChange={(e) => handleChange(e)} />
       <StyledButton onClick={handleClick}>tłumacz</StyledButton>
-      <Output translation={translation} />
+      <Output translationObj={translation} />
       <StyledBottonBarWrapper>
         <MainTemplate />
       </StyledBottonBarWrapper>
