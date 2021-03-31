@@ -9,7 +9,11 @@ import swap from "../../assets/Icons/swap.svg";
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import findInMyArray from "../../helpers/findInMyArray";
-import { updateWordCounter } from "../../actions/actions";
+import {
+  updateWordCounter,
+  removeUnseved,
+  addWord,
+} from "../../actions/actions";
 
 const StyledWrapper = styled.div`
   height: 100vh;
@@ -76,12 +80,12 @@ const MainPage = () => {
   };
   const handleClick = async () => {
     let response = await fetch(
-      // `https://translate-app-serv.herokuapp.com/translate/${currentWord}/${fromLanguage}/${toLanguage}`
-      `http://localhost:5000/translate/${currentWord}/${fromLanguage}/${toLanguage}`
+      `https://translate-app-serv.herokuapp.com/translate/${currentWord}/${fromLanguage}/${toLanguage}`
+      // `http://localhost:5000/translate/${currentWord}/${fromLanguage}/${toLanguage}`
     );
     let translateObj = await response.json();
     let backTxt = translateObj.result.translations[0].translation;
-
+    dispatch(removeUnseved());
     const translatedObj = {
       currentWord,
       translation: backTxt,
@@ -94,9 +98,10 @@ const MainPage = () => {
     const translated = findInMyArray(translatedObj, listArr);
 
     if (translated) {
-      dispatch(updateWordCounter(translated.id));
-      setTranslation(translated);
+      dispatch(updateWordCounter(translated.id, translated.counter + 1));
+      setTranslation(translatedObj);
     } else {
+      dispatch(addWord(translatedObj));
       setTranslation(translatedObj);
     }
   };
@@ -118,7 +123,7 @@ const MainPage = () => {
       </StyledDropdownWrapper>
       <StyledInput onChange={(e) => handleChange(e)} />
       <StyledButton onClick={handleClick}>tłumacz</StyledButton>
-      <Output translationObj={translation} />
+      <Output translationId={translation.id} />
       <StyledBottonBarWrapper>
         <MainTemplate />
       </StyledBottonBarWrapper>

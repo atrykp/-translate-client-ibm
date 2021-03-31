@@ -2,8 +2,12 @@ import styled from "styled-components";
 import Header from "../../Atoms/Header/Header";
 import { useState } from "react";
 import Paragraph from "../../Atoms/Paragraph/Paragraph";
-import { useDispatch } from "react-redux";
-import { addWord, removeWord } from "../../../actions/actions";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  addWord,
+  removeWord,
+  updateWordCounter,
+} from "../../../actions/actions";
 import { useEffect } from "react";
 
 const StyledOutput = styled.div`
@@ -39,7 +43,16 @@ const StyledCounterWrapper = styled.div`
   align-items: center;
 `;
 
-const Output = ({ translationObj }) => {
+const Output = ({ translationId }) => {
+  const translationArr = useSelector((state) => state.listReducer);
+
+  let translationObj = translationArr.filter(
+    (element) => element.id === translationId
+  );
+  if (translationId) {
+    translationObj = translationObj[0];
+  }
+
   const { translation, id } = translationObj;
   let { counter } = translationObj;
   const dispatch = useDispatch();
@@ -51,16 +64,13 @@ const Output = ({ translationObj }) => {
     } else if (translationObj.counter > 1) {
       setIsActive(true);
     }
-  }, [translationObj]);
+  }, [translationArr]);
 
   const handleClick = () => {
     if (translationObj.counter === 0) {
-      setIsActive((prevState) => !prevState);
-      translationObj.counter = 1;
-      dispatch(addWord({ ...translationObj }));
+      dispatch(updateWordCounter(id, 1));
     } else {
-      dispatch(removeWord(id));
-      translationObj.counter = 0;
+      dispatch(updateWordCounter(id, 0));
     }
   };
 
