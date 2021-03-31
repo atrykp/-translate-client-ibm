@@ -3,7 +3,7 @@ import Header from "../../Atoms/Header/Header";
 import { useState } from "react";
 import Paragraph from "../../Atoms/Paragraph/Paragraph";
 import { useDispatch } from "react-redux";
-import { addWord } from "../../../actions/actions";
+import { addWord, removeWord } from "../../../actions/actions";
 import { useEffect } from "react";
 
 const StyledOutput = styled.div`
@@ -44,7 +44,7 @@ const Output = ({ translationObj }) => {
   let { counter } = translationObj;
   const dispatch = useDispatch();
   const [isActive, setIsActive] = useState(false);
-  console.log(translationObj);
+
   useEffect(() => {
     if (translationObj.counter < 1) {
       setIsActive(false);
@@ -56,8 +56,11 @@ const Output = ({ translationObj }) => {
   const handleClick = () => {
     if (translationObj.counter === 0) {
       setIsActive((prevState) => !prevState);
-      counter += 1;
-      dispatch(addWord({ ...translationObj, counter }));
+      translationObj.counter = 1;
+      dispatch(addWord({ ...translationObj }));
+    } else {
+      dispatch(removeWord(id));
+      translationObj.counter = 0;
     }
   };
 

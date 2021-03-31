@@ -9,6 +9,8 @@ const listReducer = (store = [], action) => {
   switch (action.type) {
     case ADD_WORD:
       return [...store, action.payload.obj];
+    case REMOVE_WORD:
+      return store.filter((element) => element.id !== action.payload.id);
     case UPDATE_WORD_COUNTER:
       return store.map((element) => {
         if (element.id !== action.payload.id) {
