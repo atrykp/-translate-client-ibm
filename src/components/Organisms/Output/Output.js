@@ -44,7 +44,6 @@ const Output = () => {
     (state) => state.currentTranslationReducer
   );
   const { counter, id, translation } = translationObj;
-  console.log(counter);
 
   const dispatch = useDispatch();
   const [isActive, setIsActive] = useState(false);
@@ -66,7 +65,6 @@ const Output = () => {
       setIsActive(false);
     }
   };
-  console.log(translationObj);
 
   return (
     <StyledOutput>
