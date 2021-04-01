@@ -3,11 +3,7 @@ import Header from "../../Atoms/Header/Header";
 import { useState } from "react";
 import Paragraph from "../../Atoms/Paragraph/Paragraph";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  addWord,
-  removeWord,
-  updateWordCounter,
-} from "../../../actions/actions";
+import { updateWordCounter } from "../../../actions/actions";
 import { useEffect } from "react";
 
 const StyledOutput = styled.div`
@@ -43,18 +39,11 @@ const StyledCounterWrapper = styled.div`
   align-items: center;
 `;
 
-const Output = ({ translationId }) => {
-  const translationArr = useSelector((state) => state.listReducer);
-
-  let translationObj = translationArr.filter(
-    (element) => element.id === translationId
+const Output = () => {
+  const translationObj = useSelector(
+    (state) => state.currentTranslationReducer
   );
-  if (translationId) {
-    translationObj = translationObj[0];
-  }
 
-  const { translation, id } = translationObj;
-  let { counter } = translationObj;
   const dispatch = useDispatch();
   const [isActive, setIsActive] = useState(false);
 
@@ -64,20 +53,21 @@ const Output = ({ translationId }) => {
     } else if (translationObj.counter > 1) {
       setIsActive(true);
     }
-  }, [translationArr]);
+  }, [translationObj]);
 
   const handleClick = () => {
     if (translationObj.counter === 0) {
-      dispatch(updateWordCounter(id, 1));
+      dispatch(updateWordCounter(translationObj.id, 1));
+      setIsActive(true);
     } else {
-      dispatch(updateWordCounter(id, 0));
+      dispatch(updateWordCounter(translationObj.id, 0));
+      setIsActive(false);
     }
   };
-
   return (
     <StyledOutput>
-      <Header>{translationObj.translation}</Header>
-      {translation && (
+      {translationObj && <Header>{translationObj.translation}</Header>}
+      {translationObj && (
         <StyledSpan
           onClick={handleClick}
           className="material-icons"
@@ -89,7 +79,7 @@ const Output = ({ translationId }) => {
       {isActive && (
         <StyledCounterWrapper>
           <Paragraph>counter</Paragraph>
-          <Paragraph>{counter ? counter : 1}</Paragraph>
+          <Paragraph>{translationObj.counter}</Paragraph>
         </StyledCounterWrapper>
       )}
     </StyledOutput>

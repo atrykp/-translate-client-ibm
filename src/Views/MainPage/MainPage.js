@@ -10,6 +10,7 @@ import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import findInMyArray from "../../helpers/findInMyArray";
 import {
+  updateCurrentTranslation,
   updateWordCounter,
   removeUnseved,
   addWord,
@@ -17,7 +18,6 @@ import {
 
 const StyledWrapper = styled.div`
   height: 100vh;
-  min-height: -webkit-fill-available;
   display: grid;
   grid-template-rows: 2fr 1fr 1fr 5fr 1fr;
   align-items: center;
@@ -62,13 +62,11 @@ const StyledInput = styled(Input)`
 
 const MainPage = () => {
   const [currentWord, setCurrentWord] = useState("");
-  const [translation, setTranslation] = useState("");
   const [fromLanguage, setFromLanguage] = useState("en");
   const [toLanguage, setToLanguage] = useState("pl");
   const dispatch = useDispatch();
 
   const listArr = useSelector((state) => state.listReducer);
-  console.log(listArr);
 
   const makeId = () => {
     let ID = "";
@@ -85,7 +83,10 @@ const MainPage = () => {
     );
     let translateObj = await response.json();
     let backTxt = translateObj.result.translations[0].translation;
-    dispatch(removeUnseved());
+    if (listArr.length > 0) {
+      dispatch(removeUnseved());
+    }
+
     const translatedObj = {
       currentWord,
       translation: backTxt,
@@ -99,10 +100,10 @@ const MainPage = () => {
 
     if (translated) {
       dispatch(updateWordCounter(translated.id, translated.counter + 1));
-      setTranslation(translatedObj);
+      dispatch(updateCurrentTranslation(translated));
     } else {
       dispatch(addWord(translatedObj));
-      setTranslation(translatedObj);
+      dispatch(updateCurrentTranslation(translatedObj));
     }
   };
 
@@ -123,7 +124,7 @@ const MainPage = () => {
       </StyledDropdownWrapper>
       <StyledInput onChange={(e) => handleChange(e)} />
       <StyledButton onClick={handleClick}>tłumacz</StyledButton>
-      <Output translationId={translation.id} />
+      <Output />
       <StyledBottonBarWrapper>
         <MainTemplate />
       </StyledBottonBarWrapper>

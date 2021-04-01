@@ -9,9 +9,7 @@ const GlobalStyle = createGlobalStyle`
 html{
     font-size: 0.625rem;
     font-family: 'Montserrat', sans-serif;
-    height: -webkit-fill-available;
-
-}
+  }
  body {
     font-size:1.6rem;
 
