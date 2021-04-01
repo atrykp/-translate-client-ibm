@@ -43,31 +43,35 @@ const Output = () => {
   const translationObj = useSelector(
     (state) => state.currentTranslationReducer
   );
+  const { counter, id, translation } = translationObj;
+  console.log(counter);
 
   const dispatch = useDispatch();
   const [isActive, setIsActive] = useState(false);
 
   useEffect(() => {
-    if (translationObj.counter < 1) {
+    if (counter < 1) {
       setIsActive(false);
-    } else if (translationObj.counter > 1) {
+    } else if (counter > 1) {
       setIsActive(true);
     }
   }, [translationObj]);
 
   const handleClick = () => {
-    if (translationObj.counter === 0) {
-      dispatch(updateWordCounter(translationObj.id, 1));
+    if (counter === 0) {
+      dispatch(updateWordCounter(id, 1));
       setIsActive(true);
     } else {
-      dispatch(updateWordCounter(translationObj.id, 0));
+      dispatch(updateWordCounter(id, 0));
       setIsActive(false);
     }
   };
+  console.log(translationObj);
+
   return (
     <StyledOutput>
-      {translationObj && <Header>{translationObj.translation}</Header>}
-      {translationObj && (
+      <Header>{translation}</Header>
+      {id && (
         <StyledSpan
           onClick={handleClick}
           className="material-icons"
@@ -79,7 +83,7 @@ const Output = () => {
       {isActive && (
         <StyledCounterWrapper>
           <Paragraph>counter</Paragraph>
-          <Paragraph>{translationObj.counter}</Paragraph>
+          <Paragraph>{counter}</Paragraph>
         </StyledCounterWrapper>
       )}
     </StyledOutput>
