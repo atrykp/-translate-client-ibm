@@ -9,6 +9,7 @@ const theme = {
     darkTxt: "#4F494E",
     mediumTxt: "#575762",
     lightTxt: "#fefeff",
+    lightBackground: "#F5F5F5",
   },
   fontSize: {
     xsmall: "1.1rem",

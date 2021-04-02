@@ -1,10 +1,11 @@
 import { useSelector } from "react-redux";
+import TranslationList from "../../components/Organisms/TranslationList/TranslationList";
 
 const ListPage = () => {
   const translationList = useSelector((state) => state.listReducer);
   const arr = translationList.map((element) => element.translation);
 
-  return <>{translationList.length < 1 ? <h1>list is empty</h1> : arr}</>;
+  return <>{<TranslationList></TranslationList>}</>;
 };
 
 export default ListPage;

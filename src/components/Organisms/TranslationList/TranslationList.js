@@ -1,9 +1,10 @@
 import styled from "styled-components";
+import TranslationElement from "../../Molecules/TranslationElement/TranslationElement";
 
 const TranslationList = () => {
   return (
     <>
-      <h1>TranslationList</h1>
+      <TranslationElement></TranslationElement>
     </>
   );
 };
