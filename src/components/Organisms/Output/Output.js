@@ -3,7 +3,11 @@ import Header from "../../Atoms/Header/Header";
 import { useState } from "react";
 import Paragraph from "../../Atoms/Paragraph/Paragraph";
 import { useDispatch, useSelector } from "react-redux";
-import { updateWordCounter } from "../../../actions/actions";
+import {
+  addWord,
+  removeWord,
+  updateWordCounter,
+} from "../../../actions/actions";
 import { useEffect } from "react";
 
 const StyledOutput = styled.div`
@@ -58,10 +62,12 @@ const Output = () => {
 
   const handleClick = () => {
     if (counter === 0) {
+      dispatch(addWord(translationObj));
       dispatch(updateWordCounter(id, 1));
       setIsActive(true);
     } else {
       dispatch(updateWordCounter(id, 0));
+      dispatch(removeWord(id));
       setIsActive(false);
     }
   };

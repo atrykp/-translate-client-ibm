@@ -78,8 +78,8 @@ const MainPage = () => {
   };
   const handleClick = async () => {
     let response = await fetch(
-      // `https://translate-app-serv.herokuapp.com/translate/${currentWord}/${fromLanguage}/${toLanguage}`
-      `http://localhost:5000/translate/${currentWord}/${fromLanguage}/${toLanguage}`
+      `https://translate-app-serv.herokuapp.com/translate/${currentWord}/${fromLanguage}/${toLanguage}`
+      // `http://localhost:5000/translate/${currentWord}/${fromLanguage}/${toLanguage}`
     );
     let translateObj = await response.json();
     let backTxt = translateObj.result.translations[0].translation;
@@ -102,7 +102,6 @@ const MainPage = () => {
       dispatch(updateWordCounter(translated.id, translated.counter + 1));
       dispatch(updateCurrentTranslation(translated));
     } else {
-      dispatch(addWord(translatedObj));
       dispatch(updateCurrentTranslation(translatedObj));
     }
   };

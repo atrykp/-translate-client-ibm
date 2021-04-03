@@ -20,7 +20,7 @@ const TranslationList = () => {
   return (
     <>
       <StyledWrapper>
-        {translationList.length < 1 ? <p>there is nothing here</p> : arr}
+        {translationList.length < 1 ? <p>there is nothing here yet</p> : arr}
       </StyledWrapper>
     </>
   );

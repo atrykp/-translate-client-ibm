@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 import Link from "../../Atoms/Link/Link";
 import { useDispatch } from "react-redux";
-import { removeUnseved } from "../../../actions/actions";
+import { updateCurrentTranslation } from "../../../actions/actions";
 
 const StyledWrapper = styled.div`
   display: flex;
@@ -32,7 +32,7 @@ const StyledLink = styled(Link)`
 const BottomBar = () => {
   const dispatch = useDispatch();
   const handleClick = () => {
-    dispatch(removeUnseved());
+    dispatch(updateCurrentTranslation({}));
   };
   return (
     <StyledWrapper>
