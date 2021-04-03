@@ -5,12 +5,13 @@ import Paragraph from "../../Atoms/Paragraph/Paragraph";
 
 const StyledWrapper = styled.div`
   display: grid;
-  grid-template-columns: 0.7fr 0.3fr;
+  grid-template-columns: 0.8fr 0.2fr;
   background-color: ${({ theme }) => theme.colors.lightBackground};
   width: 95%;
   margin: 10px auto;
   border-radius: 10px;
   padding: 15px 10px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
 `;
 const StyledTranslationWrapper = styled.div`
   display: flex;
@@ -25,31 +26,60 @@ const StyledElementsWrapper = styled.div`
 const StyledHeader = styled(Header)`
   width: 100%;
   text-align: start;
-  background-color: ${({ theme }) => theme.colors.primaryLight};
-  border-radius: 10px;
-  margin-bottom: 2px;
-  padding-left: 3px;
+  padding: 3%;
   color: white;
+  font-size: ${({ theme }) => theme.fontSize.large};
 `;
 const StyledCounter = styled(Paragraph)`
   position: absolute;
-  top: 3%;
-  right: 3%;
+  top: 0;
+  right: 6%;
+  color: ${({ theme }) => theme.colors.mediumTxt};
+  font-size: ${({ theme }) => theme.fontSize.large};
+`;
+const StyledWordsWrapper = styled.div`
+  width: 100%;
+  display: grid;
+  grid-template-columns: 0.9fr 0.1fr;
+  margin: 5px;
+  background-color: ${({ theme }) => theme.colors.primaryLight};
+  border-radius: 10px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
 `;
 
+const StyledParagraph = styled(Paragraph)`
+  display: grid;
+  justify-content: center;
+  color: ${({ theme }) => theme.colors.mediumTxt};
+`;
+
+const StyledRoundButton = styled(RoundButton)`
+  display: grid;
+  justify-content: center;
+  align-content: center;
+  width: 50px;
+  height: 50px;
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.12), 0 3px 5px rgba(0, 0, 0, 0.24);
+`;
 const TranslationElement = () => {
   return (
     <>
       <StyledWrapper>
         <StyledTranslationWrapper>
-          <StyledHeader>hello</StyledHeader>
-          <StyledHeader>witaj</StyledHeader>
+          <StyledWordsWrapper>
+            <StyledHeader>hello</StyledHeader>
+            <StyledParagraph>en</StyledParagraph>
+          </StyledWordsWrapper>
+          <StyledWordsWrapper>
+            <StyledHeader>witaj</StyledHeader>
+            <StyledParagraph>pl</StyledParagraph>
+          </StyledWordsWrapper>
         </StyledTranslationWrapper>
         <StyledElementsWrapper>
-          <StyledCounter>counter</StyledCounter>
-          <RoundButton>
-            <span className="material-icons">playlist_add</span>
-          </RoundButton>
+          <StyledCounter>17</StyledCounter>
+          <StyledRoundButton>
+            <span class="material-icons">clear</span>
+          </StyledRoundButton>
         </StyledElementsWrapper>
       </StyledWrapper>
     </>
