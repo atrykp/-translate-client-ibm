@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 import Link from "../../Atoms/Link/Link";
+import { useDispatch } from "react-redux";
+import { removeUnseved } from "../../../actions/actions";
 
 const StyledWrapper = styled.div`
   display: flex;
@@ -28,9 +30,13 @@ const StyledLink = styled(Link)`
 `;
 
 const BottomBar = () => {
+  const dispatch = useDispatch();
+  const handleClick = () => {
+    dispatch(removeUnseved());
+  };
   return (
     <StyledWrapper>
-      <StyledLink as={NavLink} to="/list">
+      <StyledLink as={NavLink} to="/list" onClick={handleClick}>
         <span className="material-icons">list</span>
       </StyledLink>
       <StyledLink as={NavLink} exact to="/">

@@ -7,16 +7,20 @@ const StyledWrapper = styled.div`
   flex-wrap: wrap;
   max-width: 600px;
   margin: 10px auto;
+  padding-bottom: 300px;
 `;
 
 const TranslationList = () => {
   const translationList = useSelector((state) => state.listReducer);
-  const arr = translationList.map((element) => element.translation);
+  const arr = translationList.map((element) => (
+    <TranslationElement translationObj={element} key={element.id} />
+  ));
+  console.log(translationList);
 
   return (
     <>
       <StyledWrapper>
-        <TranslationElement></TranslationElement>
+        {translationList.length < 1 ? <p>there is nothing here</p> : arr}
       </StyledWrapper>
     </>
   );

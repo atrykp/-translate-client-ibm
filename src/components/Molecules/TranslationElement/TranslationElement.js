@@ -61,22 +61,30 @@ const StyledRoundButton = styled(RoundButton)`
   height: 50px;
   box-shadow: 0 3px 5px rgba(0, 0, 0, 0.12), 0 3px 5px rgba(0, 0, 0, 0.24);
 `;
-const TranslationElement = () => {
+const TranslationElement = ({ translationObj }) => {
+  const {
+    currentWord,
+    translation,
+    fromLanguage,
+    toLanguage,
+    id,
+    counter,
+  } = translationObj;
   return (
     <>
       <StyledWrapper>
         <StyledTranslationWrapper>
           <StyledWordsWrapper>
-            <StyledHeader>hello</StyledHeader>
-            <StyledParagraph>en</StyledParagraph>
+            <StyledHeader>{currentWord}</StyledHeader>
+            <StyledParagraph>{fromLanguage}</StyledParagraph>
           </StyledWordsWrapper>
           <StyledWordsWrapper>
-            <StyledHeader>witaj</StyledHeader>
-            <StyledParagraph>pl</StyledParagraph>
+            <StyledHeader>{translation}</StyledHeader>
+            <StyledParagraph>{toLanguage}</StyledParagraph>
           </StyledWordsWrapper>
         </StyledTranslationWrapper>
         <StyledElementsWrapper>
-          <StyledCounter>17</StyledCounter>
+          <StyledCounter>{counter}</StyledCounter>
           <StyledRoundButton>
             <span class="material-icons">clear</span>
           </StyledRoundButton>
