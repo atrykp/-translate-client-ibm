@@ -2,6 +2,8 @@ import styled from "styled-components";
 import Header from "../../Atoms/Header/Header";
 import RoundButton from "../../Atoms/RoundButton/RoundButton";
 import Paragraph from "../../Atoms/Paragraph/Paragraph";
+import { useDispatch } from "react-redux";
+import { removeWord } from "../../../actions/actions";
 
 const StyledWrapper = styled.div`
   display: grid;
@@ -62,6 +64,7 @@ const StyledRoundButton = styled(RoundButton)`
   box-shadow: 0 3px 5px rgba(0, 0, 0, 0.12), 0 3px 5px rgba(0, 0, 0, 0.24);
 `;
 const TranslationElement = ({ translationObj }) => {
+  const dispatch = useDispatch();
   const {
     currentWord,
     translation,
@@ -70,6 +73,9 @@ const TranslationElement = ({ translationObj }) => {
     id,
     counter,
   } = translationObj;
+  const removeItem = () => {
+    dispatch(removeWord(id));
+  };
   return (
     <>
       <StyledWrapper>
@@ -85,7 +91,7 @@ const TranslationElement = ({ translationObj }) => {
         </StyledTranslationWrapper>
         <StyledElementsWrapper>
           <StyledCounter>{counter}</StyledCounter>
-          <StyledRoundButton>
+          <StyledRoundButton onClick={removeItem}>
             <span class="material-icons">clear</span>
           </StyledRoundButton>
         </StyledElementsWrapper>
