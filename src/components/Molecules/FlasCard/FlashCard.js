@@ -1,11 +1,92 @@
+import styled from "styled-components";
+import { useState } from "react";
 import Header from "../../Atoms/Header/Header";
 import Button from "../../Atoms/Button/Button";
+import RoundButton from "../../Atoms/RoundButton/RoundButton";
+
+const StyledWrapper = styled.div`
+  max-width: 330px;
+  min-height: 250px;
+  display: grid;
+  grid-template-rows: 1fr 0.2fr;
+  background-color: ${({ theme, isFront }) =>
+    isFront ? theme.colors.lightBackground : theme.colors.lightTxt};
+  width: 95%;
+  margin: 10px auto;
+  border-radius: 10px;
+  padding: 15px 10px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+
+  animation: ${({ isFront }) => (isFront ? "appear 1s" : "disappear 1s")};
+
+  @keyframes appear {
+    0% {
+      opacity: 0;
+    }
+
+    100% {
+      opacity: 1;
+    }
+  }
+  @keyframes disappear {
+    0% {
+      opacity: 0;
+    }
+
+    100% {
+      opacity: 1;
+    }
+  }
+`;
+const StyledButtonsWrapper = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, 33%);
+  justify-items: center;
+`;
+const StyledButton = styled(Button)`
+  font-size: ${({ theme }) => theme.fontSize.xsmall};
+  width: 100%;
+  background-color: #929297;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+`;
+const StyledTxtWrapper = styled.div`
+  display: grid;
+  justify-items: center;
+  align-items: center;
+`;
+const StyledRoundButton = styled(RoundButton)`
+  display: grid;
+  justify-content: center;
+  align-content: center;
+`;
+
+const StyledHeader = styled(Header)`
+  font-size: ${({ theme }) => theme.fontSize.xlarge};
+`;
 
 const FlashCard = () => {
+  const [frontSide, setFrontSide] = useState(true);
+  const handleClick = () => setFrontSide((prevValue) => !prevValue);
   return (
     <>
-      <Header>Hello</Header>
-      <Button>turn over</Button>
+      <StyledWrapper isFront={frontSide}>
+        <StyledTxtWrapper>
+          <StyledHeader>{frontSide ? "Hello" : "Witaj"}</StyledHeader>
+        </StyledTxtWrapper>
+        <StyledButtonsWrapper>
+          <StyledButton>
+            <span class="material-icons">delete_forever</span>
+          </StyledButton>
+          <StyledRoundButton>
+            <span class="material-icons" onClick={handleClick}>
+              loop
+            </span>
+          </StyledRoundButton>
+          <StyledButton>
+            <span class="material-icons">done_all</span>
+          </StyledButton>
+        </StyledButtonsWrapper>
+      </StyledWrapper>
     </>
   );
 };

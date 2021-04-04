@@ -4,6 +4,10 @@ const FlashCardsList = () => {
   return (
     <>
       <FlashCard />
+      <FlashCard />
+      <FlashCard />
+      <FlashCard />
+      <FlashCard />
     </>
   );
 };
