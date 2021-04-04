@@ -11,6 +11,14 @@ const StyledWrapper = styled.div`
   border-radius: 10px 10px 0 0;
   justify-items: center;
   box-shadow: 0 -7px 10px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  align-self: end;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
 `;
 
 const StyledLink = styled(Link)`

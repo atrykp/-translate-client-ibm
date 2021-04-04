@@ -28,13 +28,7 @@ const StyledDropdownWrapper = styled.div`
   justify-self: center;
   min-height: 50px;
 `;
-const StyledBottonBarWrapper = styled.div`
-  align-self: end;
-  width: 100%;
-  max-width: 600px;
 
-  margin: 0 auto;
-`;
 const StyledRoundButton = styled(RoundButton)`
   background-image: url(${swap});
   background-size: 80%;
@@ -115,19 +109,19 @@ const MainPage = () => {
   };
 
   return (
-    <StyledWrapper>
-      <StyledDropdownWrapper>
-        <Dropdown setLanguage={setFromLanguage} language={fromLanguage} />
-        <StyledRoundButton onClick={switchLanguages} />
-        <Dropdown setLanguage={setToLanguage} language={toLanguage} />
-      </StyledDropdownWrapper>
-      <StyledInput onChange={(e) => handleChange(e)} />
-      <StyledButton onClick={handleClick}>tłumacz</StyledButton>
-      <Output />
-      <StyledBottonBarWrapper>
-        <MainTemplate />
-      </StyledBottonBarWrapper>
-    </StyledWrapper>
+    <>
+      <StyledWrapper>
+        <StyledDropdownWrapper>
+          <Dropdown setLanguage={setFromLanguage} language={fromLanguage} />
+          <StyledRoundButton onClick={switchLanguages} />
+          <Dropdown setLanguage={setToLanguage} language={toLanguage} />
+        </StyledDropdownWrapper>
+        <StyledInput onChange={(e) => handleChange(e)} />
+        <StyledButton onClick={handleClick}>tłumacz</StyledButton>
+        <Output />
+      </StyledWrapper>
+      <MainTemplate />
+    </>
   );
 };
 export default MainPage;
