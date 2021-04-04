@@ -1,4 +1,4 @@
-import FlashCardsList from "../../components/Organisms/FlasCardsList/FlashCardsList";
+import FlashCardsList from "../../components/Organisms/FlashCardsList/FlashCardsList";
 import MainTemplate from "../../templates/MainTemplate";
 const FlashCards = () => {
   return (

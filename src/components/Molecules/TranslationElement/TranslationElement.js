@@ -92,7 +92,7 @@ const TranslationElement = ({ translationObj }) => {
         <StyledElementsWrapper>
           <StyledCounter>{counter}</StyledCounter>
           <StyledRoundButton onClick={removeItem}>
-            <span class="material-icons">clear</span>
+            <span className="material-icons">clear</span>
           </StyledRoundButton>
         </StyledElementsWrapper>
       </StyledWrapper>

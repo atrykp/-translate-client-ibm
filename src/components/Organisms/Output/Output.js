@@ -4,11 +4,13 @@ import { useState } from "react";
 import Paragraph from "../../Atoms/Paragraph/Paragraph";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  addFlashCard,
   addWord,
   removeWord,
   updateWordCounter,
 } from "../../../actions/actions";
 import { useEffect } from "react";
+import findInMyArray from "../../../helpers/findInMyArray";
 
 const StyledOutput = styled.div`
   position: relative;
@@ -27,11 +29,11 @@ const StyledSpan = styled.span`
   position: absolute;
   color: ${({ theme, active }) =>
     active ? theme.colors.secondary : theme.colors.mediumTxt};
-  top: 10px;
-  right: 15px;
-  font-size: 4rem;
+  right: ${({ secondary }) => (secondary ? "20px" : "15px")};
+  font-size: ${({ secondary }) => (secondary ? "3rem" : "4rem")};
   cursor: pointer;
   transition: 0.2s ease-in-out;
+  ${({ secondary }) => (secondary ? "bottom:10px" : "top:10px")}
 `;
 
 const StyledCounterWrapper = styled.div`
@@ -47,6 +49,7 @@ const Output = () => {
   const translationObj = useSelector(
     (state) => state.currentTranslationReducer
   );
+  const translationArr = useSelector((state) => state.listReducer);
   const { counter, id, translation } = translationObj;
 
   const dispatch = useDispatch();
@@ -66,23 +69,32 @@ const Output = () => {
       dispatch(updateWordCounter(id, 1));
       setIsActive(true);
     } else {
-      dispatch(updateWordCounter(id, 0));
-      dispatch(removeWord(id));
+      const translated = findInMyArray(translationObj, translationArr);
+      dispatch(removeWord(translated.id));
       setIsActive(false);
     }
+  };
+  const addCard = () => {
+    const flashCard = { ...translationObj, iCan: false };
+    dispatch(addFlashCard(flashCard));
   };
 
   return (
     <StyledOutput>
       <Header>{translation}</Header>
-      {id && (
-        <StyledSpan
-          onClick={handleClick}
-          className="material-icons"
-          active={isActive}
-        >
-          playlist_add
-        </StyledSpan>
+      {translation && (
+        <>
+          <StyledSpan
+            onClick={handleClick}
+            className="material-icons"
+            active={isActive}
+          >
+            playlist_add
+          </StyledSpan>
+          <StyledSpan className="material-icons" secondary onClick={addCard}>
+            library_add
+          </StyledSpan>
+        </>
       )}
       {isActive && (
         <StyledCounterWrapper>

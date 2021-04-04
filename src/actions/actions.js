@@ -6,11 +6,23 @@ export const REMOVE_UNSAVED_TRANSLATION = "REMOVE_UNSAVED_TRANSLATION";
 
 export const UPDATE_CURRENT_TRANSLATION = "UPDATE_CURRENT_TRANSLATION";
 
+export const ADD_FLASHCARD = "ADD_FLASHCARD";
+export const REMOVE_FLASHCARD = "REMOVE_FLASHCARD";
+export const UPDATE_FLASHCARD_STATUS = "UPDATE_FLASHCARD_STATUS";
+
+const makeId = () => {
+  let ID = "";
+  let characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+  for (var i = 0; i < 12; i++) {
+    ID += characters.charAt(Math.floor(Math.random() * 36));
+  }
+  return ID;
+};
+
 export const addWord = (obj) => ({
   type: ADD_WORD,
   payload: {
     obj,
-    id: 1,
   },
 });
 
@@ -43,5 +55,15 @@ export const removeUnseved = () => ({
 
 export const updateCurrentTranslation = (obj) => ({
   type: UPDATE_CURRENT_TRANSLATION,
-  payload: { obj },
+  payload: {
+    obj,
+    id: makeId(),
+  },
+});
+export const addFlashCard = (obj) => ({
+  type: ADD_FLASHCARD,
+  payload: {
+    obj,
+    id: makeId(),
+  },
 });

@@ -13,7 +13,6 @@ import {
   updateCurrentTranslation,
   updateWordCounter,
   removeUnseved,
-  addWord,
 } from "../../actions/actions";
 
 const StyledWrapper = styled.div`
@@ -62,14 +61,6 @@ const MainPage = () => {
 
   const listArr = useSelector((state) => state.listReducer);
 
-  const makeId = () => {
-    let ID = "";
-    let characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-    for (var i = 0; i < 12; i++) {
-      ID += characters.charAt(Math.floor(Math.random() * 36));
-    }
-    return ID;
-  };
   const handleClick = async () => {
     let response = await fetch(
       `https://translate-app-serv.herokuapp.com/translate/${currentWord}/${fromLanguage}/${toLanguage}`
@@ -86,7 +77,6 @@ const MainPage = () => {
       translation: backTxt,
       fromLanguage,
       toLanguage,
-      id: makeId(),
       counter: 0,
     };
 

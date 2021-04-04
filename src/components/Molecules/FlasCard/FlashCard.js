@@ -75,15 +75,15 @@ const FlashCard = () => {
         </StyledTxtWrapper>
         <StyledButtonsWrapper>
           <StyledButton>
-            <span class="material-icons">delete_forever</span>
+            <span className="material-icons">delete_forever</span>
           </StyledButton>
           <StyledRoundButton>
-            <span class="material-icons" onClick={handleClick}>
+            <span className="material-icons" onClick={handleClick}>
               loop
             </span>
           </StyledRoundButton>
           <StyledButton>
-            <span class="material-icons">done_all</span>
+            <span className="material-icons">done_all</span>
           </StyledButton>
         </StyledButtonsWrapper>
       </StyledWrapper>

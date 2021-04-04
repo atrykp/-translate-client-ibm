@@ -15,7 +15,6 @@ const TranslationList = () => {
   const arr = translationList.map((element) => (
     <TranslationElement translationObj={element} key={element.id} />
   ));
-  console.log(translationList);
 
   return (
     <>
