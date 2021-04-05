@@ -8,6 +8,7 @@ const store = createStore(rootReducer, persistedState);
 store.subscribe(() => {
   saveState({
     listReducer: store.getState().listReducer,
+    flashCardsReducer: store.getState().flashCardsReducer,
   });
 });
 

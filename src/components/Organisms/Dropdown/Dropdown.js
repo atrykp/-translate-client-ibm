@@ -5,7 +5,7 @@ import List from "../../Molecules/List/List";
 
 const StyledWrapper = styled.div`
   text-align: center;
-  width: 43vw;
+  width: 40vw;
   max-width: 200px;
   position: relative;
 `;
