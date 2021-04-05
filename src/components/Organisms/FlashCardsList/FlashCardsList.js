@@ -10,6 +10,12 @@ const StyledSideMenuWrapper = styled.div`
   position: fixed;
   right: 10px;
   bottom: 12vh;
+  @media (min-width: 600px) {
+    right: 10vw;
+  }
+  @media (min-width: 800px) {
+    right: 15vw;
+  }
 `;
 const FlashCardsList = () => {
   const cardsArr = useSelector((state) => state.flashCardsReducer);
