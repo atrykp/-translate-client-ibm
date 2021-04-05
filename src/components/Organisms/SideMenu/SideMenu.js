@@ -33,7 +33,7 @@ const StyledRoundButton = styled(RoundButton)`
 `;
 const StyledWrapper = styled.div`
   display: grid;
-  grid-gap: 4px;
+  grid-gap: 7px;
 `;
 const StyledParagraph = styled(Paragraph)`
   display: grid;
@@ -54,17 +54,17 @@ const StyledRow = styled.div`
   ${({ first, active }) =>
     first &&
     css`
-      transform: ${active ? "translateY(0)" : "translateY(107%)"};
+      transform: ${active ? "translateY(0)" : "translateY(117%)"};
     `}
   ${({ second, active }) =>
     second &&
     css`
-      transform: ${active ? "translateY(0)" : "translateY(226%)"};
+      transform: ${active ? "translateY(0)" : "translateY(240%)"};
     `}
     ${({ third, active }) =>
     third &&
     css`
-      transform: ${active ? "translateY(0)" : "translateY(380%)"};
+      transform: ${active ? "translateY(0)" : "translateY(387%)"};
     `}
 `;
 

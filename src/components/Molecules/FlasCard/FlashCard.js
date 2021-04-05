@@ -3,6 +3,8 @@ import { useState } from "react";
 import Header from "../../Atoms/Header/Header";
 import Button from "../../Atoms/Button/Button";
 import RoundButton from "../../Atoms/RoundButton/RoundButton";
+import { useDispatch, useSelector } from "react-redux";
+import { removeFlashCard } from "../../../actions/actions";
 
 const StyledWrapper = styled.div`
   max-width: 330px;
@@ -65,17 +67,15 @@ const StyledHeader = styled(Header)`
 `;
 
 const FlashCard = ({ cardContent }) => {
-  const {
-    currentWord,
-    translation,
-    fromLanguage,
-    toLanguage,
-    iCan,
-  } = cardContent;
-  // console.log(translation);
+  const { currentWord, translation, iCan, id } = cardContent;
 
   const [frontSide, setFrontSide] = useState(true);
   const handleClick = () => setFrontSide((prevValue) => !prevValue);
+  const dispatch = useDispatch();
+
+  const removeCard = () => {
+    dispatch(removeFlashCard(id));
+  };
   return (
     <>
       <StyledWrapper isFront={frontSide}>
@@ -83,7 +83,7 @@ const FlashCard = ({ cardContent }) => {
           <StyledHeader>{frontSide ? translation : currentWord}</StyledHeader>
         </StyledTxtWrapper>
         <StyledButtonsWrapper>
-          <StyledButton>
+          <StyledButton onClick={removeCard}>
             <span className="material-icons">delete_forever</span>
           </StyledButton>
           <StyledRoundButton>

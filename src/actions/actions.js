@@ -67,3 +67,10 @@ export const addFlashCard = (obj) => ({
     id: makeId(),
   },
 });
+
+export const removeFlashCard = (id) => ({
+  type: REMOVE_FLASHCARD,
+  payload: {
+    id,
+  },
+});

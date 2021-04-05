@@ -13,6 +13,8 @@ html{
  body {
 
     font-size:1.6rem;
+    max-width:1000px;
+    margin:0 auto;
 
 
   }
