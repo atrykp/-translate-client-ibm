@@ -64,14 +64,23 @@ const StyledHeader = styled(Header)`
   font-size: ${({ theme }) => theme.fontSize.xlarge};
 `;
 
-const FlashCard = () => {
+const FlashCard = ({ cardContent }) => {
+  const {
+    currentWord,
+    translation,
+    fromLanguage,
+    toLanguage,
+    iCan,
+  } = cardContent;
+  // console.log(translation);
+
   const [frontSide, setFrontSide] = useState(true);
   const handleClick = () => setFrontSide((prevValue) => !prevValue);
   return (
     <>
       <StyledWrapper isFront={frontSide}>
         <StyledTxtWrapper>
-          <StyledHeader>{frontSide ? "Hello" : "Witaj"}</StyledHeader>
+          <StyledHeader>{frontSide ? translation : currentWord}</StyledHeader>
         </StyledTxtWrapper>
         <StyledButtonsWrapper>
           <StyledButton>

@@ -9,12 +9,13 @@ const FlashCardsList = () => {
   const cardsArr = useSelector((state) => state.flashCardsReducer);
   console.log(cardsArr);
 
+  const arr = cardsArr.map((element) => (
+    <FlashCard cardContent={element} key={element.id} />
+  ));
+  console.log(arr);
+
   return (
-    <>
-      <StyledWrapper>
-        <h1>soon</h1>
-      </StyledWrapper>
-    </>
+    <StyledWrapper>{cardsArr.length < 1 ? <p>empty</p> : arr}</StyledWrapper>
   );
 };
 
