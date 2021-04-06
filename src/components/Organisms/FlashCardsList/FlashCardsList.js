@@ -3,9 +3,12 @@ import FlashCard from "../../Molecules/FlasCard/FlashCard";
 import SideMenu from "../../Organisms/SideMenu/SideMenu";
 import { useSelector } from "react-redux";
 import { useState } from "react";
+import Paragraph from "../../Atoms/Paragraph/Paragraph";
+import Header from "../../Atoms/Header/Header";
 const StyledWrapper = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  padding-top: 5%;
 `;
 const StyledSideMenuWrapper = styled.div`
   position: fixed;
@@ -17,6 +20,15 @@ const StyledSideMenuWrapper = styled.div`
   @media (min-width: 800px) {
     right: 15vw;
   }
+`;
+const StyledFilterInfo = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: ${({ theme }) => theme.colors.secondaryLight};
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.16), 0 2px 4px rgba(0, 0, 0, 0.23);
 `;
 const FlashCardsList = () => {
   const cardsArr = useSelector((state) => state.flashCardsReducer);
@@ -40,6 +52,10 @@ const FlashCardsList = () => {
     );
   return (
     <>
+      <StyledFilterInfo>
+        <Paragraph>{`active filter: ${currentFilter} ( ${arr.length} )`}</Paragraph>
+      </StyledFilterInfo>
+
       <StyledSideMenuWrapper>
         <SideMenu setCurrentFilter={setCurrentFilter} />
       </StyledSideMenuWrapper>

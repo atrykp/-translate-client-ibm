@@ -1,7 +1,6 @@
 import styled, { css } from "styled-components";
 import RoundButton from "../../Atoms/RoundButton/RoundButton";
 import Paragraph from "../../Atoms/Paragraph/Paragraph";
-import { useSelector } from "react-redux";
 import { useState } from "react";
 const StyledRoundButton = styled(RoundButton)`
   justify-self: end;
