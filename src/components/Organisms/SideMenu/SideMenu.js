@@ -8,7 +8,7 @@ const StyledRoundButton = styled(RoundButton)`
   display: grid;
   justify-content: center;
   align-content: center;
-
+  z-index: 100;
   ${({ first }) =>
     first &&
     css`
@@ -29,7 +29,7 @@ const StyledRoundButton = styled(RoundButton)`
       justify-self: center;
       width: 45px;
       height: 45px;
-    `}
+    `};
 `;
 const StyledWrapper = styled.div`
   display: grid;
@@ -48,7 +48,7 @@ const StyledRow = styled.div`
   grid-template-columns: 1fr 60px;
   justify-items: center;
   align-items: center;
-  z-index: -1;
+
   transition: 0.3s ease-in-out;
 
   ${({ first, active }) =>
@@ -67,28 +67,34 @@ const StyledRow = styled.div`
       transform: ${active ? "translateY(0)" : "translateY(387%)"};
     `}
 `;
-
-const SideMenu = () => {
+const filtersArr = ["all", "iCan", "iCant"];
+const SideMenu = ({ setCurrentFilter }) => {
   const [isActive, setIsActive] = useState(false);
   const handleClick = () => setIsActive((prevValue) => !prevValue);
+
+  const changeFilter = (filter) => {
+    console.log("działam");
+
+    setCurrentFilter(filter);
+  };
   return (
     <>
       <StyledWrapper>
         <StyledRow third active={isActive}>
           <StyledParagraph active={isActive}>i cant</StyledParagraph>
-          <StyledRoundButton third>
+          <StyledRoundButton onClick={() => changeFilter(filtersArr[2])} third>
             <span class="material-icons">close</span>
           </StyledRoundButton>
         </StyledRow>
         <StyledRow second active={isActive}>
           <StyledParagraph active={isActive}>i can</StyledParagraph>
-          <StyledRoundButton second>
+          <StyledRoundButton second onClick={() => changeFilter(filtersArr[1])}>
             <span class="material-icons">done</span>
           </StyledRoundButton>
         </StyledRow>
         <StyledRow first active={isActive}>
           <StyledParagraph active={isActive}>all</StyledParagraph>
-          <StyledRoundButton first>
+          <StyledRoundButton first onClick={() => changeFilter(filtersArr[0])}>
             <span class="material-icons">rule</span>
           </StyledRoundButton>
         </StyledRow>

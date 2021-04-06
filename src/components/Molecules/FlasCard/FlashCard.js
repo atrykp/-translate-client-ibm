@@ -48,7 +48,7 @@ const StyledButtonsWrapper = styled.div`
 const StyledButton = styled(Button)`
   font-size: ${({ theme }) => theme.fontSize.xsmall};
   width: 100%;
-  background-color: ${({ status }) => (status ? "green" : "#929297")};
+  background-color: ${({ status }) => (status ? "#429C38" : "#929297")};
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
 `;
 const StyledTxtWrapper = styled.div`
