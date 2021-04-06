@@ -16,7 +16,7 @@ import {
 } from "../../actions/actions";
 
 const StyledWrapper = styled.div`
-  min-height: 100vh;
+  min-height: 95vh;
   display: grid;
   grid-template-rows: 2fr 1fr 1fr 5fr 1fr;
   align-items: center;

@@ -4,7 +4,7 @@ import Header from "../../Atoms/Header/Header";
 import Button from "../../Atoms/Button/Button";
 import RoundButton from "../../Atoms/RoundButton/RoundButton";
 import { useDispatch, useSelector } from "react-redux";
-import { removeFlashCard } from "../../../actions/actions";
+import { removeFlashCard, updateFlashCard } from "../../../actions/actions";
 
 const StyledWrapper = styled.div`
   max-width: 330px;
@@ -48,7 +48,7 @@ const StyledButtonsWrapper = styled.div`
 const StyledButton = styled(Button)`
   font-size: ${({ theme }) => theme.fontSize.xsmall};
   width: 100%;
-  background-color: #929297;
+  background-color: ${({ status }) => (status ? "green" : "#929297")};
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
 `;
 const StyledTxtWrapper = styled.div`
@@ -76,6 +76,10 @@ const FlashCard = ({ cardContent }) => {
   const removeCard = () => {
     dispatch(removeFlashCard(id));
   };
+
+  const updateCardStatus = () => {
+    dispatch(updateFlashCard(id));
+  };
   return (
     <>
       <StyledWrapper isFront={frontSide}>
@@ -91,7 +95,7 @@ const FlashCard = ({ cardContent }) => {
               loop
             </span>
           </StyledRoundButton>
-          <StyledButton>
+          <StyledButton onClick={updateCardStatus} status={iCan}>
             <span className="material-icons">done_all</span>
           </StyledButton>
         </StyledButtonsWrapper>

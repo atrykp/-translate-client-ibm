@@ -1,4 +1,8 @@
-import { ADD_FLASHCARD, REMOVE_FLASHCARD } from "../actions/actions";
+import {
+  ADD_FLASHCARD,
+  REMOVE_FLASHCARD,
+  UPDATE_FLASHCARD_STATUS,
+} from "../actions/actions";
 
 const flashCardsReducer = (store = [], action) => {
   switch (action.type) {
@@ -7,6 +11,14 @@ const flashCardsReducer = (store = [], action) => {
       return [...store, { ...obj, id }];
     case REMOVE_FLASHCARD:
       return store.filter((element) => element.id !== action.payload.id);
+    case UPDATE_FLASHCARD_STATUS:
+      return store.map((element) => {
+        if (element.id !== action.payload.id) {
+          return element;
+        }
+        element.iCan = !element.iCan;
+        return element;
+      });
     default:
       return store;
   }

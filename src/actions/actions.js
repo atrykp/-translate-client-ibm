@@ -74,3 +74,10 @@ export const removeFlashCard = (id) => ({
     id,
   },
 });
+
+export const updateFlashCard = (id) => ({
+  type: UPDATE_FLASHCARD_STATUS,
+  payload: {
+    id,
+  },
+});
