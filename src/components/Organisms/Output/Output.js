@@ -33,6 +33,10 @@ const StyledSpan = styled.span`
   font-size: ${({ secondary }) => (secondary ? "3rem" : "4rem")};
   cursor: pointer;
   transition: 0.2s ease-in-out;
+
+  &:hover {
+    color: ${({ theme }) => theme.colors.secondary};
+  }
   ${({ secondary }) => (secondary ? "bottom:10px" : "top:10px")}
 `;
 
