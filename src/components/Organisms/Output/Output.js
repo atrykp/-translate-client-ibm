@@ -7,6 +7,7 @@ import {
   addFlashCard,
   addWord,
   removeWord,
+  updateModalStatus,
   updateWordCounter,
 } from "../../../actions/actions";
 import { useEffect } from "react";
@@ -53,6 +54,7 @@ const Output = () => {
   const translationObj = useSelector(
     (state) => state.currentTranslationReducer
   );
+  const modals = useSelector((state) => state.modalsReducer);
   const translationArr = useSelector((state) => state.listReducer);
   const { counter, id, translation } = translationObj;
 
@@ -81,6 +83,22 @@ const Output = () => {
   const addCard = () => {
     const flashCard = { ...translationObj, iCan: false };
     dispatch(addFlashCard(flashCard));
+    dispatch(
+      updateModalStatus("notification", {
+        content: "added new card",
+        isActive: true,
+      })
+    );
+    console.log(modals);
+
+    setTimeout(() => {
+      dispatch(
+        updateModalStatus("notification", {
+          content: "",
+          isActive: false,
+        })
+      );
+    }, 500);
   };
 
   return (
