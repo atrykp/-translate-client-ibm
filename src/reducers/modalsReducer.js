@@ -12,8 +12,6 @@ const modalsReducer = (store = modalsStore, action) => {
 
           return element;
         }
-        console.log("id pasuje", { ...element, ...obj });
-
         return { ...element, ...obj };
       });
     default:

@@ -4,7 +4,11 @@ import Header from "../../Atoms/Header/Header";
 import Button from "../../Atoms/Button/Button";
 import RoundButton from "../../Atoms/RoundButton/RoundButton";
 import { useDispatch, useSelector } from "react-redux";
-import { removeFlashCard, updateFlashCard } from "../../../actions/actions";
+import {
+  removeFlashCard,
+  updateFlashCard,
+  updateModalStatus,
+} from "../../../actions/actions";
 
 const StyledWrapper = styled.div`
   max-width: 330px;
@@ -75,10 +79,43 @@ const FlashCard = ({ cardContent }) => {
 
   const removeCard = () => {
     dispatch(removeFlashCard(id));
+    dispatch(
+      updateModalStatus("notification", {
+        content: "removed",
+        isActive: true,
+      })
+    );
+    removeNotification();
   };
 
   const updateCardStatus = () => {
     dispatch(updateFlashCard(id));
+    if (iCan) {
+      dispatch(
+        updateModalStatus("notification", {
+          content: "removed from iCan",
+          isActive: true,
+        })
+      );
+    } else {
+      dispatch(
+        updateModalStatus("notification", {
+          content: "added to iCan",
+          isActive: true,
+        })
+      );
+    }
+    removeNotification();
+  };
+  const removeNotification = () => {
+    setTimeout(() => {
+      dispatch(
+        updateModalStatus("notification", {
+          content: "",
+          isActive: false,
+        })
+      );
+    }, 1450);
   };
   return (
     <>

@@ -15,7 +15,7 @@ const Notification = styled.p`
     0% {
       opacity: 0;
     }
-    20% {
+    2% {
       opacity: 1;
     }
     80% {

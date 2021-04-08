@@ -3,7 +3,7 @@ import Header from "../../Atoms/Header/Header";
 import RoundButton from "../../Atoms/RoundButton/RoundButton";
 import Paragraph from "../../Atoms/Paragraph/Paragraph";
 import { useDispatch } from "react-redux";
-import { removeWord } from "../../../actions/actions";
+import { removeWord, updateModalStatus } from "../../../actions/actions";
 
 const StyledWrapper = styled.div`
   display: grid;
@@ -75,6 +75,23 @@ const TranslationElement = ({ translationObj }) => {
   } = translationObj;
   const removeItem = () => {
     dispatch(removeWord(id));
+    dispatch(
+      updateModalStatus("notification", {
+        content: "removed",
+        isActive: true,
+      })
+    );
+    removeNotification();
+  };
+  const removeNotification = () => {
+    setTimeout(() => {
+      dispatch(
+        updateModalStatus("notification", {
+          content: "",
+          isActive: false,
+        })
+      );
+    }, 1450);
   };
   return (
     <>

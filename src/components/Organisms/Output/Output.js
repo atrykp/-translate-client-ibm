@@ -72,11 +72,15 @@ const Output = () => {
 
   const handleClick = () => {
     if (counter === 0) {
-      console.log("jestem tutaj", translationObj);
-
       dispatch(addWord(translationObj));
       dispatch(updateWordCounter(id, 1));
       setIsActive(true);
+      dispatch(
+        updateModalStatus("notification", {
+          content: "added to list",
+          isActive: true,
+        })
+      );
     } else {
       translationObj.counter = 0;
       dispatch(updateCurrentTranslation(translationObj));
@@ -84,8 +88,26 @@ const Output = () => {
       const translated = findInMyArray(translationObj, translationArr);
       dispatch(removeWord(translated.id));
       setIsActive(false);
+      dispatch(
+        updateModalStatus("notification", {
+          content: "removed from list",
+          isActive: true,
+        })
+      );
     }
+    removeNotification();
   };
+  const removeNotification = () => {
+    setTimeout(() => {
+      dispatch(
+        updateModalStatus("notification", {
+          content: "",
+          isActive: false,
+        })
+      );
+    }, 1450);
+  };
+
   const addCard = () => {
     const flashCard = { ...translationObj, iCan: false };
     dispatch(addFlashCard(flashCard));
@@ -95,16 +117,7 @@ const Output = () => {
         isActive: true,
       })
     );
-    console.log(modals);
-
-    setTimeout(() => {
-      dispatch(
-        updateModalStatus("notification", {
-          content: "",
-          isActive: false,
-        })
-      );
-    }, 1450);
+    removeNotification();
   };
 
   return (
