@@ -9,6 +9,22 @@ const Notification = styled.p`
   color: black;
   padding: 20px;
   border-radius: 10px;
+  animation: appear 1.5s ease-in-out;
+
+  @keyframes appear {
+    0% {
+      opacity: 0;
+    }
+    20% {
+      opacity: 1;
+    }
+    80% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
 `;
 
 export default Notification;

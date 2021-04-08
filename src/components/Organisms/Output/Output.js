@@ -9,6 +9,7 @@ import {
   removeWord,
   updateModalStatus,
   updateWordCounter,
+  updateCurrentTranslation,
 } from "../../../actions/actions";
 import { useEffect } from "react";
 import findInMyArray from "../../../helpers/findInMyArray";
@@ -71,10 +72,15 @@ const Output = () => {
 
   const handleClick = () => {
     if (counter === 0) {
+      console.log("jestem tutaj", translationObj);
+
       dispatch(addWord(translationObj));
       dispatch(updateWordCounter(id, 1));
       setIsActive(true);
     } else {
+      translationObj.counter = 0;
+      dispatch(updateCurrentTranslation(translationObj));
+      dispatch(updateWordCounter(id, 0));
       const translated = findInMyArray(translationObj, translationArr);
       dispatch(removeWord(translated.id));
       setIsActive(false);
@@ -98,7 +104,7 @@ const Output = () => {
           isActive: false,
         })
       );
-    }, 500);
+    }, 1450);
   };
 
   return (
