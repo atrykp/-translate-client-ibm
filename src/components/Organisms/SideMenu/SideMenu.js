@@ -7,7 +7,8 @@ const StyledRoundButton = styled(RoundButton)`
   display: grid;
   justify-content: center;
   align-content: center;
-  z-index: 100;
+  z-index: 10;
+
   ${({ first }) =>
     first &&
     css`
@@ -33,6 +34,8 @@ const StyledRoundButton = styled(RoundButton)`
 const StyledWrapper = styled.div`
   display: grid;
   grid-gap: 7px;
+  z-index: 10;
+  display: none;
 `;
 const StyledParagraph = styled(Paragraph)`
   display: grid;
@@ -47,7 +50,7 @@ const StyledRow = styled.div`
   grid-template-columns: 1fr 60px;
   justify-items: center;
   align-items: center;
-
+  z-index: 10;
   transition: 0.3s ease-in-out;
 
   ${({ first, active }) =>

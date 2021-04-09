@@ -11,9 +11,10 @@ const Button = styled.button`
   border-style: none;
   transition: 0.3s;
   cursor: pointer;
-
-  &:hover {
-    background-color: ${({ theme }) => theme.colors.secondaryDark};
+  @media (min-width: 900px) {
+    &:hover {
+      background-color: ${({ theme }) => theme.colors.secondaryDark};
+    }
   }
 `;
 

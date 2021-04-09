@@ -22,6 +22,7 @@ const StyledWrapper = styled.div`
   border-radius: 10px;
   padding: 15px 10px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  z-index: 0;
 
   animation: ${({ isFront }) => (isFront ? "appear 1s" : "disappear 1s")};
 
@@ -93,14 +94,14 @@ const FlashCard = ({ cardContent }) => {
     if (iCan) {
       dispatch(
         updateModalStatus("notification", {
-          content: "removed from iCan",
+          content: "I can't",
           isActive: true,
         })
       );
     } else {
       dispatch(
         updateModalStatus("notification", {
-          content: "added to iCan",
+          content: "I can",
           isActive: true,
         })
       );
@@ -132,7 +133,7 @@ const FlashCard = ({ cardContent }) => {
               loop
             </span>
           </StyledRoundButton>
-          <StyledButton onClick={updateCardStatus} status={iCan}>
+          <StyledButton status={iCan} onClick={updateCardStatus}>
             <span className="material-icons">done_all</span>
           </StyledButton>
         </StyledButtonsWrapper>

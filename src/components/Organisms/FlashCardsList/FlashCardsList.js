@@ -12,6 +12,7 @@ const StyledWrapper = styled.div`
 `;
 const StyledSideMenuWrapper = styled.div`
   position: fixed;
+  z-index: 3;
   right: 10px;
   bottom: 12vh;
   @media (min-width: 600px) {
@@ -29,6 +30,7 @@ const StyledFilterInfo = styled.div`
   background-color: ${({ theme }) => theme.colors.secondaryLight};
   text-align: center;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.16), 0 2px 4px rgba(0, 0, 0, 0.23);
+  z-index: 3;
 `;
 const FlashCardsList = () => {
   const cardsArr = useSelector((state) => state.flashCardsReducer);
