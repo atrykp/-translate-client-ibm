@@ -14,6 +14,7 @@ const StyledWrapper = styled.div`
   border-radius: 10px;
   padding: 15px 10px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  position: relative;
 `;
 const StyledTranslationWrapper = styled.div`
   display: flex;
@@ -63,6 +64,17 @@ const StyledRoundButton = styled(RoundButton)`
   height: 50px;
   box-shadow: 0 3px 5px rgba(0, 0, 0, 0.12), 0 3px 5px rgba(0, 0, 0, 0.24);
 `;
+const StyledSpanWrapper = styled.span`
+  position: absolute;
+  right: 1%;
+  bottom: 1%;
+  color: ${({ theme }) => theme.colors.mediumTxt};
+  transform: scale(0.7);
+  &:hover {
+    color: ${({ theme }) => theme.colors.primaryLight};
+    cursor: pointer;
+  }
+`;
 const TranslationElement = ({ translationObj }) => {
   const dispatch = useDispatch();
   const {
@@ -96,6 +108,9 @@ const TranslationElement = ({ translationObj }) => {
   return (
     <>
       <StyledWrapper>
+        <StyledSpanWrapper>
+          <span class="material-icons">edit</span>
+        </StyledSpanWrapper>
         <StyledTranslationWrapper>
           <StyledWordsWrapper>
             <StyledHeader>{currentWord}</StyledHeader>

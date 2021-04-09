@@ -3,7 +3,7 @@ import { useState } from "react";
 import Header from "../../Atoms/Header/Header";
 import Button from "../../Atoms/Button/Button";
 import RoundButton from "../../Atoms/RoundButton/RoundButton";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import {
   removeFlashCard,
   updateFlashCard,
@@ -11,6 +11,7 @@ import {
 } from "../../../actions/actions";
 
 const StyledWrapper = styled.div`
+  position: relative;
   max-width: 330px;
   min-height: 250px;
   display: grid;
@@ -70,6 +71,17 @@ const StyledRoundButton = styled(RoundButton)`
 const StyledHeader = styled(Header)`
   font-size: ${({ theme }) => theme.fontSize.xlarge};
 `;
+const StyledSpanWrapper = styled.span`
+  position: absolute;
+  right: 2%;
+  top: 1%;
+  color: ${({ theme }) => theme.colors.mediumTxt};
+  transform: scale(0.8);
+  &:hover {
+    color: ${({ theme }) => theme.colors.primaryLight};
+    cursor: pointer;
+  }
+`;
 
 const FlashCard = ({ cardContent }) => {
   const { currentWord, translation, iCan, id } = cardContent;
@@ -121,6 +133,10 @@ const FlashCard = ({ cardContent }) => {
   return (
     <>
       <StyledWrapper isFront={frontSide}>
+        <StyledSpanWrapper>
+          <span class="material-icons">edit</span>
+        </StyledSpanWrapper>
+
         <StyledTxtWrapper>
           <StyledHeader>{frontSide ? translation : currentWord}</StyledHeader>
         </StyledTxtWrapper>
