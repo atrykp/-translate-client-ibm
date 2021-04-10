@@ -33,9 +33,9 @@ const StyledFilterInfo = styled.div`
 `;
 const FlashCardsList = () => {
   const cardsArr = useSelector((state) => state.flashCardsReducer);
-  const [currentFilter, setCurrentFilter] = useState("all");
-  console.log(currentFilter);
+  console.log(cardsArr);
 
+  const [currentFilter, setCurrentFilter] = useState("all");
   const arr = cardsArr
     .filter((card) => {
       if (currentFilter === "all") {

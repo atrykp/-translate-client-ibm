@@ -2,7 +2,14 @@ import { UPDATE_MODAL_STATUS } from "../actions/actions";
 
 let modalsStore = [
   { id: "notification", content: "", isActive: false },
-  { id: "editModal", from: "", to: "", isActive: false },
+  {
+    id: "editModal",
+    from: "",
+    to: "",
+    isActive: false,
+    elementId: "",
+    section: "",
+  },
 ];
 
 const modalsReducer = (store = modalsStore, action) => {

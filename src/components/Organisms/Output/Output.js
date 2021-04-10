@@ -110,6 +110,7 @@ const Output = () => {
 
   const addCard = () => {
     const flashCard = { ...translationObj, iCan: false };
+
     dispatch(addFlashCard(flashCard));
     dispatch(
       updateModalStatus("notification", {

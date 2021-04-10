@@ -9,6 +9,7 @@ export const UPDATE_CURRENT_TRANSLATION = "UPDATE_CURRENT_TRANSLATION";
 export const ADD_FLASHCARD = "ADD_FLASHCARD";
 export const REMOVE_FLASHCARD = "REMOVE_FLASHCARD";
 export const UPDATE_FLASHCARD_STATUS = "UPDATE_FLASHCARD_STATUS";
+export const UPDATE_FLASHCARD_CONTENT = "UPDATE_FLASHCARD_CONTENT";
 export const UPDATE_MODAL_STATUS = "UPDATE_MODAL_STATUS";
 
 const makeId = () => {
@@ -76,12 +77,21 @@ export const removeFlashCard = (id) => ({
   },
 });
 
-export const updateFlashCard = (id) => ({
+export const updateFlashCardStatus = (id) => ({
   type: UPDATE_FLASHCARD_STATUS,
   payload: {
     id,
   },
 });
+
+export const updateFlashCardContent = (id, obj) => ({
+  type: UPDATE_FLASHCARD_CONTENT,
+  payload: {
+    id,
+    obj,
+  },
+});
+
 export const updateModalStatus = (id, obj) => ({
   type: UPDATE_MODAL_STATUS,
   payload: {

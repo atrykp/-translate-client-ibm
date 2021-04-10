@@ -1,7 +1,13 @@
+import { useState } from "react";
 import styled from "styled-components";
 import Paragraph from "../../Atoms/Paragraph/Paragraph";
 import Button from "../../Atoms/Button/Button";
 import Input from "../../Atoms/Input/Input";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  updateModalStatus,
+  updateFlashCardContent,
+} from "../../../actions/actions";
 const StyledBackground = styled.div`
   position: fixed;
   top: 0;
@@ -65,21 +71,73 @@ const StyledParagraph = styled(Paragraph)`
   margin-bottom: 5px;
 `;
 const EditModal = () => {
+  const dispatch = useDispatch();
+  const [editModal] = useSelector((state) => state.modalsReducer).filter(
+    (element) => element.id === "editModal"
+  );
+  const { from, to, elementId, section } = editModal;
+  const [fromContent, setFromContent] = useState(from);
+  const [toContent, setToContent] = useState(to);
+  const closeEditModal = () => {
+    dispatch(
+      updateModalStatus("editModal", {
+        from: "",
+        to: "",
+        isActive: false,
+        elementId: "",
+        section: "",
+      })
+    );
+  };
+
+  const saveNewContent = () => {
+    if (section === "flashCards") {
+      console.log({
+        currentWord: fromContent,
+        translation: toContent,
+      });
+
+      dispatch(
+        updateFlashCardContent(elementId, {
+          currentWord: fromContent,
+          translation: toContent,
+        })
+      );
+      dispatch(
+        updateModalStatus("editModal", {
+          from: "",
+          to: "",
+          isActive: false,
+          elementId: "",
+          section: "",
+        })
+      );
+    } else if (section === "translationElements") {
+    }
+  };
   return (
     <>
       <StyledBackground />
       <StyledModalWrapper>
         <StyledInputWrapper>
           <StyledParagraph>from:</StyledParagraph>
-          <StyledInput />
+          <StyledInput
+            value={fromContent}
+            onChange={({ target }) => setFromContent(target.value)}
+          />
         </StyledInputWrapper>
         <StyledInputWrapper>
           <StyledParagraph>to:</StyledParagraph>
-          <StyledInput />
+          <StyledInput
+            value={toContent}
+            onChange={({ target }) => setToContent(target.value)}
+          />
         </StyledInputWrapper>
         <StyledButtonWrapper>
-          <StyledButton>Save</StyledButton>
-          <StyledSecondButton>Cancel</StyledSecondButton>
+          <StyledButton onClick={saveNewContent}>Save</StyledButton>
+          <StyledSecondButton onClick={closeEditModal}>
+            Cancel
+          </StyledSecondButton>
         </StyledButtonWrapper>
       </StyledModalWrapper>
     </>

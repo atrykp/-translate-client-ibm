@@ -6,7 +6,7 @@ import RoundButton from "../../Atoms/RoundButton/RoundButton";
 import { useDispatch } from "react-redux";
 import {
   removeFlashCard,
-  updateFlashCard,
+  updateFlashCardStatus,
   updateModalStatus,
 } from "../../../actions/actions";
 
@@ -85,7 +85,6 @@ const StyledSpanWrapper = styled.span`
 
 const FlashCard = ({ cardContent }) => {
   const { currentWord, translation, iCan, id } = cardContent;
-
   const [frontSide, setFrontSide] = useState(true);
   const handleClick = () => setFrontSide((prevValue) => !prevValue);
   const dispatch = useDispatch();
@@ -102,7 +101,7 @@ const FlashCard = ({ cardContent }) => {
   };
 
   const updateCardStatus = () => {
-    dispatch(updateFlashCard(id));
+    dispatch(updateFlashCardStatus(id));
     if (iCan) {
       dispatch(
         updateModalStatus("notification", {
@@ -130,10 +129,22 @@ const FlashCard = ({ cardContent }) => {
       );
     }, 1450);
   };
+
+  const changeEditModalActivity = () => {
+    dispatch(
+      updateModalStatus("editModal", {
+        from: currentWord,
+        to: translation,
+        isActive: true,
+        elementId: id,
+        section: "flashCards",
+      })
+    );
+  };
   return (
     <>
       <StyledWrapper isFront={frontSide}>
-        <StyledSpanWrapper>
+        <StyledSpanWrapper onClick={changeEditModalActivity}>
           <span class="material-icons">edit</span>
         </StyledSpanWrapper>
 
