@@ -4,7 +4,6 @@ import SideMenu from "../../Organisms/SideMenu/SideMenu";
 import { useSelector } from "react-redux";
 import { useState } from "react";
 import Paragraph from "../../Atoms/Paragraph/Paragraph";
-import EditModal from "../../Molecules/EditModal/EditModal";
 const StyledWrapper = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
