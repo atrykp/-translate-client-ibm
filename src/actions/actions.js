@@ -5,6 +5,7 @@ export const UPDATE_WORD_COUNTER = "EDIT_WORD";
 export const REMOVE_UNSAVED_TRANSLATION = "REMOVE_UNSAVED_TRANSLATION";
 
 export const UPDATE_CURRENT_TRANSLATION = "UPDATE_CURRENT_TRANSLATION";
+export const EDIT_LIST_CONTENT = "EDIT_LIST_CONTENT";
 
 export const ADD_FLASHCARD = "ADD_FLASHCARD";
 export const REMOVE_FLASHCARD = "REMOVE_FLASHCARD";
@@ -60,6 +61,13 @@ export const updateCurrentTranslation = (obj) => ({
   payload: {
     obj,
     id: makeId(),
+  },
+});
+export const editListElementContent = (id, obj) => ({
+  type: EDIT_LIST_CONTENT,
+  payload: {
+    id,
+    obj,
   },
 });
 export const addFlashCard = (obj) => ({

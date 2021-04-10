@@ -1,9 +1,9 @@
 import {
   ADD_WORD,
   REMOVE_WORD,
-  EDIT_WORD,
   UPDATE_WORD_COUNTER,
   REMOVE_UNSAVED_TRANSLATION,
+  EDIT_LIST_CONTENT,
 } from "../actions/actions";
 
 const listReducer = (store = [], action) => {
@@ -21,6 +21,14 @@ const listReducer = (store = [], action) => {
         }
         element.counter = action.payload.number;
         return element;
+      });
+    case EDIT_LIST_CONTENT:
+      return store.map((element) => {
+        if (element.id !== action.payload.id) {
+          return element;
+        }
+        const obj = action.payload.obj;
+        return { ...element, ...obj };
       });
 
     default:

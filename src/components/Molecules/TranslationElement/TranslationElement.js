@@ -70,6 +70,7 @@ const StyledSpanWrapper = styled.span`
   bottom: 1%;
   color: ${({ theme }) => theme.colors.mediumTxt};
   transform: scale(0.7);
+  z-index: 2;
   &:hover {
     color: ${({ theme }) => theme.colors.primaryLight};
     cursor: pointer;
@@ -105,10 +106,22 @@ const TranslationElement = ({ translationObj }) => {
       );
     }, 1450);
   };
+
+  const changeEditModalStatus = () => {
+    dispatch(
+      updateModalStatus("editModal", {
+        from: currentWord,
+        to: translation,
+        isActive: true,
+        elementId: id,
+        section: "translationElements",
+      })
+    );
+  };
   return (
     <>
       <StyledWrapper>
-        <StyledSpanWrapper>
+        <StyledSpanWrapper onClick={changeEditModalStatus}>
           <span class="material-icons">edit</span>
         </StyledSpanWrapper>
         <StyledTranslationWrapper>

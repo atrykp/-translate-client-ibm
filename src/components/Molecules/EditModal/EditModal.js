@@ -7,6 +7,7 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   updateModalStatus,
   updateFlashCardContent,
+  editListElementContent,
 } from "../../../actions/actions";
 const StyledBackground = styled.div`
   position: fixed;
@@ -92,28 +93,29 @@ const EditModal = () => {
 
   const saveNewContent = () => {
     if (section === "flashCards") {
-      console.log({
-        currentWord: fromContent,
-        translation: toContent,
-      });
-
       dispatch(
         updateFlashCardContent(elementId, {
           currentWord: fromContent,
           translation: toContent,
         })
       );
+    } else if (section === "translationElements") {
       dispatch(
-        updateModalStatus("editModal", {
-          from: "",
-          to: "",
-          isActive: false,
-          elementId: "",
-          section: "",
+        editListElementContent(elementId, {
+          currentWord: fromContent,
+          translation: toContent,
         })
       );
-    } else if (section === "translationElements") {
     }
+    dispatch(
+      updateModalStatus("editModal", {
+        from: "",
+        to: "",
+        isActive: false,
+        elementId: "",
+        section: "",
+      })
+    );
   };
   return (
     <>
