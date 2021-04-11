@@ -7,7 +7,7 @@ const StyledRoundButton = styled(RoundButton)`
   display: grid;
   justify-content: center;
   align-content: center;
-  z-index: 10;
+  z-index: 20;
 
   ${({ first }) =>
     first &&
@@ -34,8 +34,12 @@ const StyledRoundButton = styled(RoundButton)`
 const StyledWrapper = styled.div`
   display: grid;
   grid-gap: 7px;
-  z-index: 10;
-  display: none;
+  z-index: 1;
+  background-color: red;
+  height: 0;
+  position: fixed;
+  right: 20px;
+  bottom: 300px;
 `;
 const StyledParagraph = styled(Paragraph)`
   display: grid;
@@ -67,7 +71,7 @@ const StyledRow = styled.div`
     third &&
     css`
       transform: ${active ? "translateY(0)" : "translateY(387%)"};
-    `}
+    `};
 `;
 const filtersArr = ["all", "iCan", "iCant"];
 const SideMenu = ({ setCurrentFilter }) => {
