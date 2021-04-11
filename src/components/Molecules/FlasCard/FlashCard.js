@@ -9,6 +9,11 @@ import {
   updateFlashCardStatus,
   updateModalStatus,
 } from "../../../actions/actions";
+import {
+  NOTIFICATION,
+  EDIT_MODAL,
+  FLASH_CARDS,
+} from "../../../reducers/modalsReducer";
 
 const StyledWrapper = styled.div`
   position: relative;
@@ -92,7 +97,7 @@ const FlashCard = ({ cardContent }) => {
   const removeCard = () => {
     dispatch(removeFlashCard(id));
     dispatch(
-      updateModalStatus("notification", {
+      updateModalStatus(NOTIFICATION, {
         content: "removed",
         isActive: true,
       })
@@ -104,14 +109,14 @@ const FlashCard = ({ cardContent }) => {
     dispatch(updateFlashCardStatus(id));
     if (iCan) {
       dispatch(
-        updateModalStatus("notification", {
+        updateModalStatus(NOTIFICATION, {
           content: "I can't",
           isActive: true,
         })
       );
     } else {
       dispatch(
-        updateModalStatus("notification", {
+        updateModalStatus(NOTIFICATION, {
           content: "I can",
           isActive: true,
         })
@@ -122,7 +127,7 @@ const FlashCard = ({ cardContent }) => {
   const removeNotification = () => {
     setTimeout(() => {
       dispatch(
-        updateModalStatus("notification", {
+        updateModalStatus(NOTIFICATION, {
           content: "",
           isActive: false,
         })
@@ -132,12 +137,12 @@ const FlashCard = ({ cardContent }) => {
 
   const changeEditModalActivity = () => {
     dispatch(
-      updateModalStatus("editModal", {
+      updateModalStatus(EDIT_MODAL, {
         from: currentWord,
         to: translation,
         isActive: true,
         elementId: id,
-        section: "flashCards",
+        section: FLASH_CARDS,
       })
     );
   };

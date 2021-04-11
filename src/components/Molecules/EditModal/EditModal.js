@@ -10,6 +10,11 @@ import {
   editListElementContent,
 } from "../../../actions/actions";
 import useReduxStore from "../../../hooks/useReduxStore";
+import {
+  EDIT_MODAL,
+  FLASH_CARDS,
+  TRANSLATION_ELEMENTS,
+} from "../../../reducers/modalsReducer";
 const StyledBackground = styled.div`
   position: fixed;
   top: 0;
@@ -74,13 +79,13 @@ const StyledParagraph = styled(Paragraph)`
 `;
 const EditModal = () => {
   const dispatch = useDispatch();
-  const [editModal] = useReduxStore("editModal");
+  const [editModal] = useReduxStore(EDIT_MODAL);
   const { from, to, elementId, section } = editModal;
   const [fromContent, setFromContent] = useState(from);
   const [toContent, setToContent] = useState(to);
   const closeEditModal = () => {
     dispatch(
-      updateModalStatus("editModal", {
+      updateModalStatus(EDIT_MODAL, {
         from: "",
         to: "",
         isActive: false,
@@ -91,14 +96,14 @@ const EditModal = () => {
   };
 
   const saveNewContent = () => {
-    if (section === "flashCards") {
+    if (section === FLASH_CARDS) {
       dispatch(
         updateFlashCardContent(elementId, {
           currentWord: fromContent,
           translation: toContent,
         })
       );
-    } else if (section === "translationElements") {
+    } else if (section === TRANSLATION_ELEMENTS) {
       dispatch(
         editListElementContent(elementId, {
           currentWord: fromContent,
@@ -107,7 +112,7 @@ const EditModal = () => {
       );
     }
     dispatch(
-      updateModalStatus("editModal", {
+      updateModalStatus(EDIT_MODAL, {
         from: "",
         to: "",
         isActive: false,

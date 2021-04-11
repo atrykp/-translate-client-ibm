@@ -1,9 +1,15 @@
 import { UPDATE_MODAL_STATUS } from "../actions/actions";
 
+export const NOTIFICATION = "notification";
+export const EDIT_MODAL = "editModal";
+
+export const FLASH_CARDS = "flashCards";
+export const TRANSLATION_ELEMENTS = "translationElements";
+
 let modalsStore = [
-  { id: "notification", content: "", isActive: false },
+  { id: NOTIFICATION, content: "", isActive: false },
   {
-    id: "editModal",
+    id: EDIT_MODAL,
     from: "",
     to: "",
     isActive: false,
