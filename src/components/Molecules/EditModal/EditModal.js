@@ -14,6 +14,7 @@ import {
   EDIT_MODAL,
   FLASH_CARDS,
   TRANSLATION_ELEMENTS,
+  NOTIFICATION,
 } from "../../../reducers/modalsReducer";
 const StyledBackground = styled.div`
   position: fixed;
@@ -95,6 +96,16 @@ const EditModal = () => {
     );
   };
 
+  const removeNotification = () => {
+    setTimeout(() => {
+      dispatch(
+        updateModalStatus(NOTIFICATION, {
+          content: "",
+          isActive: false,
+        })
+      );
+    }, 1450);
+  };
   const saveNewContent = () => {
     if (section === FLASH_CARDS) {
       dispatch(
@@ -120,6 +131,13 @@ const EditModal = () => {
         section: "",
       })
     );
+    dispatch(
+      updateModalStatus(NOTIFICATION, {
+        content: "Saved",
+        isActive: true,
+      })
+    );
+    removeNotification();
   };
   return (
     <>
