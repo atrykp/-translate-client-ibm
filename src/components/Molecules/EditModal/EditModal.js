@@ -3,12 +3,13 @@ import styled from "styled-components";
 import Paragraph from "../../Atoms/Paragraph/Paragraph";
 import Button from "../../Atoms/Button/Button";
 import Input from "../../Atoms/Input/Input";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import {
   updateModalStatus,
   updateFlashCardContent,
   editListElementContent,
 } from "../../../actions/actions";
+import useReduxStore from "../../../hooks/useReduxStore";
 const StyledBackground = styled.div`
   position: fixed;
   top: 0;
@@ -73,9 +74,7 @@ const StyledParagraph = styled(Paragraph)`
 `;
 const EditModal = () => {
   const dispatch = useDispatch();
-  const [editModal] = useSelector((state) => state.modalsReducer).filter(
-    (element) => element.id === "editModal"
-  );
+  const [editModal] = useReduxStore("editModal");
   const { from, to, elementId, section } = editModal;
   const [fromContent, setFromContent] = useState(from);
   const [toContent, setToContent] = useState(to);

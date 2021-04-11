@@ -1,9 +1,9 @@
 import styled from "styled-components";
 import FlashCard from "../../Molecules/FlasCard/FlashCard";
 import SideMenu from "../../Organisms/SideMenu/SideMenu";
-import { useSelector } from "react-redux";
 import { useState } from "react";
 import Paragraph from "../../Atoms/Paragraph/Paragraph";
+import useReduxStore from "../../../hooks/useReduxStore";
 const StyledWrapper = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -33,11 +33,9 @@ const StyledFilterInfo = styled.div`
   z-index: 3;
 `;
 const FlashCardsList = () => {
-  const cardsArr = useSelector((state) => state.flashCardsReducer);
-  console.log(cardsArr);
-
+  const { flashCardsReducer } = useReduxStore();
   const [currentFilter, setCurrentFilter] = useState("all");
-  const arr = cardsArr
+  const arr = flashCardsReducer
     .filter((card) => {
       if (currentFilter === "all") {
         return card;
@@ -61,7 +59,9 @@ const FlashCardsList = () => {
       <StyledSideMenuWrapper>
         <SideMenu setCurrentFilter={setCurrentFilter} />
       </StyledSideMenuWrapper>
-      <StyledWrapper>{cardsArr.length < 1 ? <p>empty</p> : arr}</StyledWrapper>
+      <StyledWrapper>
+        {flashCardsReducer.length < 1 ? <p>empty</p> : arr}
+      </StyledWrapper>
     </>
   );
 };

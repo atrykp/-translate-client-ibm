@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import TranslationElement from "../../Molecules/TranslationElement/TranslationElement";
-import { useSelector } from "react-redux";
 import EditModal from "../../Molecules/EditModal/EditModal";
+import useReduxStore from "../../../hooks/useReduxStore";
 
 const StyledWrapper = styled.div`
   display: flex;
@@ -12,13 +12,11 @@ const StyledWrapper = styled.div`
 `;
 
 const TranslationList = () => {
-  const translationList = useSelector((state) => state.listReducer);
+  const { listReducer: translationList } = useReduxStore();
   const arr = translationList.map((element) => (
     <TranslationElement translationObj={element} key={element.id} />
   ));
-  const [editModal] = useSelector((state) => state.modalsReducer).filter(
-    (element) => element.id === "editModal"
-  );
+  const [editModal] = useReduxStore("editModal");
   return (
     <>
       {editModal?.isActive && <EditModal />}

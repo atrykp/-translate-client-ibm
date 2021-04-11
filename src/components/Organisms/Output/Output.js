@@ -2,7 +2,7 @@ import styled from "styled-components";
 import Header from "../../Atoms/Header/Header";
 import { useState } from "react";
 import Paragraph from "../../Atoms/Paragraph/Paragraph";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import {
   addFlashCard,
   addWord,
@@ -13,6 +13,7 @@ import {
 } from "../../../actions/actions";
 import { useEffect } from "react";
 import findInMyArray from "../../../helpers/findInMyArray";
+import useReduxStore from "../../../hooks/useReduxStore";
 
 const StyledOutput = styled.div`
   position: relative;
@@ -52,11 +53,9 @@ const StyledCounterWrapper = styled.div`
 `;
 
 const Output = () => {
-  const translationObj = useSelector(
-    (state) => state.currentTranslationReducer
-  );
-  const modals = useSelector((state) => state.modalsReducer);
-  const translationArr = useSelector((state) => state.listReducer);
+  const { currentTranslationReducer: translationObj } = useReduxStore();
+
+  const { listReducer: translationArr } = useReduxStore();
   const { counter, id, translation } = translationObj;
 
   const dispatch = useDispatch();

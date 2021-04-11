@@ -1,12 +1,9 @@
 import Notification from "../components/Atoms/Notification/Notification";
 import BottomBar from "../components/Organisms/BottomBar/BottomBar";
-import { useSelector } from "react-redux";
+import useReduxStore from "../hooks/useReduxStore";
 
 const MainTemplate = () => {
-  const modals = useSelector((state) => state.modalsReducer);
-  const [notificationModal] = modals.filter(
-    (element) => element.id === "notification"
-  );
+  const [notificationModal] = useReduxStore("notification");
 
   return (
     <>

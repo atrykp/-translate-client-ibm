@@ -1,12 +1,10 @@
 import FlashCardsList from "../../components/Organisms/FlashCardsList/FlashCardsList";
 import MainTemplate from "../../templates/MainTemplate";
 import EditModal from "../../components/Molecules/EditModal/EditModal";
-import { useSelector } from "react-redux";
+import useReduxStore from "../../hooks/useReduxStore";
 
 const FlashCards = () => {
-  const [editModal] = useSelector((state) => state.modalsReducer).filter(
-    (element) => element.id === "editModal"
-  );
+  const [editModal] = useReduxStore("editModal");
 
   return (
     <>

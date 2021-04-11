@@ -7,13 +7,14 @@ import RoundButton from "../../components/Atoms/RoundButton/RoundButton";
 import Output from "../../components/Organisms/Output/Output";
 import swap from "../../assets/Icons/swap.svg";
 import { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import findInMyArray from "../../helpers/findInMyArray";
 import {
   updateCurrentTranslation,
   updateWordCounter,
   removeUnseved,
 } from "../../actions/actions";
+import useReduxStore from "../../hooks/useReduxStore";
 
 const StyledWrapper = styled.div`
   min-height: 95vh;
@@ -60,7 +61,7 @@ const MainPage = () => {
   const [toLanguage, setToLanguage] = useState("pl");
   const dispatch = useDispatch();
 
-  const listArr = useSelector((state) => state.listReducer);
+  const { listReducer: listArr } = useReduxStore();
 
   const handleClick = async () => {
     let response = await fetch(
