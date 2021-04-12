@@ -13,6 +13,7 @@ const StyledWrapper = styled.div`
 
 const TranslationList = () => {
   const { listReducer: translationList } = useReduxStore();
+
   const arr = translationList.map((element) => (
     <TranslationElement translationObj={element} key={element.id} />
   ));
@@ -21,7 +22,17 @@ const TranslationList = () => {
     <>
       {editModal?.isActive && <EditModal />}
       <StyledWrapper>
-        {translationList.length < 1 ? <p>there is nothing here yet</p> : arr}
+        {translationList.length < 1 ? (
+          <p>there is nothing here yet</p>
+        ) : (
+          arr.sort(function (a, b) {
+            console.log(a);
+
+            return (
+              b.props.translationObj.counter - a.props.translationObj.counter
+            );
+          })
+        )}
       </StyledWrapper>
     </>
   );

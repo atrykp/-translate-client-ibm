@@ -150,7 +150,7 @@ const FlashCard = ({ cardContent }) => {
     <>
       <StyledWrapper isFront={frontSide}>
         <StyledSpanWrapper onClick={changeEditModalActivity}>
-          <span class="material-icons">edit</span>
+          <span className="material-icons">edit</span>
         </StyledSpanWrapper>
 
         <StyledTxtWrapper>

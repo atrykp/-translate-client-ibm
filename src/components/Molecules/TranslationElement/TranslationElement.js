@@ -123,7 +123,7 @@ const TranslationElement = ({ translationObj }) => {
     <>
       <StyledWrapper>
         <StyledSpanWrapper onClick={changeEditModalStatus}>
-          <span class="material-icons">edit</span>
+          <span className="material-icons">edit</span>
         </StyledSpanWrapper>
         <StyledTranslationWrapper>
           <StyledWordsWrapper>

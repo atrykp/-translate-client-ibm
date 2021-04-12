@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import Link from "../../Atoms/Link/Link";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 
 const StyledListWrapper = styled.div`
   position: absolute;
@@ -25,10 +25,17 @@ const StyledInput = styled.input`
 const List = ({ setLanguage, isActive, setIsActive }) => {
   const [languagesArr, setLanguagesArr] = useState([]);
   const [inputValue, setInputValue] = useState("");
+  const inputRef = useRef();
 
   useEffect(() => {
     getLanguages();
   }, []);
+
+  useEffect(() => {
+    if (isActive) {
+      inputRef.current.focus();
+    }
+  }, [isActive]);
 
   const getLanguages = async () => {
     let arrayLanguage = [];
@@ -77,6 +84,7 @@ const List = ({ setLanguage, isActive, setIsActive }) => {
         placeholder="search"
         value={inputValue}
         onChange={handleInputValue}
+        ref={inputRef}
       />
       {list ? list : "Ładuję.."}
     </StyledListWrapper>
