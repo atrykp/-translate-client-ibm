@@ -16,26 +16,11 @@ const StyledListWrapper = styled.div`
 
 const List = ({ setLanguage, isActive, setIsActive }) => {
   const [languagesArr, setLanguagesArr] = useState([]);
+  const [inputValue, setInputValue] = useState([]);
 
   useEffect(() => {
     getLanguages();
   }, []);
-
-  const setLanguagesToList = (array) => {
-    setLanguagesArr(
-      array.map((element) => (
-        <Link
-          key={Math.floor(Math.random() * 112345223)}
-          onClick={() => {
-            setLanguage(element.language);
-            setIsActive(false);
-          }}
-        >
-          {element.languageName}
-        </Link>
-      ))
-    );
-  };
 
   const getLanguages = async () => {
     let arrayLanguage = [];
@@ -48,13 +33,33 @@ const List = ({ setLanguage, isActive, setIsActive }) => {
         languageName: element.language_name,
       })
     );
-    setLanguagesToList(arrayLanguage);
+
+    setLanguagesArr(arrayLanguage);
   };
+  let list =
+    languagesArr &&
+    languagesArr.map((element) => (
+      <Link
+        key={Math.floor(Math.random() * 112345223)}
+        onClick={() => {
+          setLanguage(element.language);
+          setIsActive(false);
+        }}
+      >
+        {element.languageName}
+      </Link>
+    ));
+  const handleInputValue = ({ target }) => {};
 
   return (
     <StyledListWrapper isActive={isActive}>
-      <Input secondary placeholder="search" />
-      {languagesArr ? languagesArr : "Ładuję.."}
+      <Input
+        secondary
+        placeholder="search"
+        value={inputValue}
+        onChange={handleInputValue}
+      />
+      {list ? list : "Ładuję.."}
     </StyledListWrapper>
   );
 };
