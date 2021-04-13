@@ -129,7 +129,11 @@ const Output = () => {
       // `https://translate-app-serv.herokuapp.com/translate/listen/${translation}/${fromLanguage}/${toLanguage}`
       `http://localhost:5000/translate/listen/${translation}/${fromLanguage}/${toLanguage}`
     );
-    let listenTranslation = await response.json();
+    let listenTranslation = await response.blob();
+    const url = window.URL.createObjectURL(listenTranslation);
+    window.audio = new Audio();
+    window.audio.src = url;
+    window.audio.play();
   };
 
   return (
@@ -147,13 +151,15 @@ const Output = () => {
           <StyledSpan className="material-icons" secondary onClick={addCard}>
             library_add
           </StyledSpan>
-          <StyledSpeaker
-            className="material-icons"
-            secondary
-            // onClick={handleListen}
-          >
-            volume_up
-          </StyledSpeaker>
+          {toLanguage === "en" && (
+            <StyledSpeaker
+              className="material-icons"
+              secondary
+              onClick={handleListen}
+            >
+              volume_up
+            </StyledSpeaker>
+          )}
         </>
       )}
       {isActive && (
