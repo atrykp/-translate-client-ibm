@@ -43,6 +43,11 @@ const StyledSpan = styled.span`
   ${({ secondary }) => (secondary ? "bottom:10px" : "top:10px")}
 `;
 
+const StyledSpeaker = styled(StyledSpan)`
+  right: 50%;
+  transform: translateX(50%);
+`;
+
 const StyledCounterWrapper = styled.div`
   position: absolute;
   top: 10px;
@@ -56,7 +61,7 @@ const Output = () => {
   const { currentTranslationReducer: translationObj } = useReduxStore();
 
   const { listReducer: translationArr } = useReduxStore();
-  const { counter, id, translation } = translationObj;
+  const { counter, id, translation, fromLanguage, toLanguage } = translationObj;
 
   const dispatch = useDispatch();
   const [isActive, setIsActive] = useState(false);
@@ -119,6 +124,13 @@ const Output = () => {
     );
     removeNotification();
   };
+  const handleListen = async () => {
+    let response = await fetch(
+      // `https://translate-app-serv.herokuapp.com/translate/listen/${translation}/${fromLanguage}/${toLanguage}`
+      `http://localhost:5000/translate/listen/${translation}/${fromLanguage}/${toLanguage}`
+    );
+    let listenTranslation = await response.json();
+  };
 
   return (
     <StyledOutput>
@@ -135,6 +147,13 @@ const Output = () => {
           <StyledSpan className="material-icons" secondary onClick={addCard}>
             library_add
           </StyledSpan>
+          <StyledSpeaker
+            className="material-icons"
+            secondary
+            // onClick={handleListen}
+          >
+            volume_up
+          </StyledSpeaker>
         </>
       )}
       {isActive && (

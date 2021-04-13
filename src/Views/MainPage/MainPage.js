@@ -109,7 +109,7 @@ const MainPage = () => {
           <Dropdown setLanguage={setToLanguage} language={toLanguage} />
         </StyledDropdownWrapper>
         <StyledInput onChange={(e) => handleChange(e)} />
-        <StyledButton onClick={handleClick}>tłumacz</StyledButton>
+        <StyledButton onClick={handleClick}>Translate</StyledButton>
         <Output />
       </StyledWrapper>
       <MainTemplate />
