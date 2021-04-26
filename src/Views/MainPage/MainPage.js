@@ -59,11 +59,13 @@ const MainPage = () => {
   const [currentWord, setCurrentWord] = useState("");
   const [fromLanguage, setFromLanguage] = useState("en");
   const [toLanguage, setToLanguage] = useState("pl");
+  const [isLoading, setIsLoading] = useState(false);
   const dispatch = useDispatch();
 
   const { listReducer: listArr } = useReduxStore();
 
   const handleClick = async () => {
+    setIsLoading(true);
     let response = await fetch(
       `https://translate-app-serv.herokuapp.com/translate/${currentWord}/${fromLanguage}/${toLanguage}`
       // `http://localhost:5000/translate/${currentWord}/${fromLanguage}/${toLanguage}`
@@ -90,6 +92,7 @@ const MainPage = () => {
     } else {
       dispatch(updateCurrentTranslation(translatedObj));
     }
+    setIsLoading(false);
   };
 
   const handleChange = ({ target }) => {
@@ -110,7 +113,7 @@ const MainPage = () => {
         </StyledDropdownWrapper>
         <StyledInput onChange={(e) => handleChange(e)} />
         <StyledButton onClick={handleClick}>Translate</StyledButton>
-        <Output />
+        <Output isLoading={isLoading} />
       </StyledWrapper>
       <MainTemplate />
     </>

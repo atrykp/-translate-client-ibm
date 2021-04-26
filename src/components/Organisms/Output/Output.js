@@ -57,7 +57,7 @@ const StyledCounterWrapper = styled.div`
   align-items: center;
 `;
 
-const Output = () => {
+const Output = ({ isLoading }) => {
   const { currentTranslationReducer: translationObj } = useReduxStore();
 
   const { listReducer: translationArr } = useReduxStore();
@@ -138,7 +138,8 @@ const Output = () => {
 
   return (
     <StyledOutput>
-      <Header>{translation}</Header>
+      {isLoading && <h1>loading...</h1>}
+      <Header>{!isLoading && translation}</Header>
       {translation && (
         <>
           <StyledSpan
