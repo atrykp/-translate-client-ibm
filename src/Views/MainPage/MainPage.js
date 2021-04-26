@@ -113,7 +113,7 @@ const MainPage = () => {
         </StyledDropdownWrapper>
         <StyledInput onChange={(e) => handleChange(e)} />
         <StyledButton onClick={handleClick}>Translate</StyledButton>
-        <Output isLoading={isLoading} />
+        <Output isLoading={isLoading} setIsLoading={setIsLoading} />
       </StyledWrapper>
       <MainTemplate />
     </>

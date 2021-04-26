@@ -2,6 +2,7 @@ import styled from "styled-components";
 import Header from "../../Atoms/Header/Header";
 import { useState } from "react";
 import Paragraph from "../../Atoms/Paragraph/Paragraph";
+import Loading from "../../Atoms/Loading/Loading";
 import { useDispatch } from "react-redux";
 import {
   addFlashCard,
@@ -57,7 +58,7 @@ const StyledCounterWrapper = styled.div`
   align-items: center;
 `;
 
-const Output = ({ isLoading }) => {
+const Output = ({ isLoading, setIsLoading }) => {
   const { currentTranslationReducer: translationObj } = useReduxStore();
 
   const { listReducer: translationArr } = useReduxStore();
@@ -125,6 +126,7 @@ const Output = ({ isLoading }) => {
     removeNotification();
   };
   const handleListen = async () => {
+    setIsLoading(true);
     let response = await fetch(
       `https://translate-app-serv.herokuapp.com/translate/listen/${translation}/${fromLanguage}/${toLanguage}`
       // `http://localhost:5000/translate/listen/${translation}/${fromLanguage}/${toLanguage}`
@@ -134,11 +136,12 @@ const Output = ({ isLoading }) => {
     window.audio = new Audio();
     window.audio.src = url;
     window.audio.play();
+    setIsLoading(false);
   };
 
   return (
     <StyledOutput>
-      {isLoading && <h1>loading...</h1>}
+      {isLoading && <Loading />}
       <Header>{!isLoading && translation}</Header>
       {translation && (
         <>
