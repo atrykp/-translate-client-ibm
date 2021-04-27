@@ -73,7 +73,7 @@ const Output = ({ isLoading, setIsLoading }) => {
     } else if (counter > 1) {
       setIsActive(true);
     }
-  }, [translationObj]);
+  }, [translationObj, counter]);
 
   const handleClick = () => {
     if (counter === 0) {

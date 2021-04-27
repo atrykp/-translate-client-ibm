@@ -89,19 +89,19 @@ const SideMenu = ({ setCurrentFilter }) => {
         <StyledRow third active={isActive}>
           <StyledParagraph active={isActive}>i cant</StyledParagraph>
           <StyledRoundButton onClick={() => changeFilter(filtersArr[2])} third>
-            <span class="material-icons">close</span>
+            <span className="material-icons">close</span>
           </StyledRoundButton>
         </StyledRow>
         <StyledRow second active={isActive}>
           <StyledParagraph active={isActive}>i can</StyledParagraph>
           <StyledRoundButton second onClick={() => changeFilter(filtersArr[1])}>
-            <span class="material-icons">done</span>
+            <span className="material-icons">done</span>
           </StyledRoundButton>
         </StyledRow>
         <StyledRow first active={isActive}>
           <StyledParagraph active={isActive}>all</StyledParagraph>
           <StyledRoundButton first onClick={() => changeFilter(filtersArr[0])}>
-            <span class="material-icons">rule</span>
+            <span className="material-icons">rule</span>
           </StyledRoundButton>
         </StyledRow>
         <StyledRoundButton onClick={handleClick}>
