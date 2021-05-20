@@ -26,8 +26,6 @@ const TranslationList = () => {
           <p>there is nothing here yet</p>
         ) : (
           arr.sort(function (a, b) {
-            console.log(a);
-
             return (
               b.props.translationObj.counter - a.props.translationObj.counter
             );

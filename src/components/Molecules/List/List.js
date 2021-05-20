@@ -39,8 +39,10 @@ const List = ({ setLanguage, isActive, setIsActive }) => {
 
   const getLanguages = async () => {
     let arrayLanguage = [];
-    let response = await fetch(`https://translate-app-serv.herokuapp.com/`);
-    // let response = await fetch(`http://localhost:5000/`);
+    let response = await fetch(
+      `https://translate-app-serv.herokuapp.com/translator`
+    );
+    // let response = await fetch(`http://localhost:5000/translator`);
     let languagesObj = await response.json();
     languagesObj.result.languages.forEach((element) =>
       arrayLanguage.push({

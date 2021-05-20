@@ -79,8 +79,6 @@ const SideMenu = ({ setCurrentFilter }) => {
   const handleClick = () => setIsActive((prevValue) => !prevValue);
 
   const changeFilter = (filter) => {
-    console.log("działam");
-
     setCurrentFilter(filter);
   };
   return (

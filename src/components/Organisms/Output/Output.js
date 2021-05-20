@@ -128,8 +128,8 @@ const Output = ({ isLoading, setIsLoading }) => {
   const handleListen = async () => {
     setIsLoading(true);
     let response = await fetch(
-      `https://translate-app-serv.herokuapp.com/translate/listen/${translation}/${fromLanguage}/${toLanguage}`
-      // `http://localhost:5000/translate/listen/${translation}/${fromLanguage}/${toLanguage}`
+      `https://translate-app-serv.herokuapp.com/translator/translate/listen/${translation}/${fromLanguage}/${toLanguage}`
+      // `http://localhost:5000/translator/translate/listen/${translation}/${fromLanguage}/${toLanguage}`
     );
     let listenTranslation = await response.blob();
     const url = window.URL.createObjectURL(listenTranslation);
