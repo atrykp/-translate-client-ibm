@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import axios from "axios";
 import Input from "../../components/Atoms/Input/Input";
 import Paragraph from "../../components/Atoms/Paragraph/Paragraph";
 import Button from "../../components/Atoms/Button/Button";
+import { handleInputChange } from "../../helpers/handleInputChange";
 
 const StyledWrapper = styled.div`
   background-color: ${({ theme }) => theme.colors.lightBackground};
@@ -51,16 +53,29 @@ const StyledButton = styled(Button)`
 `;
 
 const UserLogin = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleSubmit = async () => {
+    console.log(email, password);
+  };
+
   return (
     <StyledWrapper>
       <StyledParagraph>Login</StyledParagraph>
       <StyledFormWrapper>
         <StyledLabelParagraph>Email:</StyledLabelParagraph>
-        <StyledInput type="email" />
+        <StyledInput
+          type="email"
+          onChange={(e) => handleInputChange(e.target.value, setEmail)}
+        />
         <StyledLabelParagraph>Password:</StyledLabelParagraph>
-        <StyledInput type="password" />
+        <StyledInput
+          type="password"
+          onChange={(e) => handleInputChange(e.target.value, setPassword)}
+        />
         <StyledButtonsWrapper>
-          <StyledButton>Login</StyledButton>
+          <StyledButton onClick={handleSubmit}>Login</StyledButton>
           <StyledLink to="/register">Sign Up</StyledLink>
         </StyledButtonsWrapper>
       </StyledFormWrapper>

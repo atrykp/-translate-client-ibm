@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import axios from "axios";
+
 import Input from "../../components/Atoms/Input/Input";
 import Paragraph from "../../components/Atoms/Paragraph/Paragraph";
 import Button from "../../components/Atoms/Button/Button";
+import { handleInputChange } from "../../helpers/handleInputChange";
 
 const StyledWrapper = styled.div`
   background-color: ${({ theme }) => theme.colors.lightBackground};
@@ -51,18 +54,43 @@ const StyledButton = styled(Button)`
 `;
 
 const UserRegister = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
+
+  const handleSubmit = async () => {
+    const { data } = await axios.post(
+      "http://localhost:5000/api/users/register",
+      {
+        name,
+        email,
+        password,
+      }
+    );
+    console.log(data);
+  };
+
   return (
     <StyledWrapper>
       <StyledParagraph>Register</StyledParagraph>
       <StyledFormWrapper>
         <StyledLabelParagraph>Name:</StyledLabelParagraph>
-        <StyledInput type="text" />
+        <StyledInput
+          type="text"
+          onChange={(e) => handleInputChange(e.target.value, setName)}
+        />
         <StyledLabelParagraph>Email:</StyledLabelParagraph>
-        <StyledInput type="email" />
+        <StyledInput
+          type="email"
+          onChange={(e) => handleInputChange(e.target.value, setEmail)}
+        />
         <StyledLabelParagraph>Password:</StyledLabelParagraph>
-        <StyledInput type="password" />
+        <StyledInput
+          type="password"
+          onChange={(e) => handleInputChange(e.target.value, setPassword)}
+        />
         <StyledButtonsWrapper>
-          <StyledButton>Sign Up</StyledButton>
+          <StyledButton onClick={handleSubmit}>Sign Up</StyledButton>
           <StyledLink to="/login">Login</StyledLink>
         </StyledButtonsWrapper>
       </StyledFormWrapper>
