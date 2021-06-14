@@ -2,6 +2,7 @@ import listReducer from "./listReducer";
 import currentTranslationReducer from "./currentTranslationReducer";
 import flashCardsReducer from "./flashCardsReducer";
 import modalsReducer from "./modalsReducer";
+import { userRegisterReducer } from "./userReducer";
 import { combineReducers } from "redux";
 
 const rootReducer = combineReducers({
@@ -9,6 +10,7 @@ const rootReducer = combineReducers({
   currentTranslationReducer,
   flashCardsReducer,
   modalsReducer,
+  userRegisterReducer,
 });
 
 export default rootReducer;

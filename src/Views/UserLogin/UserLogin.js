@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
+import { useForm } from "react-hook-form";
 import Input from "../../components/Atoms/Input/Input";
 import Paragraph from "../../components/Atoms/Paragraph/Paragraph";
 import Button from "../../components/Atoms/Button/Button";
-import { handleInputChange } from "../../helpers/handleInputChange";
 
 const StyledWrapper = styled.div`
   background-color: ${({ theme }) => theme.colors.lightBackground};
@@ -28,12 +28,10 @@ const StyledFormWrapper = styled.div`
   background-color: lightgray;
 `;
 const StyledParagraph = styled(Paragraph)`
-  position: absolute;
   font-size: ${({ theme }) => theme.fontSize.medium};
   color: ${({ theme }) => theme.colors.secondaryDark};
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -1000%);
+  text-align: center;
+  margin-bottom: 2%;
 `;
 const StyledLabelParagraph = styled(Paragraph)`
   margin-left: 5%;
@@ -51,31 +49,52 @@ const StyledLink = styled(Link)`
 const StyledButton = styled(Button)`
   margin-top: 10px;
 `;
+const StyledErrorParagraph = styled(Paragraph)`
+  margin: 0 auto;
+  color: darkred;
+  text-align: center;
+`;
 
 const UserLogin = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+  } = useForm();
 
-  const handleSubmit = async () => {
-    console.log(email, password);
-  };
+  const onSubmit = async (data) => console.log(data);
 
   return (
     <StyledWrapper>
-      <StyledParagraph>Login</StyledParagraph>
       <StyledFormWrapper>
+        <StyledParagraph>Login</StyledParagraph>
         <StyledLabelParagraph>Email:</StyledLabelParagraph>
         <StyledInput
-          type="email"
-          onChange={(e) => handleInputChange(e.target.value, setEmail)}
+          type="emial"
+          {...register("email", {
+            required: true,
+            pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+          })}
         />
+        <StyledErrorParagraph>
+          {errors.email?.type === "required" && "Email is required"}
+          {errors.email?.type === "pattern" && "Invalid email value"}
+        </StyledErrorParagraph>
         <StyledLabelParagraph>Password:</StyledLabelParagraph>
         <StyledInput
           type="password"
-          onChange={(e) => handleInputChange(e.target.value, setPassword)}
+          {...register("password", {
+            required: true,
+            pattern: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{5,}$/,
+          })}
         />
         <StyledButtonsWrapper>
-          <StyledButton onClick={handleSubmit}>Login</StyledButton>
+          <StyledErrorParagraph>
+            {errors.password?.type === "required" && "Password is required"}
+            {errors.password?.type === "pattern" &&
+              "Minimum five characters, at least one letter and one number"}
+          </StyledErrorParagraph>
+          <StyledButton onClick={handleSubmit(onSubmit)}>Login</StyledButton>
           <StyledLink to="/register">Sign Up</StyledLink>
         </StyledButtonsWrapper>
       </StyledFormWrapper>
