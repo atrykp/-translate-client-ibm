@@ -72,6 +72,15 @@ const StyledUserSuccess = styled.p`
   text-align: center;
 `;
 
+const StyledLoadingWrapper = styled.div`
+  justify-self: center;
+  align-self: center;
+  width: 100%;
+  display: grid;
+  justify-content: center;
+  align-content: center;
+`;
+
 const UserRegister = () => {
   const dispatch = useDispatch();
   const registerState = useSelector((state) => state.userRegisterReducer);
@@ -91,7 +100,9 @@ const UserRegister = () => {
     <StyledWrapper>
       <StyledFormWrapper>
         {loading ? (
-          <Loading />
+          <StyledLoadingWrapper>
+            <Loading />
+          </StyledLoadingWrapper>
         ) : (
           <>
             <StyledParagraph>Register</StyledParagraph>

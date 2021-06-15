@@ -16,7 +16,7 @@ function App() {
         <Route exact path="/" component={MainPage} />
         <Route path="/list" component={ListPage} />
         <Route path="/flashcards" component={FlashCards} />
-        <Redirect path="/" />
+        <Redirect to="/" />
         <Route path="/register" component={UserRegister} />
         <Route path="/login" component={UserLogin} />
       </ThemeProvider>

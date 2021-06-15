@@ -1,11 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import axios from "axios";
 import { useForm } from "react-hook-form";
 import Input from "../../components/Atoms/Input/Input";
 import Paragraph from "../../components/Atoms/Paragraph/Paragraph";
 import Button from "../../components/Atoms/Button/Button";
+import { useDispatch } from "react-redux";
+import userLoginAction from "../../thunk-actions/userLoginAction";
 
 const StyledWrapper = styled.div`
   background-color: ${({ theme }) => theme.colors.lightBackground};
@@ -61,8 +62,11 @@ const UserLogin = () => {
     formState: { errors },
     handleSubmit,
   } = useForm();
+  const dispatch = useDispatch();
 
-  const onSubmit = async (data) => console.log(data);
+  const onSubmit = async (data) => {
+    dispatch(userLoginAction(data));
+  };
 
   return (
     <StyledWrapper>
