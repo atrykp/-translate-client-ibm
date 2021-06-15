@@ -1,11 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
+import { useHistory } from "react-router-dom";
+import Loading from "../../components/Atoms/Loading/Loading";
 import Input from "../../components/Atoms/Input/Input";
 import Paragraph from "../../components/Atoms/Paragraph/Paragraph";
 import Button from "../../components/Atoms/Button/Button";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import userLoginAction from "../../thunk-actions/userLoginAction";
 
 const StyledWrapper = styled.div`
@@ -55,6 +57,20 @@ const StyledErrorParagraph = styled(Paragraph)`
   color: darkred;
   text-align: center;
 `;
+const StyledLoadingWrapper = styled.div`
+  justify-self: center;
+  align-self: center;
+  width: 100%;
+  display: grid;
+  justify-content: center;
+  align-content: center;
+`;
+const StyledUserWarning = styled.p`
+  font-size: 2.5rem;
+  background-color: darkred;
+  color: white;
+  text-align: center;
+`;
 
 const UserLogin = () => {
   const {
@@ -62,8 +78,19 @@ const UserLogin = () => {
     formState: { errors },
     handleSubmit,
   } = useForm();
-  const dispatch = useDispatch();
 
+  const history = useHistory();
+
+  const dispatch = useDispatch();
+  const userLoginState = useSelector((state) => state.userLoginReducer);
+
+  const { loading, user, error } = userLoginState;
+
+  useEffect(() => {
+    if (user._id) {
+      history.push("/");
+    }
+  }, [user, history]);
   const onSubmit = async (data) => {
     dispatch(userLoginAction(data));
   };
@@ -71,36 +98,47 @@ const UserLogin = () => {
   return (
     <StyledWrapper>
       <StyledFormWrapper>
-        <StyledParagraph>Login</StyledParagraph>
-        <StyledLabelParagraph>Email:</StyledLabelParagraph>
-        <StyledInput
-          type="emial"
-          {...register("email", {
-            required: true,
-            pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-          })}
-        />
-        <StyledErrorParagraph>
-          {errors.email?.type === "required" && "Email is required"}
-          {errors.email?.type === "pattern" && "Invalid email value"}
-        </StyledErrorParagraph>
-        <StyledLabelParagraph>Password:</StyledLabelParagraph>
-        <StyledInput
-          type="password"
-          {...register("password", {
-            required: true,
-            pattern: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{5,}$/,
-          })}
-        />
-        <StyledButtonsWrapper>
-          <StyledErrorParagraph>
-            {errors.password?.type === "required" && "Password is required"}
-            {errors.password?.type === "pattern" &&
-              "Minimum five characters, at least one letter and one number"}
-          </StyledErrorParagraph>
-          <StyledButton onClick={handleSubmit(onSubmit)}>Login</StyledButton>
-          <StyledLink to="/register">Sign Up</StyledLink>
-        </StyledButtonsWrapper>
+        {loading ? (
+          <StyledLoadingWrapper>
+            <Loading />
+          </StyledLoadingWrapper>
+        ) : (
+          <>
+            <StyledParagraph>Login</StyledParagraph>
+            {error && <StyledUserWarning>{error}</StyledUserWarning>}
+            <StyledLabelParagraph>Email:</StyledLabelParagraph>
+            <StyledInput
+              type="emial"
+              {...register("email", {
+                required: true,
+                pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+              })}
+            />
+            <StyledErrorParagraph>
+              {errors.email?.type === "required" && "Email is required"}
+              {errors.email?.type === "pattern" && "Invalid email value"}
+            </StyledErrorParagraph>
+            <StyledLabelParagraph>Password:</StyledLabelParagraph>
+            <StyledInput
+              type="password"
+              {...register("password", {
+                required: true,
+                pattern: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{5,}$/,
+              })}
+            />
+            <StyledButtonsWrapper>
+              <StyledErrorParagraph>
+                {errors.password?.type === "required" && "Password is required"}
+                {errors.password?.type === "pattern" &&
+                  "Minimum five characters, at least one letter and one number"}
+              </StyledErrorParagraph>
+              <StyledButton onClick={handleSubmit(onSubmit)}>
+                Login
+              </StyledButton>
+              <StyledLink to="/register">Sign Up</StyledLink>
+            </StyledButtonsWrapper>
+          </>
+        )}
       </StyledFormWrapper>
     </StyledWrapper>
   );

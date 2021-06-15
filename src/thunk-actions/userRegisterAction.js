@@ -19,7 +19,6 @@ const userRegisterAction = (user) => async (dispatch) => {
         password,
       }
     );
-    console.log(responseData);
 
     dispatch(registerSuccess());
   } catch (error) {
