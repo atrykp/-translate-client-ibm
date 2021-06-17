@@ -2,6 +2,9 @@ import styled from "styled-components";
 import TranslationElement from "../../Molecules/TranslationElement/TranslationElement";
 import EditModal from "../../Molecules/EditModal/EditModal";
 import useReduxStore from "../../../hooks/useReduxStore";
+import { useDispatch } from "react-redux";
+import { userTListAction } from "../../../thunk-actions/userTListAction";
+import { useEffect } from "react";
 
 const StyledWrapper = styled.div`
   display: flex;
@@ -13,6 +16,17 @@ const StyledWrapper = styled.div`
 
 const TranslationList = () => {
   const { listReducer: translationList } = useReduxStore();
+  const { tListReducer: tList } = useReduxStore();
+  const dispatch = useDispatch();
+  console.log(tList);
+
+  useEffect(() => {
+    dispatch(
+      userTListAction(
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwYzc3NTQyY2VlNWQzMjA4NDdlOTgzNCIsImlhdCI6MTYyMzkwNTkwMCwiZXhwIjoxNjIzOTA5NTAwfQ.b3AYvrLMSWTpzyY6v1gHBTqLpXm6dqfUG0N8AMPu3k8"
+      )
+    );
+  }, []);
 
   const arr = translationList.map((element) => (
     <TranslationElement translationObj={element} key={element.id} />

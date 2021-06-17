@@ -6,6 +6,12 @@ import {
   EDIT_LIST_CONTENT,
 } from "../actions/actions";
 
+import {
+  GET_T_LIST_FAIL,
+  GET_T_LIST_REQUEST,
+  GET_T_LIST_SUCCESS,
+} from "../actions/tList-actions";
+
 const listReducer = (store = [], action) => {
   switch (action.type) {
     case ADD_WORD:
@@ -36,4 +42,22 @@ const listReducer = (store = [], action) => {
   }
 };
 
+const initialState = {
+  loading: false,
+  error: "",
+  userTList: [],
+};
+
+export const tListReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case GET_T_LIST_REQUEST:
+      return { ...state, loading: true };
+    case GET_T_LIST_SUCCESS:
+      return { ...state, loading: false, userTList: [...action.payload.list] };
+    case GET_T_LIST_FAIL:
+      return { ...state, loading: false, error: action.payload.error };
+    default:
+      return state;
+  }
+};
 export default listReducer;
