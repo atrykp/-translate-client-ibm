@@ -18,15 +18,10 @@ const TranslationList = () => {
   const { listReducer: translationList } = useReduxStore();
   const { tListReducer: tList } = useReduxStore();
   const dispatch = useDispatch();
-  console.log(tList);
 
-  useEffect(() => {
-    dispatch(
-      userTListAction(
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwYzc3NTQyY2VlNWQzMjA4NDdlOTgzNCIsImlhdCI6MTYyMzkwNTkwMCwiZXhwIjoxNjIzOTA5NTAwfQ.b3AYvrLMSWTpzyY6v1gHBTqLpXm6dqfUG0N8AMPu3k8"
-      )
-    );
-  }, []);
+  // useEffect(() => {
+  //   dispatch(userTListAction());
+  // }, []);
 
   const arr = translationList.map((element) => (
     <TranslationElement translationObj={element} key={element.id} />

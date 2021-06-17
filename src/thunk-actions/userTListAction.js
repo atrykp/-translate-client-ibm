@@ -6,21 +6,23 @@ import {
 } from "../actions/tList-actions";
 
 export const userTListAction = (token) => async (dispatch) => {
-  dispatch(getListRequest());
   try {
+    dispatch(getListRequest());
     const config = {
       headers: {
+        "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
     };
-    const list = await axios.get(
+    const { data } = await axios.get(
       "http://localhost:5000/translator/list",
       config
     );
-    if (!list) {
+
+    if (!data) {
       throw new Error("something went wrong");
     }
-    dispatch(getListSuccess(list));
+    dispatch(getListSuccess(data.userList));
   } catch (error) {
     dispatch(getListFail(error.message));
   }
