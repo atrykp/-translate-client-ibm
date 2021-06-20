@@ -15,6 +15,7 @@ import {
   removeUnseved,
 } from "../../actions/actions";
 import useReduxStore from "../../hooks/useReduxStore";
+import { useEffect } from "react";
 
 const StyledWrapper = styled.div`
   min-height: 95vh;
@@ -56,37 +57,35 @@ const StyledInput = styled(Input)`
 `;
 
 const MainPage = () => {
-  const [currentWord, setCurrentWord] = useState("");
-  const [fromLanguage, setFromLanguage] = useState("en");
-  const [toLanguage, setToLanguage] = useState("pl");
+  const [fromWord, setFromWord] = useState("");
+  const [fromLang, setFromLang] = useState("en");
+  const [toLang, setToLang] = useState("pl");
   const [isLoading, setIsLoading] = useState(false);
   const dispatch = useDispatch();
-
-  const { listReducer: listArr } = useReduxStore();
+  const { userLoginReducer: user } = useReduxStore();
+  const { tListReducer: translationList } = useReduxStore();
 
   const handleClick = async () => {
     setIsLoading(true);
     let response = await fetch(
-      `https://translate-app-serv.herokuapp.com/translator/translate/${currentWord}/${fromLanguage}/${toLanguage}`
-      // `http://localhost:5000/translator/translate/${currentWord}/${fromLanguage}/${toLanguage}`
+      `https://translate-app-serv.herokuapp.com/translator/translate/${fromWord}/${fromLang}/${toLang}`
+      // `http://localhost:5000/translator/translate/${fromWord}/${fromLang}/${toLang}`
     );
     let translateObj = await response.json();
-    let backTxt = translateObj.result.translations[0].translation;
-    if (listArr.length > 0) {
-      dispatch(removeUnseved());
-    }
-    // fromWord, toWord, fromLang, toLang, _id, counter
+
+    let toWord = translateObj.result.translations[0].translation;
+
     const translatedObj = {
-      currentWord,
-      translation: backTxt,
-      fromLanguage,
-      toLanguage,
+      fromWord,
+      toWord,
+      fromLang,
+      toLang,
       counter: 0,
     };
 
-    const translated = findInMyArray(translatedObj, listArr);
+    const translated = findInMyArray(translatedObj, translationList.userTList);
 
-    if (translated) {
+    if (translated && user.user.token) {
       dispatch(updateWordCounter(translated.id, translated.counter + 1));
       dispatch(updateCurrentTranslation(translated));
     } else {
@@ -96,20 +95,20 @@ const MainPage = () => {
   };
 
   const handleChange = ({ target }) => {
-    setCurrentWord(target.value);
+    setFromWord(target.value);
   };
   const switchLanguages = () => {
-    setFromLanguage(toLanguage);
-    setToLanguage(fromLanguage);
+    setFromLang(toLang);
+    setToLang(fromLang);
   };
 
   return (
     <>
       <StyledWrapper>
         <StyledDropdownWrapper>
-          <Dropdown setLanguage={setFromLanguage} language={fromLanguage} />
+          <Dropdown setLanguage={setFromLang} language={fromLang} />
           <StyledRoundButton onClick={switchLanguages} />
-          <Dropdown setLanguage={setToLanguage} language={toLanguage} />
+          <Dropdown setLanguage={setToLang} language={toLang} />
         </StyledDropdownWrapper>
         <StyledInput onChange={(e) => handleChange(e)} />
         <StyledButton onClick={handleClick}>Translate</StyledButton>

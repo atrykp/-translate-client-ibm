@@ -15,6 +15,8 @@ import {
 import { useEffect } from "react";
 import findInMyArray from "../../../helpers/findInMyArray";
 import useReduxStore from "../../../hooks/useReduxStore";
+import { useHistory } from "react-router-dom";
+import { saveWordAction } from "../../../thunk-actions/userTListAction";
 
 const StyledOutput = styled.div`
   position: relative;
@@ -59,9 +61,11 @@ const StyledCounterWrapper = styled.div`
 `;
 
 const Output = ({ isLoading, setIsLoading }) => {
+  const history = useHistory();
   const { currentTranslationReducer: translationObj } = useReduxStore();
   const { listReducer: translationArr } = useReduxStore();
-  const { counter, id, translation, fromLanguage, toLanguage } = translationObj;
+  const { userLoginReducer: user } = useReduxStore();
+  const { counter, id, toWord, fromLang, toLang } = translationObj;
 
   const dispatch = useDispatch();
   const [isActive, setIsActive] = useState(false);
@@ -75,8 +79,13 @@ const Output = ({ isLoading, setIsLoading }) => {
   }, [translationObj, counter]);
 
   const handleClick = () => {
+    const token = user.user?.token;
+    if (!token) {
+      history.push("/login");
+    }
+
     if (counter === 0) {
-      dispatch(addWord(translationObj));
+      dispatch(saveWordAction(token, translationObj));
       dispatch(updateWordCounter(id, 1));
       setIsActive(true);
       dispatch(
@@ -127,8 +136,8 @@ const Output = ({ isLoading, setIsLoading }) => {
   const handleListen = async () => {
     setIsLoading(true);
     let response = await fetch(
-      `https://translate-app-serv.herokuapp.com/translator/translate/listen/${translation}/${fromLanguage}/${toLanguage}`
-      // `http://localhost:5000/translator/translate/listen/${translation}/${fromLanguage}/${toLanguage}`
+      `https://translate-app-serv.herokuapp.com/translator/translate/listen/${toWord}/${fromLang}/${toLang}`
+      // `http://localhost:5000/translator/translate/listen/${toWord}/${fromLang}/${toLang}`
     );
     let listenTranslation = await response.blob();
     const url = window.URL.createObjectURL(listenTranslation);
@@ -141,8 +150,8 @@ const Output = ({ isLoading, setIsLoading }) => {
   return (
     <StyledOutput>
       {isLoading && <Loading />}
-      <Header>{!isLoading && translation}</Header>
-      {translation && (
+      <Header>{!isLoading && toWord}</Header>
+      {toWord && (
         <>
           <StyledSpan
             onClick={handleClick}
@@ -154,7 +163,7 @@ const Output = ({ isLoading, setIsLoading }) => {
           <StyledSpan className="material-icons" secondary onClick={addCard}>
             library_add
           </StyledSpan>
-          {toLanguage === "en" && (
+          {toLang === "en" && (
             <StyledSpeaker
               className="material-icons"
               secondary

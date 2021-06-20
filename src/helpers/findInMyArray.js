@@ -1,8 +1,8 @@
 const findInMyArray = (translatedObj, translationArr) => {
   const newArray = translationArr.filter((element) => {
     return (
-      element.fromLanguage === translatedObj.fromLanguage &&
-      element.translation === translatedObj.translation
+      element.fromLang === translatedObj.fromLang &&
+      element.toWord === translatedObj.toWord
     );
   });
   return newArray.length > 0 ? newArray[0] : false;

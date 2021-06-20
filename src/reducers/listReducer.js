@@ -7,6 +7,9 @@ import {
 } from "../actions/actions";
 
 import {
+  ADD_WORD_TO_LIST_FAIL,
+  ADD_WORD_TO_LIST_REQUEST,
+  ADD_WORD_TO_LIST_SUCCESS,
   GET_T_LIST_FAIL,
   GET_T_LIST_REQUEST,
   GET_T_LIST_SUCCESS,
@@ -55,6 +58,23 @@ export const tListReducer = (state = initialState, action) => {
     case GET_T_LIST_SUCCESS:
       return { ...state, loading: false, userTList: [...action.payload.list] };
     case GET_T_LIST_FAIL:
+      return { ...state, loading: false, error: action.payload.error };
+    default:
+      return state;
+  }
+};
+const addWordInit = {
+  loading: false,
+  error: "",
+  success: false,
+};
+export const addWordReducer = (state = addWordInit, action) => {
+  switch (action.type) {
+    case ADD_WORD_TO_LIST_REQUEST:
+      return { ...state, loading: true };
+    case ADD_WORD_TO_LIST_SUCCESS:
+      return { ...state, loading: false, success: true };
+    case ADD_WORD_TO_LIST_FAIL:
       return { ...state, loading: false, error: action.payload.error };
     default:
       return state;

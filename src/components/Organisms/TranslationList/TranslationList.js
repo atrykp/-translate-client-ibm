@@ -33,7 +33,6 @@ const TranslationList = () => {
   const arr = tList.userTList.map((element) => (
     <TranslationElement translationObj={element} key={element._id} />
   ));
-  console.log(arr);
 
   const [editModal] = useReduxStore("editModal");
   return (

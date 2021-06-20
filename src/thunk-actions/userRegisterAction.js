@@ -6,8 +6,6 @@ import {
 } from "../actions/user-actions";
 
 const userRegisterAction = (user) => async (dispatch) => {
-  console.log("jestem w dispatchu");
-
   dispatch(registerRequest());
   const { name, email, password } = user;
   try {
