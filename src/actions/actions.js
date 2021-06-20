@@ -60,7 +60,6 @@ export const updateCurrentTranslation = (obj) => ({
   type: UPDATE_CURRENT_TRANSLATION,
   payload: {
     obj,
-    id: makeId(),
   },
 });
 export const editListElementContent = (id, obj) => ({

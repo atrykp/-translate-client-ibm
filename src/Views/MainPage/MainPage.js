@@ -9,13 +9,9 @@ import swap from "../../assets/Icons/swap.svg";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import findInMyArray from "../../helpers/findInMyArray";
-import {
-  updateCurrentTranslation,
-  updateWordCounter,
-  removeUnseved,
-} from "../../actions/actions";
+import { updateCurrentTranslation } from "../../actions/actions";
 import useReduxStore from "../../hooks/useReduxStore";
-import { useEffect } from "react";
+import { updateWordCouterAction } from "../../thunk-actions/userTListAction";
 
 const StyledWrapper = styled.div`
   min-height: 95vh;
@@ -86,8 +82,12 @@ const MainPage = () => {
     const translated = findInMyArray(translatedObj, translationList.userTList);
 
     if (translated && user.user.token) {
-      dispatch(updateWordCounter(translated.id, translated.counter + 1));
-      dispatch(updateCurrentTranslation(translated));
+      const [currentTranslation] = translationList.userTList.filter(
+        (element) => element._id === translated._id
+      );
+
+      dispatch(updateWordCouterAction(user.user.token, translated._id));
+      dispatch(updateCurrentTranslation(currentTranslation));
     } else {
       dispatch(updateCurrentTranslation(translatedObj));
     }

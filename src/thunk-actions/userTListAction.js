@@ -6,6 +6,9 @@ import {
   saveWordFail,
   saveWordRequest,
   saveWordSuccess,
+  updateWordCounterFail,
+  updateWordCounterRequest,
+  updateWordCounterSuccess,
 } from "../actions/tList-actions";
 
 export const userTListAction = (token) => async (dispatch) => {
@@ -51,5 +54,28 @@ export const saveWordAction = (token, translationObj) => async (dispatch) => {
     dispatch(saveWordSuccess());
   } catch (error) {
     dispatch(saveWordFail(error.message));
+  }
+};
+export const updateWordCouterAction = (token, id) => async (dispatch) => {
+  try {
+    dispatch(updateWordCounterRequest());
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    const { data } = await axios.patch(
+      `http://localhost:5000/translator/list`,
+      { id },
+      config
+    );
+
+    if (!data) {
+      throw new Error("something went wrong");
+    }
+    dispatch(updateWordCounterSuccess());
+  } catch (error) {
+    dispatch(updateWordCounterFail(error.message));
   }
 };

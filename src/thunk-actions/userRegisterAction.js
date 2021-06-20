@@ -9,14 +9,11 @@ const userRegisterAction = (user) => async (dispatch) => {
   dispatch(registerRequest());
   const { name, email, password } = user;
   try {
-    const { data: responseData } = await axios.post(
-      "http://localhost:5000/api/users/register",
-      {
-        name,
-        email,
-        password,
-      }
-    );
+    await axios.post("http://localhost:5000/api/users/register", {
+      name,
+      email,
+      password,
+    });
 
     dispatch(registerSuccess());
   } catch (error) {

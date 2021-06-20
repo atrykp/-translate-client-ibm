@@ -6,7 +6,6 @@ import Loading from "../../Atoms/Loading/Loading";
 import { useDispatch } from "react-redux";
 import {
   addFlashCard,
-  addWord,
   removeWord,
   updateModalStatus,
   updateWordCounter,
@@ -63,9 +62,10 @@ const StyledCounterWrapper = styled.div`
 const Output = ({ isLoading, setIsLoading }) => {
   const history = useHistory();
   const { currentTranslationReducer: translationObj } = useReduxStore();
-  const { listReducer: translationArr } = useReduxStore();
+  const { tListReducer: translationList } = useReduxStore();
   const { userLoginReducer: user } = useReduxStore();
   const { counter, id, toWord, fromLang, toLang } = translationObj;
+  console.log(translationList);
 
   const dispatch = useDispatch();
   const [isActive, setIsActive] = useState(false);
@@ -76,7 +76,7 @@ const Output = ({ isLoading, setIsLoading }) => {
     } else if (counter > 1) {
       setIsActive(true);
     }
-  }, [translationObj, counter]);
+  }, [counter]);
 
   const handleClick = () => {
     const token = user.user?.token;
@@ -85,8 +85,8 @@ const Output = ({ isLoading, setIsLoading }) => {
     }
 
     if (counter === 0) {
-      dispatch(saveWordAction(token, translationObj));
-      dispatch(updateWordCounter(id, 1));
+      dispatch(saveWordAction(token, { ...translationObj, counter: 1 }));
+      dispatch(updateCurrentTranslation({ ...translationObj, counter: 1 }));
       setIsActive(true);
       dispatch(
         updateModalStatus("notification", {
@@ -98,7 +98,10 @@ const Output = ({ isLoading, setIsLoading }) => {
       translationObj.counter = 0;
       dispatch(updateCurrentTranslation(translationObj));
       dispatch(updateWordCounter(id, 0));
-      const translated = findInMyArray(translationObj, translationArr);
+      const translated = findInMyArray(
+        translationObj,
+        translationList.userTList
+      );
       dispatch(removeWord(translated.id));
       setIsActive(false);
       dispatch(
