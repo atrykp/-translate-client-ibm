@@ -75,7 +75,7 @@ const MainPage = () => {
     if (listArr.length > 0) {
       dispatch(removeUnseved());
     }
-
+    // fromWord, toWord, fromLang, toLang, _id, counter
     const translatedObj = {
       currentWord,
       translation: backTxt,

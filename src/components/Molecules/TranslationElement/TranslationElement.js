@@ -79,16 +79,9 @@ const StyledSpanWrapper = styled.span`
 `;
 const TranslationElement = ({ translationObj }) => {
   const dispatch = useDispatch();
-  const {
-    currentWord,
-    translation,
-    fromLanguage,
-    toLanguage,
-    id,
-    counter,
-  } = translationObj;
+  const { fromWord, toWord, fromLang, toLang, _id, counter } = translationObj;
   const removeItem = () => {
-    dispatch(removeWord(id));
+    dispatch(removeWord(_id));
     dispatch(
       updateModalStatus("notification", {
         content: "removed",
@@ -111,10 +104,10 @@ const TranslationElement = ({ translationObj }) => {
   const changeEditModalStatus = () => {
     dispatch(
       updateModalStatus("editModal", {
-        from: currentWord,
-        to: translation,
+        from: fromWord,
+        to: toWord,
         isActive: true,
-        elementId: id,
+        elementId: _id,
         section: "translationElements",
       })
     );
@@ -127,12 +120,12 @@ const TranslationElement = ({ translationObj }) => {
         </StyledSpanWrapper>
         <StyledTranslationWrapper>
           <StyledWordsWrapper>
-            <StyledHeader>{currentWord}</StyledHeader>
-            <StyledParagraph>{fromLanguage}</StyledParagraph>
+            <StyledHeader>{fromWord}</StyledHeader>
+            <StyledParagraph>{fromLang}</StyledParagraph>
           </StyledWordsWrapper>
           <StyledWordsWrapper>
-            <StyledHeader>{translation}</StyledHeader>
-            <StyledParagraph>{toLanguage}</StyledParagraph>
+            <StyledHeader>{toWord}</StyledHeader>
+            <StyledParagraph>{toLang}</StyledParagraph>
           </StyledWordsWrapper>
         </StyledTranslationWrapper>
         <StyledElementsWrapper>

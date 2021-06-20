@@ -60,7 +60,6 @@ const StyledCounterWrapper = styled.div`
 
 const Output = ({ isLoading, setIsLoading }) => {
   const { currentTranslationReducer: translationObj } = useReduxStore();
-
   const { listReducer: translationArr } = useReduxStore();
   const { counter, id, translation, fromLanguage, toLanguage } = translationObj;
 

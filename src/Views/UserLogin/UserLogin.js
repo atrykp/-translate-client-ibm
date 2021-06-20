@@ -88,7 +88,7 @@ const UserLogin = () => {
 
   useEffect(() => {
     if (user._id) {
-      history.push("/");
+      history.push("/list");
     }
   }, [user, history]);
   const onSubmit = async (data) => {

@@ -5,6 +5,7 @@ import useReduxStore from "../../../hooks/useReduxStore";
 import { useDispatch } from "react-redux";
 import { userTListAction } from "../../../thunk-actions/userTListAction";
 import { useEffect } from "react";
+import { useHistory } from "react-router";
 
 const StyledWrapper = styled.div`
   display: flex;
@@ -15,23 +16,31 @@ const StyledWrapper = styled.div`
 `;
 
 const TranslationList = () => {
-  const { listReducer: translationList } = useReduxStore();
   const { tListReducer: tList } = useReduxStore();
+  const { userLoginReducer: userLogin } = useReduxStore();
+  const history = useHistory();
+
   const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   dispatch(userTListAction());
-  // }, []);
+  useEffect(() => {
+    if (userLogin.user?.token) {
+      dispatch(userTListAction(userLogin.user.token));
+    } else {
+      history.push("/login");
+    }
+  }, [userLogin, dispatch, history]);
 
-  const arr = translationList.map((element) => (
-    <TranslationElement translationObj={element} key={element.id} />
+  const arr = tList.userTList.map((element) => (
+    <TranslationElement translationObj={element} key={element._id} />
   ));
+  console.log(arr);
+
   const [editModal] = useReduxStore("editModal");
   return (
     <>
       {editModal?.isActive && <EditModal />}
       <StyledWrapper>
-        {translationList.length < 1 ? (
+        {tList.userTList.length < 1 ? (
           <p>there is nothing here yet</p>
         ) : (
           arr.sort(function (a, b) {
