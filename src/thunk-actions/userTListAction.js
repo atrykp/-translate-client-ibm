@@ -9,6 +9,9 @@ import {
   updateWordCounterFail,
   updateWordCounterRequest,
   updateWordCounterSuccess,
+  getWordByIdRequest,
+  getWordByIdFail,
+  getWordByIdSuccess,
 } from "../actions/tList-actions";
 
 export const userTListAction = (token) => async (dispatch) => {
@@ -77,5 +80,27 @@ export const updateWordCouterAction = (token, id) => async (dispatch) => {
     dispatch(updateWordCounterSuccess());
   } catch (error) {
     dispatch(updateWordCounterFail(error.message));
+  }
+};
+export const getWordByIdAction = (token, id) => async (dispatch) => {
+  try {
+    dispatch(getWordByIdRequest());
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    const { data } = await axios.get(
+      `http://localhost:5000/translator/list/${id}`,
+      config
+    );
+
+    if (!data) {
+      throw new Error("something went wrong");
+    }
+    dispatch(getWordByIdSuccess(data));
+  } catch (error) {
+    dispatch(getWordByIdFail(error.message));
   }
 };

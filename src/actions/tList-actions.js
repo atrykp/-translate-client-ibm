@@ -7,6 +7,9 @@ export const ADD_WORD_TO_LIST_FAIL = "ADD_WORD_TO_LIST_FAIL";
 export const UPDATE_WORD_COUNTER_REQUEST = "UPDATE_WORD_COUNTER_REQUEST";
 export const UPDATE_WORD_COUNTER_SUCCESS = " UPDATE_WORD_COUNTER_SUCCESS";
 export const UPDATE_WORD_COUNTER_FAIL = "UPDATE_WORD_COUNTER_FAIL";
+export const GET_WORD_BY_ID_REQUEST = "GET_WORD_BY_ID_REQUEST";
+export const GET_WORD_BY_ID_SUCCESS = " GET_WORD_BY_ID_SUCCESS";
+export const GET_WORD_BY_ID_FAIL = "GET_WORD_BY_ID_FAIL";
 
 export const getListRequest = () => ({
   type: GET_T_LIST_REQUEST,
@@ -43,6 +46,21 @@ export const updateWordCounterSuccess = () => ({
 });
 export const updateWordCounterFail = (error) => ({
   type: UPDATE_WORD_COUNTER_FAIL,
+  payload: {
+    error,
+  },
+});
+export const getWordByIdRequest = () => ({
+  type: GET_WORD_BY_ID_REQUEST,
+});
+export const getWordByIdSuccess = (sentence) => ({
+  type: GET_WORD_BY_ID_SUCCESS,
+  payload: {
+    sentence,
+  },
+});
+export const getWordByIdFail = (error) => ({
+  type: GET_WORD_BY_ID_FAIL,
   payload: {
     error,
   },
