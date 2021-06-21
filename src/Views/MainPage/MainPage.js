@@ -11,7 +11,10 @@ import { useDispatch } from "react-redux";
 import findInMyArray from "../../helpers/findInMyArray";
 import { updateCurrentTranslation } from "../../actions/actions";
 import useReduxStore from "../../hooks/useReduxStore";
-import { updateWordCouterAction } from "../../thunk-actions/userTListAction";
+import {
+  getWordByIdAction,
+  updateWordCouterAction,
+} from "../../thunk-actions/userTListAction";
 
 const StyledWrapper = styled.div`
   min-height: 95vh;
@@ -57,7 +60,9 @@ const MainPage = () => {
   const [fromLang, setFromLang] = useState("en");
   const [toLang, setToLang] = useState("pl");
   const [isLoading, setIsLoading] = useState(false);
+
   const dispatch = useDispatch();
+
   const { userLoginReducer: user } = useReduxStore();
   const { tListReducer: translationList } = useReduxStore();
 
@@ -82,12 +87,13 @@ const MainPage = () => {
     const translated = findInMyArray(translatedObj, translationList.userTList);
 
     if (translated && user.user.token) {
-      const [currentTranslation] = translationList.userTList.filter(
-        (element) => element._id === translated._id
-      );
-
-      dispatch(updateWordCouterAction(user.user.token, translated._id));
-      dispatch(updateCurrentTranslation(currentTranslation));
+      const translationId = translated._id;
+      try {
+        dispatch(updateWordCouterAction(user.user.token, translationId));
+        dispatch(getWordByIdAction(user.user.token, translationId));
+      } catch (error) {
+        console.log(error);
+      }
     } else {
       dispatch(updateCurrentTranslation(translatedObj));
     }

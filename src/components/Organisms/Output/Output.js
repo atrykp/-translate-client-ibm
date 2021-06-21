@@ -59,16 +59,32 @@ const StyledCounterWrapper = styled.div`
   align-items: center;
 `;
 
+const initialOutput = {
+  counter: null,
+  id: "",
+  toWord: "",
+  fromLang: "",
+  toLang: "",
+};
 const Output = ({ isLoading, setIsLoading }) => {
+  const [output, setOutput] = useState(initialOutput);
   const history = useHistory();
   const { currentTranslationReducer: translationObj } = useReduxStore();
   const { tListReducer: translationList } = useReduxStore();
   const { userLoginReducer: user } = useReduxStore();
-  const { counter, id, toWord, fromLang, toLang } = translationObj;
-  console.log(translationList);
+  const { getWordByIdReducer: currentTranslation } = useReduxStore();
+  const { counter, id, toWord, fromLang, toLang } = output;
 
   const dispatch = useDispatch();
   const [isActive, setIsActive] = useState(false);
+
+  useEffect(() => {
+    if (user.user.token && currentTranslation.sentence._id) {
+      setOutput(currentTranslation.sentence);
+    } else {
+      setOutput(translationObj);
+    }
+  }, [user, currentTranslation, translationObj]);
 
   useEffect(() => {
     if (counter < 1) {
