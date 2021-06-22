@@ -15,6 +15,7 @@ import {
   getWordByIdAction,
   updateWordCouterAction,
 } from "../../thunk-actions/userTListAction";
+import { getWordByIdReset } from "../../actions/tList-actions";
 
 const StyledWrapper = styled.div`
   min-height: 95vh;
@@ -67,6 +68,8 @@ const MainPage = () => {
   const { tListReducer: translationList } = useReduxStore();
 
   const handleClick = async () => {
+    dispatch(getWordByIdReset());
+    dispatch(updateCurrentTranslation({}));
     setIsLoading(true);
     let response = await fetch(
       `https://translate-app-serv.herokuapp.com/translator/translate/${fromWord}/${fromLang}/${toLang}`
@@ -116,7 +119,7 @@ const MainPage = () => {
           <StyledRoundButton onClick={switchLanguages} />
           <Dropdown setLanguage={setToLang} language={toLang} />
         </StyledDropdownWrapper>
-        <StyledInput onChange={(e) => handleChange(e)} />
+        <StyledInput onChange={(e) => handleChange(e)} required />
         <StyledButton onClick={handleClick}>Translate</StyledButton>
         <Output isLoading={isLoading} setIsLoading={setIsLoading} />
       </StyledWrapper>

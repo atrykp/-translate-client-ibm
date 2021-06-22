@@ -16,6 +16,7 @@ import {
   GET_WORD_BY_ID_FAIL,
   GET_WORD_BY_ID_REQUEST,
   GET_WORD_BY_ID_SUCCESS,
+  GET_WORD_BY_ID_RESET,
   UPDATE_WORD_COUNTER_FAIL,
   UPDATE_WORD_COUNTER_REQUEST,
   UPDATE_WORD_COUNTER_SUCCESS,
@@ -112,6 +113,8 @@ export const getWordByIdReducer = (state = getWordInital, action) => {
       return { ...state, loading: false, sentence: action.payload.sentence };
     case GET_WORD_BY_ID_FAIL:
       return { ...state, loading: false, error: action.payload.error };
+    case GET_WORD_BY_ID_RESET:
+      return { ...state, ...getWordInital };
     default:
       return state;
   }

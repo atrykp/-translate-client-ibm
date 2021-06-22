@@ -92,7 +92,7 @@ const Output = ({ isLoading, setIsLoading }) => {
     } else if (counter > 1) {
       setIsActive(true);
     }
-  }, [counter]);
+  }, [counter, id]);
 
   const handleClick = () => {
     const token = user.user?.token;
