@@ -64,10 +64,17 @@ const Output = ({
 
   const { userLoginReducer: user } = useReduxStore();
 
-  const { counter, _id, toWord, fromLang, toLang, fromWord } =
-    translatedObj || {};
+  const { counter, toWord, fromLang, toLang, fromWord } = translatedObj || {};
 
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (counter < 1) {
+      setIsActive(false);
+    } else if (counter > 1) {
+      setIsActive(true);
+    }
+  }, [counter]);
 
   useEffect(() => {
     if (counter < 1) {
@@ -177,7 +184,7 @@ const Output = ({
           )}
         </>
       )}
-      {isActive && (
+      {isActive && counter > 0 && (
         <StyledCounterWrapper>
           <Paragraph>counter</Paragraph>
           <Paragraph>{counter}</Paragraph>

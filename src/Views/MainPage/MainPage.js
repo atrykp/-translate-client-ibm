@@ -9,7 +9,6 @@ import swap from "../../assets/Icons/swap.svg";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import findInMyArray from "../../helpers/findInMyArray";
-import { updateCurrentTranslation } from "../../actions/actions";
 import useReduxStore from "../../hooks/useReduxStore";
 import {
   getWordByIdAction,
@@ -73,13 +72,17 @@ const MainPage = () => {
 
   useEffect(() => {
     setTranslatedObj(wordById.sentence);
-  }, [wordById, translationList]);
+    dispatch(userTListAction(user.user.token));
+  }, [wordById, dispatch, user.user.token]);
+
+  useEffect(() => {
+    dispatch(getWordByIdReset());
+  }, []);
 
   const handleClick = async () => {
-    dispatch(userTListAction(user.user.token));
     dispatch(getWordByIdReset());
-
     setIsLoading(true);
+
     let response = await fetch(
       `https://translate-app-serv.herokuapp.com/translator/translate/${fromWord}/${fromLang}/${toLang}`
       // `http://localhost:5000/translator/translate/${fromWord}/${fromLang}/${toLang}`
@@ -95,7 +98,9 @@ const MainPage = () => {
       toLang,
       counter: 0,
     };
+
     let translated;
+
     if (translationList.userTList) {
       translated = await findInMyArray(
         translatedObj,
