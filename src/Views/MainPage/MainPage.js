@@ -7,15 +7,17 @@ import RoundButton from "../../components/Atoms/RoundButton/RoundButton";
 import Output from "../../components/Organisms/Output/Output";
 import swap from "../../assets/Icons/swap.svg";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import findInMyArray from "../../helpers/findInMyArray";
 import { updateCurrentTranslation } from "../../actions/actions";
 import useReduxStore from "../../hooks/useReduxStore";
 import {
   getWordByIdAction,
   updateWordCouterAction,
+  userTListAction,
 } from "../../thunk-actions/userTListAction";
 import { getWordByIdReset } from "../../actions/tList-actions";
+import { useEffect } from "react";
 
 const StyledWrapper = styled.div`
   min-height: 95vh;
@@ -61,15 +63,22 @@ const MainPage = () => {
   const [fromLang, setFromLang] = useState("en");
   const [toLang, setToLang] = useState("pl");
   const [isLoading, setIsLoading] = useState(false);
+  const [translatedObj, setTranslatedObj] = useState("");
 
   const dispatch = useDispatch();
 
   const { userLoginReducer: user } = useReduxStore();
-  const { tListReducer: translationList } = useReduxStore();
+  let translationList = useSelector((state) => state.tListReducer);
+  const wordById = useSelector((state) => state.getWordByIdReducer);
+
+  useEffect(() => {
+    setTranslatedObj(wordById.sentence);
+  }, [wordById, translationList]);
 
   const handleClick = async () => {
+    dispatch(userTListAction(user.user.token));
     dispatch(getWordByIdReset());
-    dispatch(updateCurrentTranslation({}));
+
     setIsLoading(true);
     let response = await fetch(
       `https://translate-app-serv.herokuapp.com/translator/translate/${fromWord}/${fromLang}/${toLang}`
@@ -86,8 +95,13 @@ const MainPage = () => {
       toLang,
       counter: 0,
     };
-
-    const translated = findInMyArray(translatedObj, translationList.userTList);
+    let translated;
+    if (translationList.userTList) {
+      translated = await findInMyArray(
+        translatedObj,
+        translationList.userTList
+      );
+    }
 
     if (translated && user.user.token) {
       const translationId = translated._id;
@@ -98,7 +112,7 @@ const MainPage = () => {
         console.log(error);
       }
     } else {
-      dispatch(updateCurrentTranslation(translatedObj));
+      setTranslatedObj(translatedObj);
     }
     setIsLoading(false);
   };
@@ -121,7 +135,12 @@ const MainPage = () => {
         </StyledDropdownWrapper>
         <StyledInput onChange={(e) => handleChange(e)} required />
         <StyledButton onClick={handleClick}>Translate</StyledButton>
-        <Output isLoading={isLoading} setIsLoading={setIsLoading} />
+        <Output
+          isLoading={isLoading}
+          setIsLoading={setIsLoading}
+          translatedObj={translatedObj}
+          setTranslatedObj={setTranslatedObj}
+        />
       </StyledWrapper>
       <MainTemplate />
     </>

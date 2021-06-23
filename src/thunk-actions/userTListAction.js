@@ -55,6 +55,8 @@ export const saveWordAction = (token, translationObj) => async (dispatch) => {
       throw new Error("something went wrong");
     }
     dispatch(saveWordSuccess());
+    dispatch(getWordByIdAction(token, data._id))
+
   } catch (error) {
     dispatch(saveWordFail(error.message));
   }

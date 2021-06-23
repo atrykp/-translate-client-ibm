@@ -4,15 +4,8 @@ import { useState } from "react";
 import Paragraph from "../../Atoms/Paragraph/Paragraph";
 import Loading from "../../Atoms/Loading/Loading";
 import { useDispatch } from "react-redux";
-import {
-  addFlashCard,
-  removeWord,
-  updateModalStatus,
-  updateWordCounter,
-  updateCurrentTranslation,
-} from "../../../actions/actions";
+import { addFlashCard, updateModalStatus } from "../../../actions/actions";
 import { useEffect } from "react";
-import findInMyArray from "../../../helpers/findInMyArray";
 import useReduxStore from "../../../hooks/useReduxStore";
 import { useHistory } from "react-router-dom";
 import { saveWordAction } from "../../../thunk-actions/userTListAction";
@@ -59,32 +52,22 @@ const StyledCounterWrapper = styled.div`
   align-items: center;
 `;
 
-const initialOutput = {
-  counter: null,
-  id: "",
-  toWord: "",
-  fromLang: "",
-  toLang: "",
-};
-const Output = ({ isLoading, setIsLoading }) => {
-  const [output, setOutput] = useState(initialOutput);
-  const history = useHistory();
-  const { currentTranslationReducer: translationObj } = useReduxStore();
-  const { tListReducer: translationList } = useReduxStore();
-  const { userLoginReducer: user } = useReduxStore();
-  const { getWordByIdReducer: currentTranslation } = useReduxStore();
-  const { counter, id, toWord, fromLang, toLang } = output;
-
-  const dispatch = useDispatch();
+const Output = ({
+  isLoading,
+  setIsLoading,
+  translatedObj,
+  setTranslatedObj,
+}) => {
   const [isActive, setIsActive] = useState(false);
 
-  useEffect(() => {
-    if (user.user.token && currentTranslation.sentence._id) {
-      setOutput(currentTranslation.sentence);
-    } else {
-      setOutput(translationObj);
-    }
-  }, [user, currentTranslation, translationObj]);
+  const history = useHistory();
+
+  const { userLoginReducer: user } = useReduxStore();
+
+  const { counter, _id, toWord, fromLang, toLang, fromWord } =
+    translatedObj || {};
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (counter < 1) {
@@ -92,7 +75,7 @@ const Output = ({ isLoading, setIsLoading }) => {
     } else if (counter > 1) {
       setIsActive(true);
     }
-  }, [counter, id]);
+  }, [counter]);
 
   const handleClick = () => {
     const token = user.user?.token;
@@ -101,8 +84,7 @@ const Output = ({ isLoading, setIsLoading }) => {
     }
 
     if (counter === 0) {
-      dispatch(saveWordAction(token, { ...translationObj, counter: 1 }));
-      dispatch(updateCurrentTranslation({ ...translationObj, counter: 1 }));
+      dispatch(saveWordAction(token, { ...translatedObj, counter: 1 }));
       setIsActive(true);
       dispatch(
         updateModalStatus("notification", {
@@ -111,14 +93,14 @@ const Output = ({ isLoading, setIsLoading }) => {
         })
       );
     } else {
-      translationObj.counter = 0;
-      dispatch(updateCurrentTranslation(translationObj));
-      dispatch(updateWordCounter(id, 0));
-      const translated = findInMyArray(
-        translationObj,
-        translationList.userTList
-      );
-      dispatch(removeWord(translated.id));
+      const translatedObj = {
+        fromWord,
+        toWord,
+        fromLang,
+        toLang,
+        counter: 0,
+      };
+      setTranslatedObj(translatedObj);
       setIsActive(false);
       dispatch(
         updateModalStatus("notification", {
@@ -129,6 +111,7 @@ const Output = ({ isLoading, setIsLoading }) => {
     }
     removeNotification();
   };
+
   const removeNotification = () => {
     setTimeout(() => {
       dispatch(
@@ -141,7 +124,7 @@ const Output = ({ isLoading, setIsLoading }) => {
   };
 
   const addCard = () => {
-    const flashCard = { ...translationObj, iCan: false };
+    const flashCard = { ...translatedObj, iCan: false };
 
     dispatch(addFlashCard(flashCard));
     dispatch(
@@ -152,6 +135,7 @@ const Output = ({ isLoading, setIsLoading }) => {
     );
     removeNotification();
   };
+
   const handleListen = async () => {
     setIsLoading(true);
     let response = await fetch(
