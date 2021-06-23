@@ -12,6 +12,10 @@ export const GET_WORD_BY_ID_SUCCESS = " GET_WORD_BY_ID_SUCCESS";
 export const GET_WORD_BY_ID_FAIL = "GET_WORD_BY_ID_FAIL";
 export const GET_WORD_BY_ID_RESET = "GET_WORD_BY_ID_RESET";
 
+export const REMOVE_WORD_REQUEST = "REMOVE_WORD_REQUEST";
+export const REMOVE_WORD_SUCCESS = " REMOVE_WORD_SUCCESS";
+export const REMOVE_WORD_FAIL = "REMOVE_WORD_FAIL";
+
 export const getListRequest = () => ({
   type: GET_T_LIST_REQUEST,
 });
@@ -68,4 +72,17 @@ export const getWordByIdFail = (error) => ({
 });
 export const getWordByIdReset = () => ({
   type: GET_WORD_BY_ID_RESET,
+});
+
+export const removeWordRequest = () => ({
+  type: REMOVE_WORD_REQUEST,
+});
+export const removeWordSuccess = () => ({
+  type: REMOVE_WORD_SUCCESS,
+});
+export const removeWordFail = (error) => ({
+  type: REMOVE_WORD_FAIL,
+  payload: {
+    error,
+  },
 });

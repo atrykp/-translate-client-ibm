@@ -20,6 +20,9 @@ import {
   UPDATE_WORD_COUNTER_FAIL,
   UPDATE_WORD_COUNTER_REQUEST,
   UPDATE_WORD_COUNTER_SUCCESS,
+  REMOVE_WORD_REQUEST,
+  REMOVE_WORD_SUCCESS,
+  REMOVE_WORD_FAIL,
 } from "../actions/tList-actions";
 
 const listReducer = (store = [], action) => {
@@ -115,6 +118,23 @@ export const getWordByIdReducer = (state = getWordInital, action) => {
       return { ...state, loading: false, error: action.payload.error };
     case GET_WORD_BY_ID_RESET:
       return { ...state, ...getWordInital };
+    default:
+      return state;
+  }
+};
+export const removeWordReducer = (state = successInit, action) => {
+  switch (action.type) {
+    case REMOVE_WORD_REQUEST:
+      return { ...state, loading: true };
+    case REMOVE_WORD_SUCCESS:
+      return { ...state, loading: false, success: true };
+    case REMOVE_WORD_FAIL:
+      return {
+        ...state,
+        loading: false,
+        success: true,
+        error: action.payload.error,
+      };
     default:
       return state;
   }

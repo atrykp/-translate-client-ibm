@@ -12,6 +12,9 @@ import {
   getWordByIdRequest,
   getWordByIdFail,
   getWordByIdSuccess,
+  removeWordRequest,
+  removeWordSuccess,
+  removeWordFail,
 } from "../actions/tList-actions";
 
 export const userTListAction = (token) => async (dispatch) => {
@@ -55,8 +58,7 @@ export const saveWordAction = (token, translationObj) => async (dispatch) => {
       throw new Error("something went wrong");
     }
     dispatch(saveWordSuccess());
-    dispatch(getWordByIdAction(token, data._id))
-
+    dispatch(getWordByIdAction(token, data._id));
   } catch (error) {
     dispatch(saveWordFail(error.message));
   }
@@ -104,5 +106,27 @@ export const getWordByIdAction = (token, id) => async (dispatch) => {
     dispatch(getWordByIdSuccess(data));
   } catch (error) {
     dispatch(getWordByIdFail(error.message));
+  }
+};
+export const removeWordAction = (token, id) => async (dispatch) => {
+  try {
+    dispatch(removeWordRequest());
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    const { data } = await axios.delete(
+      `http://localhost:5000/translator/list/${id}`,
+      config
+    );
+
+    if (!data) {
+      throw new Error("sorry can't remove");
+    }
+    dispatch(removeWordSuccess());
+  } catch (error) {
+    dispatch(removeWordFail(error.message));
   }
 };

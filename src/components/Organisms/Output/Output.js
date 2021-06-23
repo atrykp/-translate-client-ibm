@@ -8,7 +8,10 @@ import { addFlashCard, updateModalStatus } from "../../../actions/actions";
 import { useEffect } from "react";
 import useReduxStore from "../../../hooks/useReduxStore";
 import { useHistory } from "react-router-dom";
-import { saveWordAction } from "../../../thunk-actions/userTListAction";
+import {
+  removeWordAction,
+  saveWordAction,
+} from "../../../thunk-actions/userTListAction";
 
 const StyledOutput = styled.div`
   position: relative;
@@ -64,7 +67,8 @@ const Output = ({
 
   const { userLoginReducer: user } = useReduxStore();
 
-  const { counter, toWord, fromLang, toLang, fromWord } = translatedObj || {};
+  const { counter, toWord, _id, fromLang, toLang, fromWord } =
+    translatedObj || {};
 
   const dispatch = useDispatch();
 
@@ -100,6 +104,7 @@ const Output = ({
         })
       );
     } else {
+      dispatch(removeWordAction(token, _id));
       const translatedObj = {
         fromWord,
         toWord,
