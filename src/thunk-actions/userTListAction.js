@@ -15,6 +15,8 @@ import {
   removeWordRequest,
   removeWordSuccess,
   removeWordFail,
+  editWordRequest,
+  editWordSuccess,
 } from "../actions/tList-actions";
 
 export const userTListAction = (token) => async (dispatch) => {
@@ -126,6 +128,29 @@ export const removeWordAction = (token, id) => async (dispatch) => {
       throw new Error("sorry can't remove");
     }
     dispatch(removeWordSuccess());
+  } catch (error) {
+    dispatch(removeWordFail(error.message));
+  }
+};
+export const editWordAction = (token, id, updatedObj) => async (dispatch) => {
+  try {
+    dispatch(editWordRequest());
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    const { data } = await axios.put(
+      `http://localhost:5000/translator/list/${id}`,
+      updatedObj,
+      config
+    );
+
+    if (!data) {
+      throw new Error("sorry can't edit");
+    }
+    dispatch(editWordSuccess());
   } catch (error) {
     dispatch(removeWordFail(error.message));
   }

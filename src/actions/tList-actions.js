@@ -15,6 +15,9 @@ export const GET_WORD_BY_ID_RESET = "GET_WORD_BY_ID_RESET";
 export const REMOVE_WORD_REQUEST = "REMOVE_WORD_REQUEST";
 export const REMOVE_WORD_SUCCESS = " REMOVE_WORD_SUCCESS";
 export const REMOVE_WORD_FAIL = "REMOVE_WORD_FAIL";
+export const EDIT_WORD_REQUEST = "EDIT_WORD_REQUEST";
+export const EDIT_WORD_SUCCESS = " EDIT_WORD_SUCCESS";
+export const EDIT_WORD_FAIL = "EDIT_WORD_FAIL";
 
 export const getListRequest = () => ({
   type: GET_T_LIST_REQUEST,
@@ -82,6 +85,18 @@ export const removeWordSuccess = () => ({
 });
 export const removeWordFail = (error) => ({
   type: REMOVE_WORD_FAIL,
+  payload: {
+    error,
+  },
+});
+export const editWordRequest = () => ({
+  type: EDIT_WORD_REQUEST,
+});
+export const editWordSuccess = () => ({
+  type: EDIT_WORD_SUCCESS,
+});
+export const editWordFail = (error) => ({
+  type: EDIT_WORD_FAIL,
   payload: {
     error,
   },

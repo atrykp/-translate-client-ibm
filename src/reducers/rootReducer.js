@@ -3,7 +3,13 @@ import currentTranslationReducer from "./currentTranslationReducer";
 import flashCardsReducer from "./flashCardsReducer";
 import modalsReducer from "./modalsReducer";
 import { userRegisterReducer, userLoginReducer } from "./userReducer";
-import { tListReducer, getWordByIdReducer } from "./listReducer";
+import {
+  tListReducer,
+  getWordByIdReducer,
+  updateWordCounterReducer,
+  editWordReducer,
+  removeWordReducer,
+} from "./listReducer";
 import { combineReducers } from "redux";
 
 const rootReducer = combineReducers({
@@ -15,6 +21,9 @@ const rootReducer = combineReducers({
   userLoginReducer,
   tListReducer,
   getWordByIdReducer,
+  updateWordCounterReducer,
+  editWordReducer,
+  removeWordReducer,
 });
 
 export default rootReducer;

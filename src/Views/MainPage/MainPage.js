@@ -6,6 +6,7 @@ import Button from "../../components/Atoms/Button/Button";
 import RoundButton from "../../components/Atoms/RoundButton/RoundButton";
 import Output from "../../components/Organisms/Output/Output";
 import swap from "../../assets/Icons/swap.svg";
+import { motion } from "framer-motion";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import findInMyArray from "../../helpers/findInMyArray";
@@ -129,25 +130,36 @@ const MainPage = () => {
     setFromLang(toLang);
     setToLang(fromLang);
   };
+  const variants = {
+    visible: { opacity: 1 },
+    hidden: { opacity: 0 },
+  };
 
   return (
     <>
-      <StyledWrapper>
-        <StyledDropdownWrapper>
-          <Dropdown setLanguage={setFromLang} language={fromLang} />
-          <StyledRoundButton onClick={switchLanguages} />
-          <Dropdown setLanguage={setToLang} language={toLang} />
-        </StyledDropdownWrapper>
-        <StyledInput onChange={(e) => handleChange(e)} required />
-        <StyledButton onClick={handleClick}>Translate</StyledButton>
-        <Output
-          isLoading={isLoading}
-          setIsLoading={setIsLoading}
-          translatedObj={translatedObj}
-          setTranslatedObj={setTranslatedObj}
-        />
-      </StyledWrapper>
-      <MainTemplate />
+      <motion.div
+        as={motion.div}
+        initial="hidden"
+        animate="visible"
+        variants={variants}
+      >
+        <StyledWrapper>
+          <StyledDropdownWrapper>
+            <Dropdown setLanguage={setFromLang} language={fromLang} />
+            <StyledRoundButton onClick={switchLanguages} />
+            <Dropdown setLanguage={setToLang} language={toLang} />
+          </StyledDropdownWrapper>
+          <StyledInput onChange={(e) => handleChange(e)} required />
+          <StyledButton onClick={handleClick}>Translate</StyledButton>
+          <Output
+            isLoading={isLoading}
+            setIsLoading={setIsLoading}
+            translatedObj={translatedObj}
+            setTranslatedObj={setTranslatedObj}
+          />
+        </StyledWrapper>
+        <MainTemplate />
+      </motion.div>
     </>
   );
 };

@@ -23,6 +23,9 @@ import {
   REMOVE_WORD_REQUEST,
   REMOVE_WORD_SUCCESS,
   REMOVE_WORD_FAIL,
+  EDIT_WORD_REQUEST,
+  EDIT_WORD_SUCCESS,
+  EDIT_WORD_FAIL,
 } from "../actions/tList-actions";
 
 const listReducer = (store = [], action) => {
@@ -135,6 +138,19 @@ export const removeWordReducer = (state = successInit, action) => {
         success: true,
         error: action.payload.error,
       };
+    default:
+      return state;
+  }
+};
+
+export const editWordReducer = (state = successInit, action) => {
+  switch (action.type) {
+    case EDIT_WORD_REQUEST:
+      return { ...state, loading: true };
+    case EDIT_WORD_SUCCESS:
+      return { ...state, loading: false, success: true };
+    case EDIT_WORD_FAIL:
+      return { ...state, loading: false, error: action.payload.error };
     default:
       return state;
   }
