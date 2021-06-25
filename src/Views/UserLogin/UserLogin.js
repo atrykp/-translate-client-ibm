@@ -9,6 +9,7 @@ import Paragraph from "../../components/Atoms/Paragraph/Paragraph";
 import Button from "../../components/Atoms/Button/Button";
 import { useDispatch, useSelector } from "react-redux";
 import userLoginAction from "../../thunk-actions/userLoginAction";
+import MainTemplate from "../../templates/MainTemplate";
 
 const StyledWrapper = styled.div`
   background-color: ${({ theme }) => theme.colors.lightBackground};
@@ -140,6 +141,7 @@ const UserLogin = () => {
           </>
         )}
       </StyledFormWrapper>
+      <MainTemplate />
     </StyledWrapper>
   );
 };

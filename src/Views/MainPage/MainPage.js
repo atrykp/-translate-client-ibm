@@ -130,23 +130,26 @@ const MainPage = () => {
     setFromLang(toLang);
     setToLang(fromLang);
   };
-  const variants = {
-    visible: { opacity: 1 },
-    hidden: { opacity: 0 },
-  };
 
   return (
     <>
       <motion.div
-        as={motion.div}
-        initial="hidden"
-        animate="visible"
-        variants={variants}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.3 }}
+        initial={{ opacity: 0, scale: 0.95 }}
       >
         <StyledWrapper>
           <StyledDropdownWrapper>
             <Dropdown setLanguage={setFromLang} language={fromLang} />
-            <StyledRoundButton onClick={switchLanguages} />
+            <StyledRoundButton
+              as={motion.button}
+              animate={{
+                scale: [1, 1.1, 1, 1],
+                rotate: [0, 360, 360, 0],
+              }}
+              transition={{ duration: 1.6 }}
+              onClick={switchLanguages}
+            />
             <Dropdown setLanguage={setToLang} language={toLang} />
           </StyledDropdownWrapper>
           <StyledInput onChange={(e) => handleChange(e)} required />
@@ -158,8 +161,8 @@ const MainPage = () => {
             setTranslatedObj={setTranslatedObj}
           />
         </StyledWrapper>
-        <MainTemplate />
       </motion.div>
+      <MainTemplate />
     </>
   );
 };

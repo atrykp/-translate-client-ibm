@@ -2,12 +2,14 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { useDispatch, useSelector } from "react-redux";
 
 import Input from "../../components/Atoms/Input/Input";
 import Loading from "../../components/Atoms/Loading/Loading";
 import Paragraph from "../../components/Atoms/Paragraph/Paragraph";
 import Button from "../../components/Atoms/Button/Button";
-import { useDispatch, useSelector } from "react-redux";
+import MainTemplate from "../../templates/MainTemplate";
+
 import userRegisterAction from "../../thunk-actions/userRegisterAction";
 import { registerReset } from "../../actions/user-actions";
 
@@ -27,7 +29,7 @@ const StyledFormWrapper = styled.div`
   display: grid;
   width: 95%;
   max-width: 400px;
-
+  margin-bottom: 80px;
   padding: 30px 0;
   border-radius: 10px;
   background-color: lightgray;
@@ -160,6 +162,7 @@ const UserRegister = () => {
           </>
         )}
       </StyledFormWrapper>
+      <MainTemplate />
     </StyledWrapper>
   );
 };
