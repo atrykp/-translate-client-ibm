@@ -128,6 +128,7 @@ export const removeWordAction = (token, id) => async (dispatch) => {
       throw new Error("sorry can't remove");
     }
     dispatch(removeWordSuccess());
+    dispatch(userTListAction(token));
   } catch (error) {
     dispatch(removeWordFail(error.message));
   }
@@ -151,6 +152,7 @@ export const editWordAction = (token, id, updatedObj) => async (dispatch) => {
       throw new Error("sorry can't edit");
     }
     dispatch(editWordSuccess());
+    dispatch(userTListAction(token));
   } catch (error) {
     dispatch(removeWordFail(error.message));
   }

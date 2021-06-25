@@ -1,11 +1,14 @@
 import styled from "styled-components";
+import { motion, AnimatePresence } from "framer-motion";
 import Header from "../../Atoms/Header/Header";
 import RoundButton from "../../Atoms/RoundButton/RoundButton";
 import Paragraph from "../../Atoms/Paragraph/Paragraph";
 import { useDispatch } from "react-redux";
 import { removeWord, updateModalStatus } from "../../../actions/actions";
+import { removeWordAction } from "../../../thunk-actions/userTListAction";
+import useReduxStore from "../../../hooks/useReduxStore";
 
-const StyledWrapper = styled.div`
+const StyledWrapper = styled(motion.div)`
   display: grid;
   grid-template-columns: 0.8fr 0.2fr;
   background-color: ${({ theme }) => theme.colors.lightBackground};
@@ -77,11 +80,14 @@ const StyledSpanWrapper = styled.span`
     cursor: pointer;
   }
 `;
+
 const TranslationElement = ({ translationObj }) => {
+  const { userLoginReducer: user } = useReduxStore();
   const dispatch = useDispatch();
   const { fromWord, toWord, fromLang, toLang, _id, counter } = translationObj;
+
   const removeItem = () => {
-    dispatch(removeWord(_id));
+    dispatch(removeWordAction(user.user.token, _id));
     dispatch(
       updateModalStatus("notification", {
         content: "removed",
@@ -114,7 +120,10 @@ const TranslationElement = ({ translationObj }) => {
   };
   return (
     <>
-      <StyledWrapper>
+      <StyledWrapper
+        animate={{ opacity: 1, x: 0 }}
+        initial={{ opacity: 0, x: -100 }}
+      >
         <StyledSpanWrapper onClick={changeEditModalStatus}>
           <span className="material-icons">edit</span>
         </StyledSpanWrapper>

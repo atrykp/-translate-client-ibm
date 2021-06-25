@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import Paragraph from "../../Atoms/Paragraph/Paragraph";
 import Button from "../../Atoms/Button/Button";
@@ -16,6 +16,7 @@ import {
   TRANSLATION_ELEMENTS,
   NOTIFICATION,
 } from "../../../reducers/modalsReducer";
+import { editWordAction } from "../../../thunk-actions/userTListAction";
 const StyledBackground = styled.div`
   position: fixed;
   top: 0;
@@ -80,10 +81,19 @@ const StyledParagraph = styled(Paragraph)`
 `;
 const EditModal = () => {
   const dispatch = useDispatch();
+  const [fromContent, setFromContent] = useState("");
+  const [toContent, setToContent] = useState("");
+
   const [editModal] = useReduxStore(EDIT_MODAL);
+  const { userLoginReducer: user } = useReduxStore();
+
   const { from, to, elementId, section } = editModal;
-  const [fromContent, setFromContent] = useState(from);
-  const [toContent, setToContent] = useState(to);
+
+  useEffect(() => {
+    setFromContent(from);
+    setToContent(to);
+  }, []);
+
   const closeEditModal = () => {
     dispatch(
       updateModalStatus(EDIT_MODAL, {
@@ -115,6 +125,8 @@ const EditModal = () => {
         })
       );
     } else if (section === TRANSLATION_ELEMENTS) {
+      const data = { fromWord: fromContent, toWord: toContent };
+      dispatch(editWordAction(user.user.token, elementId, data));
       dispatch(
         editListElementContent(elementId, {
           currentWord: fromContent,
