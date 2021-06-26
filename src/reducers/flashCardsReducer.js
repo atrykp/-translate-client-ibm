@@ -8,6 +8,9 @@ import {
   ADD_FLASHCARD_FAIL,
   ADD_FLASHCARD_REQUEST,
   ADD_FLASHCARD_SUCCESS,
+  GET_FLASHCARDS_LIST_FAIL,
+  GET_FLASHCARDS_LIST_REQUEST,
+  GET_FLASHCARDS_LIST_SUCCESS,
 } from "../actions/flashcards-actions";
 
 const flashCardsReducer = (store = [], action) => {
@@ -45,7 +48,7 @@ const initState = {
   error: null,
 };
 
-const addFlashcardReducer = (state = initState, action) => {
+export const addFlashcardReducer = (state = initState, action) => {
   switch (action.type) {
     case ADD_FLASHCARD_REQUEST:
       return { ...state, loading: true };
@@ -53,6 +56,24 @@ const addFlashcardReducer = (state = initState, action) => {
       return { ...state, loading: false, success: true };
     case ADD_FLASHCARD_FAIL:
       return { loading: false, success: false, error: action.payload };
+    default:
+      return state;
+  }
+};
+
+const listInit = {
+  loading: false,
+  list: [],
+  error: null,
+};
+export const getCardsListReducer = (state = listInit, action) => {
+  switch (action.type) {
+    case GET_FLASHCARDS_LIST_REQUEST:
+      return { ...state, loading: true };
+    case GET_FLASHCARDS_LIST_SUCCESS:
+      return { ...state, loading: false, list: action.payload };
+    case GET_FLASHCARDS_LIST_FAIL:
+      return { loading: false, list: [], error: action.payload };
     default:
       return state;
   }

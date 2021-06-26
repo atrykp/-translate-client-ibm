@@ -89,13 +89,13 @@ const StyledSpanWrapper = styled.span`
 `;
 
 const FlashCard = ({ cardContent }) => {
-  const { currentWord, translation, iCan, id } = cardContent;
+  const { fromWord, toWord, iCan, _id } = cardContent;
   const [frontSide, setFrontSide] = useState(true);
   const handleClick = () => setFrontSide((prevValue) => !prevValue);
   const dispatch = useDispatch();
 
   const removeCard = () => {
-    dispatch(removeFlashCard(id));
+    dispatch(removeFlashCard(_id));
     dispatch(
       updateModalStatus(NOTIFICATION, {
         content: "removed",
@@ -106,7 +106,7 @@ const FlashCard = ({ cardContent }) => {
   };
 
   const updateCardStatus = () => {
-    dispatch(updateFlashCardStatus(id));
+    dispatch(updateFlashCardStatus(_id));
     if (iCan) {
       dispatch(
         updateModalStatus(NOTIFICATION, {
@@ -138,10 +138,10 @@ const FlashCard = ({ cardContent }) => {
   const changeEditModalActivity = () => {
     dispatch(
       updateModalStatus(EDIT_MODAL, {
-        from: currentWord,
-        to: translation,
+        fromWord,
+        toWord,
         isActive: true,
-        elementId: id,
+        _id,
         section: FLASH_CARDS,
       })
     );
@@ -154,7 +154,7 @@ const FlashCard = ({ cardContent }) => {
         </StyledSpanWrapper>
 
         <StyledTxtWrapper>
-          <StyledHeader>{frontSide ? translation : currentWord}</StyledHeader>
+          <StyledHeader>{frontSide ? fromWord : toWord}</StyledHeader>
         </StyledTxtWrapper>
         <StyledButtonsWrapper>
           <StyledButton onClick={removeCard}>

@@ -89,9 +89,10 @@ const UserLogin = () => {
 
   useEffect(() => {
     if (user._id) {
-      history.push("/list");
+      history.goBack();
     }
   }, [user, history]);
+
   const onSubmit = async (data) => {
     dispatch(userLoginAction(data));
   };

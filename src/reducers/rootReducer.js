@@ -1,6 +1,9 @@
 import listReducer from "./listReducer";
 import currentTranslationReducer from "./currentTranslationReducer";
-import flashCardsReducer from "./flashCardsReducer";
+import flashCardsReducer, {
+  addFlashcardReducer,
+  getCardsListReducer,
+} from "./flashCardsReducer";
 import modalsReducer from "./modalsReducer";
 import { userRegisterReducer, userLoginReducer } from "./userReducer";
 import {
@@ -24,6 +27,8 @@ const rootReducer = combineReducers({
   updateWordCounterReducer,
   editWordReducer,
   removeWordReducer,
+  addFlashcardReducer,
+  getCardsListReducer,
 });
 
 export default rootReducer;

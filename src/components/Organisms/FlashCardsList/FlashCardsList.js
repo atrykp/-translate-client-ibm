@@ -1,9 +1,12 @@
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import FlashCard from "../../Molecules/FlasCard/FlashCard";
 import SideMenu from "../../Organisms/SideMenu/SideMenu";
-import { useState } from "react";
 import Paragraph from "../../Atoms/Paragraph/Paragraph";
 import useReduxStore from "../../../hooks/useReduxStore";
+import { useDispatch } from "react-redux";
+import { getCardsListAction } from "../../../thunk-actions/userFlashcardsAction";
+import { useHistory } from "react-router-dom";
 const StyledWrapper = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -33,23 +36,37 @@ const StyledFilterInfo = styled.div`
   z-index: 3;
 `;
 const FlashCardsList = () => {
-  const { flashCardsReducer } = useReduxStore();
   const [currentFilter, setCurrentFilter] = useState("all");
-  const arr = flashCardsReducer
-    .filter((card) => {
-      if (currentFilter === "all") {
-        return card;
-      } else if (currentFilter === "iCan" && card.iCan) {
-        return card;
-      } else if (currentFilter === "iCant" && !card.iCan) {
-        return card;
-      }
-      return null;
-    })
-    .map(
-      (element) =>
-        element && <FlashCard cardContent={element} key={element.id} />
-    );
+
+  const dispatch = useDispatch();
+  const history = useHistory();
+
+  const { flashCardsReducer } = useReduxStore();
+  const { userLoginReducer: userLogin } = useReduxStore();
+  const { getCardsListReducer: flashcardsList } = useReduxStore();
+
+  const { user } = userLogin;
+
+  useEffect(() => {
+    if (!user.token) history.push("/login");
+    dispatch(getCardsListAction(user.token));
+  }, []);
+
+  // const arr = flashCardsReducer
+  //   .filter((card) => {
+  //     if (currentFilter === "all") {
+  //       return card;
+  //     } else if (currentFilter === "iCan" && card.iCan) {
+  //       return card;
+  //     } else if (currentFilter === "iCant" && !card.iCan) {
+  //       return card;
+  //     }
+  //     return null;
+  //   })
+  const arr = flashcardsList.list.map(
+    (element) => element && <FlashCard cardContent={element} key={element.id} />
+  );
+
   return (
     <>
       <StyledFilterInfo>
