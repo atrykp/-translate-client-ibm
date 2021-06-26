@@ -12,6 +12,7 @@ import {
   removeWordAction,
   saveWordAction,
 } from "../../../thunk-actions/userTListAction";
+import { addFlashCardAction } from "../../../thunk-actions/userFlashcardsAction";
 
 const StyledOutput = styled.div`
   position: relative;
@@ -137,7 +138,8 @@ const Output = ({
 
   const addCard = () => {
     const flashCard = { ...translatedObj, iCan: false };
-
+    delete flashCard.counter;
+    dispatch(addFlashCardAction(user.user?.token, flashCard));
     dispatch(addFlashCard(flashCard));
     dispatch(
       updateModalStatus("notification", {

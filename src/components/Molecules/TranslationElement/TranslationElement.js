@@ -1,10 +1,10 @@
 import styled from "styled-components";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import Header from "../../Atoms/Header/Header";
 import RoundButton from "../../Atoms/RoundButton/RoundButton";
 import Paragraph from "../../Atoms/Paragraph/Paragraph";
 import { useDispatch } from "react-redux";
-import { removeWord, updateModalStatus } from "../../../actions/actions";
+import { updateModalStatus } from "../../../actions/actions";
 import { removeWordAction } from "../../../thunk-actions/userTListAction";
 import useReduxStore from "../../../hooks/useReduxStore";
 
