@@ -14,6 +14,8 @@ import {
   EDIT_MODAL,
   FLASH_CARDS,
 } from "../../../reducers/modalsReducer";
+import { deleteCardAction } from "../../../thunk-actions/userFlashcardsAction";
+import useReduxStore from "../../../hooks/useReduxStore";
 
 const StyledWrapper = styled.div`
   position: relative;
@@ -89,13 +91,16 @@ const StyledSpanWrapper = styled.span`
 `;
 
 const FlashCard = ({ cardContent }) => {
-  const { fromWord, toWord, iCan, _id } = cardContent;
   const [frontSide, setFrontSide] = useState(true);
+  const { fromWord, toWord, iCan, _id } = cardContent;
+
   const handleClick = () => setFrontSide((prevValue) => !prevValue);
   const dispatch = useDispatch();
 
+  const { userLoginReducer: user } = useReduxStore();
+
   const removeCard = () => {
-    dispatch(removeFlashCard(_id));
+    dispatch(deleteCardAction(user.user.token, _id));
     dispatch(
       updateModalStatus(NOTIFICATION, {
         content: "removed",

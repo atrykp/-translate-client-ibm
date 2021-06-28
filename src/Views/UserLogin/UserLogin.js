@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
 import { useHistory } from "react-router-dom";
+import { motion } from "framer-motion";
 import Loading from "../../components/Atoms/Loading/Loading";
 import Input from "../../components/Atoms/Input/Input";
 import Paragraph from "../../components/Atoms/Paragraph/Paragraph";
@@ -21,7 +22,7 @@ const StyledInput = styled(Input)`
   width: 90%;
   margin: 10px auto;
 `;
-const StyledFormWrapper = styled.div`
+const StyledFormWrapper = styled(motion.div)`
   justify-self: center;
   align-self: center;
   display: grid;
@@ -99,7 +100,11 @@ const UserLogin = () => {
 
   return (
     <StyledWrapper>
-      <StyledFormWrapper>
+      <StyledFormWrapper
+        animate={{ y: 0 }}
+        initial={{ y: "-10vh" }}
+        transition={{ duration: 0.6, type: "spring" }}
+      >
         {loading ? (
           <StyledLoadingWrapper>
             <Loading />

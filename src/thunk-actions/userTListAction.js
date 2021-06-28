@@ -29,7 +29,7 @@ export const userTListAction = (token) => async (dispatch) => {
       },
     };
     const { data } = await axios.get(
-      "http://localhost:5000/translator/list",
+      "https://translate-app-serv.herokuapp.com/translator/list",
       config
     );
 
@@ -51,7 +51,7 @@ export const saveWordAction = (token, translationObj) => async (dispatch) => {
       },
     };
     const { data } = await axios.post(
-      "http://localhost:5000/translator/list",
+      "https://translate-app-serv.herokuapp.com/translator/list",
       translationObj,
       config
     );
@@ -75,7 +75,7 @@ export const updateWordCouterAction = (token, id) => async (dispatch) => {
       },
     };
     const { data } = await axios.patch(
-      `http://localhost:5000/translator/list`,
+      `https://translate-app-serv.herokuapp.com/translator/list`,
       { id },
       config
     );
@@ -98,7 +98,7 @@ export const getWordByIdAction = (token, id) => async (dispatch) => {
       },
     };
     const { data } = await axios.get(
-      `http://localhost:5000/translator/list/${id}`,
+      `https://translate-app-serv.herokuapp.com/translator/list/${id}`,
       config
     );
 
@@ -120,7 +120,7 @@ export const removeWordAction = (token, id) => async (dispatch) => {
       },
     };
     const { data } = await axios.delete(
-      `http://localhost:5000/translator/list/${id}`,
+      `https://translate-app-serv.herokuapp.com/translator/list/${id}`,
       config
     );
 
@@ -143,7 +143,7 @@ export const editWordAction = (token, id, updatedObj) => async (dispatch) => {
       },
     };
     const { data } = await axios.put(
-      `http://localhost:5000/translator/list/${id}`,
+      `https://translate-app-serv.herokuapp.com/translator/list/${id}`,
       updatedObj,
       config
     );

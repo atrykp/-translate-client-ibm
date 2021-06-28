@@ -37,6 +37,7 @@ const StyledFilterInfo = styled.div`
 `;
 const FlashCardsList = () => {
   const [currentFilter, setCurrentFilter] = useState("all");
+  const [cardsListArr, setCardsListArr] = useState([]);
 
   const dispatch = useDispatch();
   const history = useHistory();
@@ -52,35 +53,48 @@ const FlashCardsList = () => {
     dispatch(getCardsListAction(user.token));
   }, []);
 
-  // const arr = flashCardsReducer
-  //   .filter((card) => {
-  //     if (currentFilter === "all") {
-  //       return card;
-  //     } else if (currentFilter === "iCan" && card.iCan) {
-  //       return card;
-  //     } else if (currentFilter === "iCant" && !card.iCan) {
-  //       return card;
-  //     }
-  //     return null;
-  //   })
-  const arr = flashcardsList.list.map(
-    (element) => element && <FlashCard cardContent={element} key={element.id} />
-  );
+  console.log(flashcardsList.list);
+
+  useEffect(() => {
+    console.log("zmieniła się lista");
+
+    if (flashcardsList.list.length > 0) {
+      const listArr = flashcardsList.list.map(
+        (element) =>
+          element && <FlashCard cardContent={element} key={element._id} />
+      );
+      setCardsListArr(listArr);
+    } else if (flashcardsList.list.length === 0 && cardsListArr.length > 0) {
+      setCardsListArr([]);
+    }
+  }, [flashcardsList.list]);
 
   return (
     <>
       <StyledFilterInfo>
-        <Paragraph>{`active filter: ${currentFilter} ( ${arr.length} )`}</Paragraph>
+        <Paragraph>{`active filter: ${currentFilter} ( ${cardsListArr.length} )`}</Paragraph>
       </StyledFilterInfo>
 
       <StyledSideMenuWrapper>
         <SideMenu setCurrentFilter={setCurrentFilter} />
       </StyledSideMenuWrapper>
       <StyledWrapper>
-        {flashCardsReducer.length < 1 ? <p>empty</p> : arr}
+        {flashCardsReducer.length < 1 ? <p>empty</p> : cardsListArr}
       </StyledWrapper>
     </>
   );
 };
 
 export default FlashCardsList;
+
+// const arr = flashCardsReducer
+//   .filter((card) => {
+//     if (currentFilter === "all") {
+//       return card;
+//     } else if (currentFilter === "iCan" && card.iCan) {
+//       return card;
+//     } else if (currentFilter === "iCant" && !card.iCan) {
+//       return card;
+//     }
+//     return null;
+//   })

@@ -3,6 +3,7 @@ import currentTranslationReducer from "./currentTranslationReducer";
 import flashCardsReducer, {
   addFlashcardReducer,
   getCardsListReducer,
+  deleteCardReducer,
 } from "./flashCardsReducer";
 import modalsReducer from "./modalsReducer";
 import { userRegisterReducer, userLoginReducer } from "./userReducer";
@@ -29,6 +30,7 @@ const rootReducer = combineReducers({
   removeWordReducer,
   addFlashcardReducer,
   getCardsListReducer,
+  deleteCardReducer,
 });
 
 export default rootReducer;

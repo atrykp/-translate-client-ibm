@@ -9,11 +9,14 @@ const userRegisterAction = (user) => async (dispatch) => {
   dispatch(registerRequest());
   const { name, email, password } = user;
   try {
-    await axios.post("http://localhost:5000/api/users/register", {
-      name,
-      email,
-      password,
-    });
+    await axios.post(
+      "https://translate-app-serv.herokuapp.com/api/users/register",
+      {
+        name,
+        email,
+        password,
+      }
+    );
 
     dispatch(registerSuccess());
   } catch (error) {

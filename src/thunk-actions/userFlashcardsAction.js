@@ -3,6 +3,9 @@ import {
   addFlashcardFail,
   addFlashcardRequest,
   addFlashcardSuccess,
+  deleteCardFail,
+  deleteCardRequest,
+  deleteCardSuccess,
   getCardsListFail,
   getCardsListRequest,
   getCardsListSuccess,
@@ -19,7 +22,7 @@ export const addFlashCardAction = (token, flashcardObj) => async (dispatch) => {
     };
 
     const { data } = await axios.post(
-      "http://localhost:5000/translator/cards",
+      "https://translate-app-serv.herokuapp.com/translator/cards",
       flashcardObj,
       config
     );
@@ -43,7 +46,7 @@ export const getCardsListAction = (token) => async (dispatch) => {
     };
 
     const { data } = await axios.get(
-      "http://localhost:5000/translator/cards",
+      "https://translate-app-serv.herokuapp.com/translator/cards",
       config
     );
     if (!data) {
@@ -52,5 +55,30 @@ export const getCardsListAction = (token) => async (dispatch) => {
     dispatch(getCardsListSuccess(data));
   } catch (error) {
     dispatch(getCardsListFail(error.message));
+  }
+};
+
+export const deleteCardAction = (token, id) => async (dispatch) => {
+  try {
+    dispatch(deleteCardRequest());
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
+    const { data } = await axios.delete(
+      `https://translate-app-serv.herokuapp.com/translator/cards/${id}`,
+      config
+    );
+    if (!data) {
+      throw new Error("couldn't remove card");
+    }
+
+    dispatch(deleteCardSuccess());
+    dispatch(getCardsListAction(token));
+  } catch (error) {
+    dispatch(deleteCardFail(error.message));
   }
 };
