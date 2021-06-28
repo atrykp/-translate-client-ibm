@@ -7,6 +7,9 @@ export const GET_FLASHCARDS_LIST_FAIL = "GET_FLASHCARDS_LIST_FAIL";
 export const DELETE_CARD_REQUEST = "DELETE_CARD_REQUEST";
 export const DELETE_CARD_SUCCESS = "DELETE_CARD_SUCCESS";
 export const DELETE_CARD_FAIL = "DELETE_CARD_FAIL";
+export const UPDATE_CARD_REQUEST = "UPDATE_CARD_REQUEST";
+export const UPDATE_CARD_SUCCESS = "UPDATE_CARD_SUCCESS";
+export const UPDATE_CARD_FAIL = "UPDATE_CARD_FAIL";
 
 export const addFlashcardRequest = () => ({
   type: ADD_FLASHCARD_REQUEST,
@@ -37,5 +40,15 @@ export const deleteCardSuccess = () => ({
 });
 export const deleteCardFail = (error) => ({
   type: DELETE_CARD_FAIL,
+  payload: error,
+});
+export const updateCardRequest = () => ({
+  type: UPDATE_CARD_REQUEST,
+});
+export const updateCardSuccess = () => ({
+  type: UPDATE_CARD_SUCCESS,
+});
+export const updateCardFail = (error) => ({
+  type: UPDATE_CARD_FAIL,
   payload: error,
 });

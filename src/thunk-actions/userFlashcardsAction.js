@@ -9,6 +9,9 @@ import {
   getCardsListFail,
   getCardsListRequest,
   getCardsListSuccess,
+  updateCardFail,
+  updateCardRequest,
+  updateCardSuccess,
 } from "../actions/flashcards-actions";
 
 export const addFlashCardAction = (token, flashcardObj) => async (dispatch) => {
@@ -82,3 +85,29 @@ export const deleteCardAction = (token, id) => async (dispatch) => {
     dispatch(deleteCardFail(error.message));
   }
 };
+export const updateCardAction =
+  (token, id, updatedCard) => async (dispatch) => {
+    try {
+      dispatch(updateCardRequest());
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      };
+
+      const { data } = await axios.put(
+        `https://translate-app-serv.herokuapp.com/translator/cards/${id}`,
+        updatedCard,
+        config
+      );
+      if (!data) {
+        throw new Error("couldn't update card");
+      }
+
+      dispatch(updateCardSuccess());
+      dispatch(getCardsListAction(token));
+    } catch (error) {
+      dispatch(updateCardFail(error.message));
+    }
+  };

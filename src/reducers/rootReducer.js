@@ -4,6 +4,7 @@ import flashCardsReducer, {
   addFlashcardReducer,
   getCardsListReducer,
   deleteCardReducer,
+  updateCardReducer,
 } from "./flashCardsReducer";
 import modalsReducer from "./modalsReducer";
 import { userRegisterReducer, userLoginReducer } from "./userReducer";
@@ -31,6 +32,7 @@ const rootReducer = combineReducers({
   addFlashcardReducer,
   getCardsListReducer,
   deleteCardReducer,
+  updateCardReducer,
 });
 
 export default rootReducer;
