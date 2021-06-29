@@ -110,10 +110,10 @@ const TranslationElement = ({ translationObj }) => {
   const changeEditModalStatus = () => {
     dispatch(
       updateModalStatus("editModal", {
-        from: fromWord,
-        to: toWord,
+        fromWord,
+        toWord,
         isActive: true,
-        elementId: _id,
+        _id,
         section: "translationElements",
       })
     );

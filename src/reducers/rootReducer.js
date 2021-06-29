@@ -1,4 +1,4 @@
-import flashCardsReducer, {
+import {
   addFlashcardReducer,
   getCardsListReducer,
   deleteCardReducer,
@@ -16,7 +16,6 @@ import {
 import { combineReducers } from "redux";
 
 const rootReducer = combineReducers({
-  flashCardsReducer,
   modalsReducer,
   userRegisterReducer,
   userLoginReducer,

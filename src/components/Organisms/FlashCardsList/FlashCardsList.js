@@ -45,7 +45,6 @@ const FlashCardsList = () => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const { flashCardsReducer } = useReduxStore();
   const { userLoginReducer: userLogin } = useReduxStore();
   const { getCardsListReducer: flashcardsList } = useReduxStore();
 
@@ -78,7 +77,7 @@ const FlashCardsList = () => {
         <SideMenu setCurrentFilter={setCurrentFilter} />
       </StyledSideMenuWrapper>
       <StyledWrapper>
-        {flashCardsReducer.length < 1 ? <p>empty</p> : cardsListArr}
+        {flashcardsList.list.length < 1 ? <p>empty</p> : cardsListArr}
       </StyledWrapper>
     </>
   );

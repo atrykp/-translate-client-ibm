@@ -1,23 +1,23 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
+import { useDispatch } from "react-redux";
+
 import Paragraph from "../../Atoms/Paragraph/Paragraph";
 import Button from "../../Atoms/Button/Button";
 import Input from "../../Atoms/Input/Input";
-import { useDispatch } from "react-redux";
-import {
-  updateModalStatus,
-  updateFlashCardContent,
-  editListElementContent,
-} from "../../../actions/actions";
+
 import useReduxStore from "../../../hooks/useReduxStore";
+import { editWordAction } from "../../../thunk-actions/userTListAction";
+import { updateCardAction } from "../../../thunk-actions/userFlashcardsAction";
+
+import { updateModalStatus } from "../../../actions/actions";
 import {
   EDIT_MODAL,
   FLASH_CARDS,
   TRANSLATION_ELEMENTS,
   NOTIFICATION,
 } from "../../../reducers/modalsReducer";
-import { editWordAction } from "../../../thunk-actions/userTListAction";
-import { updateCardAction } from "../../../thunk-actions/userFlashcardsAction";
+
 const StyledBackground = styled.div`
   position: fixed;
   top: 0;
@@ -81,14 +81,15 @@ const StyledParagraph = styled(Paragraph)`
   margin-bottom: 5px;
 `;
 const EditModal = () => {
-  const dispatch = useDispatch();
   const [fromContent, setFromContent] = useState("");
   const [toContent, setToContent] = useState("");
 
-  const [editModal] = useReduxStore(EDIT_MODAL);
-  const { userLoginReducer: user } = useReduxStore();
+  const dispatch = useDispatch();
 
+  const [editModal] = useReduxStore(EDIT_MODAL);
   const { fromWord, toWord, _id, section } = editModal;
+
+  const { userLoginReducer: user } = useReduxStore();
 
   useEffect(() => {
     setFromContent(fromWord);
@@ -96,15 +97,7 @@ const EditModal = () => {
   }, []);
 
   const closeEditModal = () => {
-    dispatch(
-      updateModalStatus(EDIT_MODAL, {
-        fromWord: "",
-        toWord: "",
-        isActive: false,
-        _id: "",
-        section: "",
-      })
-    );
+    dispatch(updateModalStatus(EDIT_MODAL, { isActive: false }));
   };
 
   const removeNotification = () => {
@@ -117,6 +110,7 @@ const EditModal = () => {
       );
     }, 1450);
   };
+
   const saveNewContent = () => {
     if (section === FLASH_CARDS) {
       dispatch(
@@ -128,22 +122,8 @@ const EditModal = () => {
     } else if (section === TRANSLATION_ELEMENTS) {
       const data = { fromWord: fromContent, toWord: toContent };
       dispatch(editWordAction(user.user.token, _id, data));
-      dispatch(
-        editListElementContent(_id, {
-          currentWord: fromContent,
-          translation: toContent,
-        })
-      );
     }
-    dispatch(
-      updateModalStatus(EDIT_MODAL, {
-        from: "",
-        to: "",
-        isActive: false,
-        _id: "",
-        section: "",
-      })
-    );
+    dispatch(updateModalStatus(EDIT_MODAL, { isActive: false }));
     dispatch(
       updateModalStatus(NOTIFICATION, {
         content: "Saved",

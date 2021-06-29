@@ -10,10 +10,10 @@ let modalsStore = [
   { id: NOTIFICATION, content: "", isActive: false },
   {
     id: EDIT_MODAL,
-    from: "",
-    to: "",
+    fromWord: "",
+    toWord: "",
     isActive: false,
-    elementId: "",
+    _id: "",
     section: "",
   },
 ];
