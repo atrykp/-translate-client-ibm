@@ -1,21 +1,22 @@
-import styled from "styled-components";
 import { useState } from "react";
+import styled from "styled-components";
+import { useDispatch } from "react-redux";
+
+import useReduxStore from "../../../hooks/useReduxStore";
+import {
+  deleteCardAction,
+  updateCardAction,
+} from "../../../thunk-actions/userFlashcardsAction";
+import { updateModalStatus } from "../../../actions/actions";
+
 import Header from "../../Atoms/Header/Header";
 import Button from "../../Atoms/Button/Button";
 import RoundButton from "../../Atoms/RoundButton/RoundButton";
-import { useDispatch } from "react-redux";
-import {
-  removeFlashCard,
-  updateFlashCardStatus,
-  updateModalStatus,
-} from "../../../actions/actions";
 import {
   NOTIFICATION,
   EDIT_MODAL,
   FLASH_CARDS,
 } from "../../../reducers/modalsReducer";
-import { deleteCardAction } from "../../../thunk-actions/userFlashcardsAction";
-import useReduxStore from "../../../hooks/useReduxStore";
 
 const StyledWrapper = styled.div`
   position: relative;
@@ -111,7 +112,7 @@ const FlashCard = ({ cardContent }) => {
   };
 
   const updateCardStatus = () => {
-    dispatch(updateFlashCardStatus(_id));
+    dispatch(updateCardAction(user.user.token, _id, { iCan: !iCan }));
     if (iCan) {
       dispatch(
         updateModalStatus(NOTIFICATION, {

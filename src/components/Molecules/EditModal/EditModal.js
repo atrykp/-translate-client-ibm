@@ -17,6 +17,7 @@ import {
   NOTIFICATION,
 } from "../../../reducers/modalsReducer";
 import { editWordAction } from "../../../thunk-actions/userTListAction";
+import { updateCardAction } from "../../../thunk-actions/userFlashcardsAction";
 const StyledBackground = styled.div`
   position: fixed;
   top: 0;
@@ -87,20 +88,20 @@ const EditModal = () => {
   const [editModal] = useReduxStore(EDIT_MODAL);
   const { userLoginReducer: user } = useReduxStore();
 
-  const { from, to, elementId, section } = editModal;
+  const { fromWord, toWord, _id, section } = editModal;
 
   useEffect(() => {
-    setFromContent(from);
-    setToContent(to);
+    setFromContent(fromWord);
+    setToContent(toWord);
   }, []);
 
   const closeEditModal = () => {
     dispatch(
       updateModalStatus(EDIT_MODAL, {
-        from: "",
-        to: "",
+        fromWord: "",
+        toWord: "",
         isActive: false,
-        elementId: "",
+        _id: "",
         section: "",
       })
     );
@@ -119,16 +120,16 @@ const EditModal = () => {
   const saveNewContent = () => {
     if (section === FLASH_CARDS) {
       dispatch(
-        updateFlashCardContent(elementId, {
-          currentWord: fromContent,
-          translation: toContent,
+        updateCardAction(user.user.token, _id, {
+          fromWord: fromContent,
+          toWord: toContent,
         })
       );
     } else if (section === TRANSLATION_ELEMENTS) {
       const data = { fromWord: fromContent, toWord: toContent };
-      dispatch(editWordAction(user.user.token, elementId, data));
+      dispatch(editWordAction(user.user.token, _id, data));
       dispatch(
-        editListElementContent(elementId, {
+        editListElementContent(_id, {
           currentWord: fromContent,
           translation: toContent,
         })
@@ -139,7 +140,7 @@ const EditModal = () => {
         from: "",
         to: "",
         isActive: false,
-        elementId: "",
+        _id: "",
         section: "",
       })
     );
