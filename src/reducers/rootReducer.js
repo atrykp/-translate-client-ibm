@@ -1,5 +1,3 @@
-import listReducer from "./listReducer";
-import currentTranslationReducer from "./currentTranslationReducer";
 import flashCardsReducer, {
   addFlashcardReducer,
   getCardsListReducer,
@@ -18,8 +16,6 @@ import {
 import { combineReducers } from "redux";
 
 const rootReducer = combineReducers({
-  listReducer,
-  currentTranslationReducer,
   flashCardsReducer,
   modalsReducer,
   userRegisterReducer,

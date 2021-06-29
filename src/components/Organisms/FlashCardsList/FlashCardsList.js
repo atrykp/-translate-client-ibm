@@ -1,12 +1,15 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useLayoutEffect } from "react";
 import styled from "styled-components";
+import { useHistory } from "react-router-dom";
+import { useDispatch } from "react-redux";
+
+import { getCardsListAction } from "../../../thunk-actions/userFlashcardsAction";
+import useReduxStore from "../../../hooks/useReduxStore";
+
 import FlashCard from "../../Molecules/FlasCard/FlashCard";
 import SideMenu from "../../Organisms/SideMenu/SideMenu";
 import Paragraph from "../../Atoms/Paragraph/Paragraph";
-import useReduxStore from "../../../hooks/useReduxStore";
-import { useDispatch } from "react-redux";
-import { getCardsListAction } from "../../../thunk-actions/userFlashcardsAction";
-import { useHistory } from "react-router-dom";
+
 const StyledWrapper = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -48,16 +51,12 @@ const FlashCardsList = () => {
 
   const { user } = userLogin;
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (!user.token) history.push("/login");
     dispatch(getCardsListAction(user.token));
   }, []);
 
-  console.log(flashcardsList.list);
-
   useEffect(() => {
-    console.log("zmieniła się lista");
-
     if (flashcardsList.list.length > 0) {
       const listArr = flashcardsList.list.map(
         (element) =>

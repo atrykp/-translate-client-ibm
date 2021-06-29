@@ -1,11 +1,13 @@
+import { useLayoutEffect } from "react";
 import styled from "styled-components";
-import TranslationElement from "../../Molecules/TranslationElement/TranslationElement";
-import EditModal from "../../Molecules/EditModal/EditModal";
-import useReduxStore from "../../../hooks/useReduxStore";
 import { useDispatch } from "react-redux";
 import { userTListAction } from "../../../thunk-actions/userTListAction";
-import { useEffect } from "react";
 import { useHistory } from "react-router";
+
+import useReduxStore from "../../../hooks/useReduxStore";
+
+import TranslationElement from "../../Molecules/TranslationElement/TranslationElement";
+import EditModal from "../../Molecules/EditModal/EditModal";
 
 const StyledWrapper = styled.div`
   display: flex;
@@ -22,7 +24,7 @@ const TranslationList = () => {
 
   const dispatch = useDispatch();
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (userLogin.user?.token) {
       dispatch(userTListAction(userLogin.user.token));
     } else {
