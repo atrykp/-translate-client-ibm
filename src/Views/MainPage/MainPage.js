@@ -60,13 +60,25 @@ const StyledInput = styled(Input)`
   align-self: start;
   height: 50px;
 `;
+const StyledError = styled(motion.p)`
+  font-size: 1.2rem;
+  position: absolute;
+  background-color: red;
+  width: 100%;
+  color: white;
+  text-align: center;
+`;
+
+const variants = {
+  open: { opacity: 1, y: 0 },
+  close: { opacity: 0, y: -40 },
+};
 
 const MainPage = () => {
-  const [fromWord, setFromWord] = useState("");
   const [fromLang, setFromLang] = useState("en");
   const [toLang, setToLang] = useState("pl");
   const [translatedObj, setTranslatedObj] = useState("");
-
+  const [isError, setIsError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
   const dispatch = useDispatch();
@@ -82,21 +94,26 @@ const MainPage = () => {
   const wordById = useSelector((state) => state.getWordByIdReducer);
 
   useEffect(() => {
-    setTranslatedObj(wordById.sentence);
-    dispatch(userTListAction(token));
+    if (token) {
+      setTranslatedObj(wordById.sentence);
+      dispatch(userTListAction(token));
+    }
   }, [wordById, dispatch, token]);
 
   useEffect(() => {
     dispatch(getWordByIdReset());
-  }, []);
+  }, [dispatch]);
 
   const handleTranslate = async () => {
-    if (!translateInput.current.value) return;
+    if (!translateInput.current.value) {
+      setIsError(true);
+      return;
+    }
     dispatch(getWordByIdReset());
     setIsLoading(true);
 
     let response = await fetch(
-      `https://translate-app-serv.herokuapp.com/translator/translate/${fromWord}/${fromLang}/${toLang}`
+      `https://translate-app-serv.herokuapp.com/translator/translate/${translateInput.current.value}/${fromLang}/${toLang}`
     );
 
     let translateObj = await response.json();
@@ -104,7 +121,7 @@ const MainPage = () => {
     let toWord = translateObj.result.translations[0].translation;
 
     const translatedObj = {
-      fromWord,
+      fromWord: translateInput.current.value,
       toWord,
       fromLang,
       toLang,
@@ -134,8 +151,10 @@ const MainPage = () => {
     setIsLoading(false);
   };
 
-  const handleChange = ({ target }) => {
-    setFromWord(target.value);
+  const handleChange = () => {
+    if (isError) {
+      setIsError(false);
+    }
   };
   const switchLanguages = () => {
     setFromLang(toLang);
@@ -163,7 +182,12 @@ const MainPage = () => {
             />
             <Dropdown setLanguage={setToLang} language={toLang} />
           </StyledDropdownWrapper>
-          <StyledInput onChange={(e) => handleChange(e)} ref={translateInput} />
+          <StyledInput onChange={() => handleChange()} ref={translateInput} />
+
+          <StyledError animate={isError ? "open" : "close"} variants={variants}>
+            input is required
+          </StyledError>
+
           <StyledButton onClick={handleTranslate}>Translate</StyledButton>
           <Output
             isLoading={isLoading}
