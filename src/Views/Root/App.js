@@ -1,7 +1,9 @@
-import GlobalStyle from "../../Theme/GlobalStyles";
 import { ThemeProvider } from "styled-components";
-import theme from "../../Theme/MainTheme";
 import { BrowserRouter as Router, Redirect, Route } from "react-router-dom";
+
+import theme from "../../Theme/MainTheme";
+import GlobalStyle from "../../Theme/GlobalStyles";
+
 import MainPage from "../MainPage/MainPage";
 import ListPage from "../ListPage/ListPage";
 import FlashCards from "../FlashCards/FlashCards";

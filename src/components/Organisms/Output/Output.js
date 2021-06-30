@@ -4,7 +4,7 @@ import { useState } from "react";
 import Paragraph from "../../Atoms/Paragraph/Paragraph";
 import Loading from "../../Atoms/Loading/Loading";
 import { useDispatch } from "react-redux";
-import { addFlashCard, updateModalStatus } from "../../../actions/actions";
+import { updateModalStatus } from "../../../actions/actions";
 import { useEffect } from "react";
 import useReduxStore from "../../../hooks/useReduxStore";
 import { useHistory } from "react-router-dom";
@@ -140,7 +140,6 @@ const Output = ({
     const flashCard = { ...translatedObj, iCan: false };
     delete flashCard.counter;
     dispatch(addFlashCardAction(user.user?.token, flashCard));
-    dispatch(addFlashCard(flashCard));
     dispatch(
       updateModalStatus("notification", {
         content: "added new card",

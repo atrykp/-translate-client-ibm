@@ -1,16 +1,18 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
-import styled from "styled-components";
 import { useForm } from "react-hook-form";
 import { useHistory } from "react-router-dom";
 import { motion } from "framer-motion";
+import { useDispatch, useSelector } from "react-redux";
+import styled from "styled-components";
+
 import Loading from "../../components/Atoms/Loading/Loading";
 import Input from "../../components/Atoms/Input/Input";
 import Paragraph from "../../components/Atoms/Paragraph/Paragraph";
 import Button from "../../components/Atoms/Button/Button";
-import { useDispatch, useSelector } from "react-redux";
-import userLoginAction from "../../thunk-actions/userLoginAction";
 import MainTemplate from "../../templates/MainTemplate";
+
+import userLoginAction from "../../thunk-actions/userLoginAction";
 
 const StyledWrapper = styled.div`
   background-color: ${({ theme }) => theme.colors.lightBackground};

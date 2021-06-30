@@ -1,8 +1,6 @@
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 import Link from "../../Atoms/Link/Link";
-import { useDispatch } from "react-redux";
-import { updateCurrentTranslation } from "../../../actions/actions";
 
 const StyledWrapper = styled.div`
   display: flex;
@@ -38,19 +36,14 @@ const StyledLink = styled(Link)`
 `;
 
 const BottomBar = () => {
-  const dispatch = useDispatch();
-  const handleClick = () => {
-    dispatch(updateCurrentTranslation({}));
-  };
   return (
     <StyledWrapper>
-      <StyledLink as={NavLink} to="/list" onClick={handleClick}>
+      <StyledLink as={NavLink} to="/list">
         <span className="material-icons">list</span>
       </StyledLink>
       <StyledLink as={NavLink} exact to="/">
         <span className="material-icons">translate</span>
       </StyledLink>
-
       <StyledLink as={NavLink} to="/flashcards">
         <span className="material-icons">quiz</span>
       </StyledLink>

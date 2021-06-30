@@ -1,23 +1,26 @@
-import MainTemplate from "../../templates/MainTemplate";
+import { useEffect, useState, useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import Dropdown from "../../components/Organisms/Dropdown/Dropdown";
+import { motion } from "framer-motion";
+
 import Input from "../../components/Atoms/Input/Input";
 import Button from "../../components/Atoms/Button/Button";
 import RoundButton from "../../components/Atoms/RoundButton/RoundButton";
+import Dropdown from "../../components/Organisms/Dropdown/Dropdown";
 import Output from "../../components/Organisms/Output/Output";
-import swap from "../../assets/Icons/swap.svg";
-import { motion } from "framer-motion";
-import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import MainTemplate from "../../templates/MainTemplate";
+
 import findInMyArray from "../../helpers/findInMyArray";
 import useReduxStore from "../../hooks/useReduxStore";
+
 import {
   getWordByIdAction,
   updateWordCouterAction,
   userTListAction,
 } from "../../thunk-actions/userTListAction";
 import { getWordByIdReset } from "../../actions/tList-actions";
-import { useEffect } from "react";
+
+import swap from "../../assets/Icons/swap.svg";
 
 const StyledWrapper = styled.div`
   min-height: 95vh;
@@ -62,32 +65,40 @@ const MainPage = () => {
   const [fromWord, setFromWord] = useState("");
   const [fromLang, setFromLang] = useState("en");
   const [toLang, setToLang] = useState("pl");
-  const [isLoading, setIsLoading] = useState(false);
   const [translatedObj, setTranslatedObj] = useState("");
+
+  const [isLoading, setIsLoading] = useState(false);
 
   const dispatch = useDispatch();
 
+  const translateInput = useRef(null);
+
   const { userLoginReducer: user } = useReduxStore();
+  const {
+    user: { token },
+  } = user;
+
   let translationList = useSelector((state) => state.tListReducer);
   const wordById = useSelector((state) => state.getWordByIdReducer);
 
   useEffect(() => {
     setTranslatedObj(wordById.sentence);
-    dispatch(userTListAction(user.user.token));
-  }, [wordById, dispatch, user.user.token]);
+    dispatch(userTListAction(token));
+  }, [wordById, dispatch, token]);
 
   useEffect(() => {
     dispatch(getWordByIdReset());
   }, []);
 
-  const handleClick = async () => {
+  const handleTranslate = async () => {
+    if (!translateInput.current.value) return;
     dispatch(getWordByIdReset());
     setIsLoading(true);
 
     let response = await fetch(
       `https://translate-app-serv.herokuapp.com/translator/translate/${fromWord}/${fromLang}/${toLang}`
-      // `http://localhost:5000/translator/translate/${fromWord}/${fromLang}/${toLang}`
     );
+
     let translateObj = await response.json();
 
     let toWord = translateObj.result.translations[0].translation;
@@ -109,11 +120,11 @@ const MainPage = () => {
       );
     }
 
-    if (translated && user.user.token) {
+    if (translated && token) {
       const translationId = translated._id;
       try {
-        dispatch(updateWordCouterAction(user.user.token, translationId));
-        dispatch(getWordByIdAction(user.user.token, translationId));
+        await dispatch(updateWordCouterAction(token, translationId));
+        await dispatch(getWordByIdAction(token, translationId));
       } catch (error) {
         console.log(error);
       }
@@ -152,8 +163,8 @@ const MainPage = () => {
             />
             <Dropdown setLanguage={setToLang} language={toLang} />
           </StyledDropdownWrapper>
-          <StyledInput onChange={(e) => handleChange(e)} required />
-          <StyledButton onClick={handleClick}>Translate</StyledButton>
+          <StyledInput onChange={(e) => handleChange(e)} ref={translateInput} />
+          <StyledButton onClick={handleTranslate}>Translate</StyledButton>
           <Output
             isLoading={isLoading}
             setIsLoading={setIsLoading}

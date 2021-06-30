@@ -84,15 +84,17 @@ const StyledLoadingWrapper = styled.div`
 `;
 
 const UserRegister = () => {
-  const dispatch = useDispatch();
   const registerState = useSelector((state) => state.userRegisterReducer);
   const { loading, success, error } = registerState;
+
+  const dispatch = useDispatch();
 
   const {
     register,
     formState: { errors },
     handleSubmit,
   } = useForm();
+
   const onSubmit = async (data, e) => {
     dispatch(registerReset());
     dispatch(userRegisterAction(data));
