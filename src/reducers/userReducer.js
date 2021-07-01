@@ -36,7 +36,7 @@ const loginInitialState = {
   error: null,
 };
 
-export const userLoginReducer = (state = loginInitialState, action) => {
+export const userLoginReducer = (state = userInfoStore, action) => {
   switch (action.type) {
     case USER_LOGIN_REQUEST:
       return { ...state, loading: true };
@@ -50,3 +50,7 @@ export const userLoginReducer = (state = loginInitialState, action) => {
       return state;
   }
 };
+
+const userInfoStore = localStorage.getItem("userInfo")
+  ? JSON.parse(localStorage.getItem("userInfo"))
+  : loginInitialState;

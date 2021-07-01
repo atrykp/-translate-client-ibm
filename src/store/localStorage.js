@@ -1,6 +1,6 @@
 export const loadState = () => {
   try {
-    const serializedState = localStorage.getItem("translateState");
+    const serializedState = localStorage.getItem("userInfo");
     if (serializedState === null) {
       return undefined;
     }
@@ -13,8 +13,8 @@ export const loadState = () => {
 export const saveState = (state) => {
   try {
     const serializedState = JSON.stringify(state);
-    localStorage.setItem("translateState", serializedState);
-  } catch {
-    // ignore write errors
+    localStorage.setItem("userInfo", serializedState);
+  } catch (error) {
+    throw new Error("something went wrong with locale storage");
   }
 };

@@ -15,8 +15,7 @@ const store = createStore(
 );
 store.subscribe(() => {
   saveState({
-    listReducer: store.getState().listReducer,
-    flashCardsReducer: store.getState().flashCardsReducer,
+    userLoginReducer: store.getState().userLoginReducer,
   });
 });
 
