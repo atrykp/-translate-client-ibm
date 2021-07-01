@@ -1,7 +1,8 @@
+import { useState } from "react";
 import styled, { css } from "styled-components";
 import RoundButton from "../../Atoms/RoundButton/RoundButton";
 import Paragraph from "../../Atoms/Paragraph/Paragraph";
-import { useState } from "react";
+
 const StyledRoundButton = styled(RoundButton)`
   justify-self: end;
   display: grid;
@@ -74,6 +75,7 @@ const StyledRow = styled.div`
     `};
 `;
 const filtersArr = ["all", "iCan", "iCant"];
+
 const SideMenu = ({ setCurrentFilter }) => {
   const [isActive, setIsActive] = useState(false);
   const handleClick = () => setIsActive((prevValue) => !prevValue);

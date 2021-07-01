@@ -38,7 +38,6 @@ const StyledFilterInfo = styled.div`
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.16), 0 2px 4px rgba(0, 0, 0, 0.23);
   z-index: 3;
 `;
-
 const FlashCardsList = () => {
   const [currentFilter, setCurrentFilter] = useState("all");
   const [cardsListArr, setCardsListArr] = useState([]);
@@ -65,15 +64,26 @@ const FlashCardsList = () => {
 
   useEffect(() => {
     if (list.length > 0) {
-      const listArr = list.map(
-        (element) =>
-          element && <FlashCard cardContent={element} key={element._id} />
-      );
+      const listArr = list
+        .filter((card) => {
+          if (currentFilter === "all") {
+            return card;
+          } else if (currentFilter === "iCan" && card.iCan) {
+            return card;
+          } else if (currentFilter === "iCant" && !card.iCan) {
+            return card;
+          }
+          return null;
+        })
+        .map(
+          (element) =>
+            element && <FlashCard cardContent={element} key={element._id} />
+        );
       setCardsListArr(listArr);
     } else if (list.length === 0 && cardsListArr.length > 0) {
       setCardsListArr([]);
     }
-  }, [list, cardsListArr.length]);
+  }, [list, cardsListArr.length, currentFilter]);
 
   return (
     <>
@@ -91,15 +101,3 @@ const FlashCardsList = () => {
 };
 
 export default FlashCardsList;
-
-// const arr = flashCardsReducer
-//   .filter((card) => {
-//     if (currentFilter === "all") {
-//       return card;
-//     } else if (currentFilter === "iCan" && card.iCan) {
-//       return card;
-//     } else if (currentFilter === "iCant" && !card.iCan) {
-//       return card;
-//     }
-//     return null;
-//   })
