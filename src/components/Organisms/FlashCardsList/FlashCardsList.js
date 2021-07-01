@@ -38,6 +38,7 @@ const StyledFilterInfo = styled.div`
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.16), 0 2px 4px rgba(0, 0, 0, 0.23);
   z-index: 3;
 `;
+
 const FlashCardsList = () => {
   const [currentFilter, setCurrentFilter] = useState("all");
   const [cardsListArr, setCardsListArr] = useState([]);
@@ -46,38 +47,44 @@ const FlashCardsList = () => {
   const history = useHistory();
 
   const { userLoginReducer: userLogin } = useReduxStore();
-  const { getCardsListReducer: flashcardsList } = useReduxStore();
+  const {
+    getCardsListReducer: { list },
+  } = useReduxStore();
 
-  const { user } = userLogin;
+  const {
+    user: { token },
+  } = userLogin;
 
   useLayoutEffect(() => {
-    if (!user.token) history.push("/login");
-    dispatch(getCardsListAction(user.token));
-  }, []);
+    if (!token) {
+      history.push("/login");
+      return;
+    }
+    dispatch(getCardsListAction(token));
+  }, [dispatch, history, token]);
 
   useEffect(() => {
-    if (flashcardsList.list.length > 0) {
-      const listArr = flashcardsList.list.map(
+    if (list.length > 0) {
+      const listArr = list.map(
         (element) =>
           element && <FlashCard cardContent={element} key={element._id} />
       );
       setCardsListArr(listArr);
-    } else if (flashcardsList.list.length === 0 && cardsListArr.length > 0) {
+    } else if (list.length === 0 && cardsListArr.length > 0) {
       setCardsListArr([]);
     }
-  }, [flashcardsList.list]);
+  }, [list, cardsListArr.length]);
 
   return (
     <>
       <StyledFilterInfo>
         <Paragraph>{`active filter: ${currentFilter} ( ${cardsListArr.length} )`}</Paragraph>
       </StyledFilterInfo>
-
       <StyledSideMenuWrapper>
         <SideMenu setCurrentFilter={setCurrentFilter} />
       </StyledSideMenuWrapper>
       <StyledWrapper>
-        {flashcardsList.list.length < 1 ? <p>empty</p> : cardsListArr}
+        {list.length < 1 ? <p>empty</p> : cardsListArr}
       </StyledWrapper>
     </>
   );

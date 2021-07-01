@@ -94,7 +94,7 @@ const EditModal = () => {
   useEffect(() => {
     setFromContent(fromWord);
     setToContent(toWord);
-  }, []);
+  }, [fromWord, toWord]);
 
   const closeEditModal = () => {
     dispatch(updateModalStatus(EDIT_MODAL, { isActive: false }));
