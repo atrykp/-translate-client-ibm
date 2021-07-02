@@ -75,7 +75,7 @@ const StyledSpanWrapper = styled.span`
   color: ${({ theme }) => theme.colors.mediumTxt};
   transform: scale(0.7);
   z-index: 2;
-  &:hover {
+  &:active {
     color: ${({ theme }) => theme.colors.primaryLight};
     cursor: pointer;
   }

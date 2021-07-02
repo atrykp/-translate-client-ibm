@@ -10,7 +10,7 @@ const Link = styled.a`
   font-weight: ${({ theme }) => theme.fontWeight.normal};
   text-decoration: none;
 
-  &:hover {
+  &:active {
     background-color: ${({ theme }) => theme.colors.secondaryDark};
     border-radius: 10px;
   }

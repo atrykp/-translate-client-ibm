@@ -12,7 +12,7 @@ const Button = styled.button`
   transition: 0.3s;
   cursor: pointer;
   @media (min-width: 900px) {
-    &:hover {
+    &:active {
       background-color: ${({ theme }) => theme.colors.secondaryDark};
     }
   }

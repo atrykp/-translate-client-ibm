@@ -34,18 +34,28 @@ const StyledLink = styled(Link)`
     background-color: ${({ theme }) => theme.colors.primaryLight};
   }
 `;
+const StyledLabel = styled.p`
+  font-size: ${({ theme }) => theme.fontSize.xsmall};
+`;
 
 const BottomBar = () => {
   return (
     <StyledWrapper>
-      <StyledLink as={NavLink} to="/list">
-        <span className="material-icons">list</span>
+      <StyledLink as={NavLink} to="/user">
+        <span className="material-icons">person</span>
+        <StyledLabel>user</StyledLabel>
       </StyledLink>
       <StyledLink as={NavLink} exact to="/">
         <span className="material-icons">translate</span>
+        <StyledLabel>translator</StyledLabel>
       </StyledLink>
       <StyledLink as={NavLink} to="/flashcards">
         <span className="material-icons">quiz</span>
+        <StyledLabel>flash cards</StyledLabel>
+      </StyledLink>
+      <StyledLink as={NavLink} to="/list">
+        <span className="material-icons">list</span>
+        <StyledLabel>translation list</StyledLabel>
       </StyledLink>
     </StyledWrapper>
   );

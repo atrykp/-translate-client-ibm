@@ -36,7 +36,7 @@ const StyledSpan = styled.span`
   cursor: pointer;
   transition: 0.2s ease-in-out;
 
-  &:hover {
+  &:active {
     color: ${({ theme }) => theme.colors.secondary};
   }
   ${({ secondary }) => (secondary ? "bottom:10px" : "top:10px")}
@@ -71,7 +71,6 @@ const Output = ({
       user: { token },
     },
   } = useReduxStore();
-  console.log(token);
 
   const { counter, toWord, _id, fromLang, toLang, fromWord } =
     translatedObj || {};

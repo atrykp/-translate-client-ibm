@@ -74,6 +74,9 @@ const StyledRow = styled.div`
       transform: ${active ? "translateY(0)" : "translateY(387%)"};
     `};
 `;
+const StyledLabel = styled.p`
+  font-size: ${({ theme }) => theme.fontSize.xsmall};
+`;
 const filtersArr = ["all", "iCan", "iCant"];
 
 const SideMenu = ({ setCurrentFilter }) => {
@@ -105,7 +108,10 @@ const SideMenu = ({ setCurrentFilter }) => {
           </StyledRoundButton>
         </StyledRow>
         <StyledRoundButton onClick={handleClick}>
-          <span className="material-icons">menu</span>
+          <span className="material-icons">
+            <span className="material-icons-outlined">filter_list</span>
+          </span>
+          <StyledLabel>filters</StyledLabel>
         </StyledRoundButton>
       </StyledWrapper>
     </>

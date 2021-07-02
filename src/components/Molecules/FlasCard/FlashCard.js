@@ -85,10 +85,13 @@ const StyledSpanWrapper = styled.span`
   top: 1%;
   color: ${({ theme }) => theme.colors.mediumTxt};
   transform: scale(0.8);
-  &:hover {
+  &::active {
     color: ${({ theme }) => theme.colors.primaryLight};
     cursor: pointer;
   }
+`;
+const StyledLabel = styled.p`
+  font-size: ${({ theme }) => theme.fontSize.small};
 `;
 
 const FlashCard = ({ cardContent }) => {
@@ -157,6 +160,7 @@ const FlashCard = ({ cardContent }) => {
       <StyledWrapper isFront={frontSide}>
         <StyledSpanWrapper onClick={changeEditModalActivity}>
           <span className="material-icons">edit</span>
+          <StyledLabel>edit</StyledLabel>
         </StyledSpanWrapper>
 
         <StyledTxtWrapper>

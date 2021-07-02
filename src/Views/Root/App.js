@@ -1,5 +1,10 @@
 import { ThemeProvider } from "styled-components";
-import { BrowserRouter as Router, Redirect, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Redirect,
+  Route,
+  Switch,
+} from "react-router-dom";
 
 import theme from "../../Theme/MainTheme";
 import GlobalStyle from "../../Theme/GlobalStyles";
@@ -15,12 +20,14 @@ function App() {
     <Router>
       <GlobalStyle />
       <ThemeProvider theme={theme}>
-        <Route exact path="/" component={MainPage} />
-        <Route path="/list" component={ListPage} />
-        <Route path="/flashcards" component={FlashCards} />
-        <Redirect to="/" />
-        <Route path="/register" component={UserRegister} />
-        <Route path="/login" component={UserLogin} />
+        <Switch>
+          <Route exact path="/" component={MainPage} />
+          <Route path="/list" component={ListPage} />
+          <Route path="/flashcards" component={FlashCards} />
+          <Route path="/register" component={UserRegister} />
+          <Route path="/login" component={UserLogin} />
+          <Redirect to="/" />
+        </Switch>
       </ThemeProvider>
     </Router>
   );

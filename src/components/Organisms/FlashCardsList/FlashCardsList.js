@@ -88,7 +88,7 @@ const FlashCardsList = () => {
   return (
     <>
       <StyledFilterInfo>
-        <Paragraph>{`active filter: ${currentFilter} ( ${cardsListArr.length} )`}</Paragraph>
+        <Paragraph>{`show:  ${currentFilter} ( ${cardsListArr.length} )`}</Paragraph>
       </StyledFilterInfo>
       <StyledSideMenuWrapper>
         <SideMenu setCurrentFilter={setCurrentFilter} />

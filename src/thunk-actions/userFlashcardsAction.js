@@ -13,6 +13,7 @@ import {
   updateCardRequest,
   updateCardSuccess,
 } from "../actions/flashcards-actions";
+import { userLogoutAction } from "./userLoginAction";
 
 export const addFlashCardAction = (token, flashcardObj) => async (dispatch) => {
   try {
@@ -57,6 +58,7 @@ export const getCardsListAction = (token) => async (dispatch) => {
     }
     dispatch(getCardsListSuccess(data));
   } catch (error) {
+    dispatch(userLogoutAction());
     dispatch(getCardsListFail(error.message));
   }
 };
