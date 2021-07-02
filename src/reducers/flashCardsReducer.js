@@ -8,6 +8,7 @@ import {
   GET_FLASHCARDS_LIST_FAIL,
   GET_FLASHCARDS_LIST_REQUEST,
   GET_FLASHCARDS_LIST_SUCCESS,
+  GET_FLASHCARDS_LIST_RESET,
   UPDATE_CARD_FAIL,
   UPDATE_CARD_REQUEST,
   UPDATE_CARD_SUCCESS,
@@ -45,6 +46,8 @@ export const getCardsListReducer = (state = listInit, action) => {
       return { ...state, loading: false, list: action.payload };
     case GET_FLASHCARDS_LIST_FAIL:
       return { loading: false, list: [], error: action.payload };
+    case GET_FLASHCARDS_LIST_RESET:
+      return { ...listInit };
     default:
       return state;
   }

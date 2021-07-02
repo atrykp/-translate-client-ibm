@@ -21,6 +21,7 @@ import {
 import { getWordByIdReset } from "../../actions/tList-actions";
 
 import swap from "../../assets/Icons/swap.svg";
+import { userLogoutAction } from "../../thunk-actions/userLoginAction";
 
 const StyledWrapper = styled.div`
   min-height: 95vh;

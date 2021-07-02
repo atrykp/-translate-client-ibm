@@ -18,6 +18,7 @@ import {
   EDIT_WORD_REQUEST,
   EDIT_WORD_SUCCESS,
   EDIT_WORD_FAIL,
+  GET_T_LIST_RESET,
 } from "../actions/tList-actions";
 
 const initialState = {
@@ -34,6 +35,8 @@ export const tListReducer = (state = initialState, action) => {
       return { ...state, loading: false, userTList: [...action.payload.list] };
     case GET_T_LIST_FAIL:
       return { ...state, loading: false, error: action.payload.error };
+    case GET_T_LIST_RESET:
+      return { ...state, ...initialState };
     default:
       return state;
   }

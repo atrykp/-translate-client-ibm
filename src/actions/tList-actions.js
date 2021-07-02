@@ -1,6 +1,8 @@
 export const GET_T_LIST_REQUEST = "GET_T_LIST_REQUEST";
 export const GET_T_LIST_SUCCESS = "GET_T_LIST_SUCCESS";
 export const GET_T_LIST_FAIL = "GET_T_LIST_FAIL";
+export const GET_T_LIST_RESET = "GET_T_LIST_RESET";
+
 export const ADD_WORD_TO_LIST_REQUEST = "ADD_WORD_TO_LIST_REQUEST";
 export const ADD_WORD_TO_LIST_SUCCESS = "ADD_WORD_TO_LIST_SUCCESS";
 export const ADD_WORD_TO_LIST_FAIL = "ADD_WORD_TO_LIST_FAIL";
@@ -33,6 +35,9 @@ export const getListFail = (error) => ({
   payload: {
     error,
   },
+});
+export const getListReset = () => ({
+  type: GET_T_LIST_RESET,
 });
 export const saveWordRequest = () => ({
   type: ADD_WORD_TO_LIST_REQUEST,

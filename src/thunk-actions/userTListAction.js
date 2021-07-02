@@ -18,6 +18,7 @@ import {
   editWordRequest,
   editWordSuccess,
 } from "../actions/tList-actions";
+import { userLogoutAction } from "./userLoginAction";
 
 export const userTListAction = (token) => async (dispatch) => {
   try {
@@ -38,6 +39,7 @@ export const userTListAction = (token) => async (dispatch) => {
     }
     dispatch(getListSuccess(data.userList));
   } catch (error) {
+    dispatch(userLogoutAction());
     dispatch(getListFail(error.message));
   }
 };

@@ -1,13 +1,15 @@
 import axios from "axios";
+import { getCardsListReset } from "../actions/flashcards-actions";
+import { getListReset } from "../actions/tList-actions";
 import {
   loginFail,
   loginRequest,
-  loginReset,
+  userLogout,
   loginSuccess,
 } from "../actions/user-actions";
 
 const userLoginAction = (user) => async (dispatch) => {
-  dispatch(loginReset());
+  dispatch(userLogout());
   dispatch(loginRequest());
   try {
     const { data } = await axios.post(
@@ -25,3 +27,10 @@ const userLoginAction = (user) => async (dispatch) => {
 };
 
 export default userLoginAction;
+
+export const userLogoutAction = () => async (dispatch) => {
+  localStorage.setItem("userInfo", {});
+  dispatch(userLogout());
+  dispatch(getListReset());
+  dispatch(getCardsListReset());
+};

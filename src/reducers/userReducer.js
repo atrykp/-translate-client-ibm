@@ -6,7 +6,7 @@ import {
   USER_LOGIN_REQUEST,
   USER_LOGIN_SUCCESS,
   USER_LOGIN_FAIL,
-  USER_LOGIN_RESET,
+  USER_LOGOUT,
 } from "../actions/user-actions";
 
 const initialState = {
@@ -44,7 +44,7 @@ export const userLoginReducer = (state = userInfoStore, action) => {
       return { ...state, loading: false, user: action.payload };
     case USER_LOGIN_FAIL:
       return { ...state, error: action.payload, loading: false };
-    case USER_LOGIN_RESET:
+    case USER_LOGOUT:
       return { ...state, ...loginInitialState };
     default:
       return state;
