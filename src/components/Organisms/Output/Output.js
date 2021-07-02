@@ -66,7 +66,12 @@ const Output = ({
 
   const history = useHistory();
 
-  const { userLoginReducer: user } = useReduxStore();
+  const {
+    userLoginReducer: {
+      user: { token },
+    },
+  } = useReduxStore();
+  console.log(token);
 
   const { counter, toWord, _id, fromLang, toLang, fromWord } =
     translatedObj || {};
@@ -90,9 +95,9 @@ const Output = ({
   }, [counter]);
 
   const handleClick = () => {
-    const token = user.user?.token;
     if (!token) {
       history.push("/login");
+      return;
     }
 
     if (counter === 0) {
@@ -137,9 +142,13 @@ const Output = ({
   };
 
   const addCard = () => {
+    if (!token) {
+      history.push("/login");
+      return;
+    }
     const flashCard = { ...translatedObj, iCan: false };
     delete flashCard.counter;
-    dispatch(addFlashCardAction(user.user?.token, flashCard));
+    dispatch(addFlashCardAction(token, flashCard));
     dispatch(
       updateModalStatus("notification", {
         content: "added new card",
@@ -153,7 +162,6 @@ const Output = ({
     setIsLoading(true);
     let response = await fetch(
       `https://translate-app-serv.herokuapp.com/translator/translate/listen/${toWord}/${fromLang}/${toLang}`
-      // `http://localhost:5000/translator/translate/listen/${toWord}/${fromLang}/${toLang}`
     );
     let listenTranslation = await response.blob();
     const url = window.URL.createObjectURL(listenTranslation);

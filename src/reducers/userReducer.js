@@ -32,7 +32,12 @@ export const userRegisterReducer = (state = initialState, action) => {
 
 const loginInitialState = {
   loading: false,
-  user: {},
+  user: {
+    email: "",
+    name: "",
+    token: "",
+    _id: "",
+  },
   error: null,
 };
 
