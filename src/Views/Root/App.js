@@ -14,6 +14,7 @@ import ListPage from "../ListPage/ListPage";
 import FlashCards from "../FlashCards/FlashCards";
 import UserLogin from "../UserLogin/UserLogin";
 import UserRegister from "../UserRegister/UserRegister";
+import User from "../User/User";
 
 function App() {
   return (
@@ -26,6 +27,8 @@ function App() {
           <Route path="/flashcards" component={FlashCards} />
           <Route path="/register" component={UserRegister} />
           <Route path="/login" component={UserLogin} />
+          <Route path="/user" component={User} />
+
           <Redirect to="/" />
         </Switch>
       </ThemeProvider>
