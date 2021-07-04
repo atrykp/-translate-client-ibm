@@ -29,6 +29,7 @@ export const userTListAction = (token) => async (dispatch) => {
         Authorization: `Bearer ${token}`,
       },
     };
+
     const { data } = await axios.get(
       "https://translate-app-serv.herokuapp.com/translator/list",
       config
@@ -39,7 +40,6 @@ export const userTListAction = (token) => async (dispatch) => {
     }
     dispatch(getListSuccess(data.userList));
   } catch (error) {
-    dispatch(userLogoutAction());
     dispatch(getListFail(error.message));
   }
 };

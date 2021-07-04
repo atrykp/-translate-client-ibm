@@ -1,15 +1,17 @@
+import React, { useState, useEffect } from "react";
+import styled from "styled-components";
 import axios from "axios";
-import React, { useState } from "react";
-import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { motion } from "framer-motion";
+
 import useReduxStore from "../../hooks/useReduxStore";
+import { userLogoutAction } from "../../thunk-actions/userLoginAction";
+
 import MainTemplate from "../../templates/MainTemplate";
 import { Link, useHistory } from "react-router-dom";
-import styled from "styled-components";
 import Paragraph from "../../components/Atoms/Paragraph/Paragraph";
-import { userLogoutAction } from "../../thunk-actions/userLoginAction";
-import { useDispatch, useSelector } from "react-redux";
 
-const StyledWrapper = styled.div`
+const StyledWrapper = styled(motion.div)`
   width: 100%;
   height: 100vh;
   display: grid;
@@ -127,13 +129,7 @@ const User = () => {
 
   return (
     <div>
-      {!isUserLogin ? (
-        <StyledWrapper>
-          <StyledLink to="/login">Login</StyledLink>
-          <StyledParagraph>or</StyledParagraph>
-          <StyledLink to="/register">Sign Up</StyledLink>
-        </StyledWrapper>
-      ) : (
+      {isUserLogin ? (
         <StyledUserWrapper>
           <StyledHeader>
             Hello <StyledHeaderSpan>{userInfo.name}</StyledHeaderSpan>!
@@ -150,7 +146,8 @@ const User = () => {
           <StyledTranslationWrapper>
             <StyledSecondHeader>Stats:</StyledSecondHeader>
             <StyledParagraphMain>
-              flashcards: <StyledSpan>{list?.length}</StyledSpan>
+              flashcards:{" "}
+              <StyledSpan>{list.length ? list.length : 0}</StyledSpan>
             </StyledParagraphMain>
             <StyledParagraphMain>
               list: <StyledSpan>{translationList?.userTList.length}</StyledSpan>
@@ -165,6 +162,16 @@ const User = () => {
             Logout
           </StyledButton>
         </StyledUserWrapper>
+      ) : (
+        <StyledWrapper
+          animate={{ opacity: 1 }}
+          initial={{ opacity: 0 }}
+          transition={{ duration: 0.5, delay: 0.1 }}
+        >
+          <StyledLink to="/login">Login</StyledLink>
+          <StyledParagraph>or</StyledParagraph>
+          <StyledLink to="/register">Sign Up</StyledLink>
+        </StyledWrapper>
       )}
 
       <MainTemplate />
