@@ -89,10 +89,9 @@ const UserLogin = () => {
   const userLoginState = useSelector((state) => state.userLoginReducer);
 
   const { loading, user, error } = userLoginState;
-
   useEffect(() => {
     if (user._id) {
-      history.goBack();
+      history.push("/user");
     }
   }, [user, history]);
 

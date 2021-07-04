@@ -3,6 +3,7 @@ import styled from "styled-components";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { motion } from "framer-motion";
+import { useForm } from "react-hook-form";
 
 import useReduxStore from "../../hooks/useReduxStore";
 import { userLogoutAction } from "../../thunk-actions/userLoginAction";
@@ -10,6 +11,7 @@ import { userLogoutAction } from "../../thunk-actions/userLoginAction";
 import MainTemplate from "../../templates/MainTemplate";
 import { Link, useHistory } from "react-router-dom";
 import Paragraph from "../../components/Atoms/Paragraph/Paragraph";
+import Input from "../../components/Atoms/Input/Input";
 
 const StyledWrapper = styled(motion.div)`
   width: 100%;
@@ -35,7 +37,7 @@ const StyledParagraph = styled(Paragraph)`
 `;
 
 const StyledUserWrapper = styled(StyledWrapper)`
-  grid-template-rows: 15vh 25vh 30vh 10vh;
+  grid-template-rows: 15vh 35vh 20vh 10vh;
   grid-template-columns: 1fr;
   align-content: flex-start;
 `;
@@ -44,6 +46,7 @@ const StyledUserInfoWrapper = styled.div`
   height: 100%;
   display: grid;
   align-content: center;
+  position: relative;
 `;
 const StyledTranslationWrapper = styled(StyledUserInfoWrapper)`
   background-color: white;
@@ -83,8 +86,32 @@ const StyledButton = styled.button`
   background-color: transparent;
   color: ${({ theme }) => theme.colors.mediumTxt};
 `;
+const StyledIcon = styled.span`
+  font-size: 20px;
+  position: absolute;
+  right: 10px;
+`;
+
+const StyledUserInfoHeader = styled.div`
+  position: relative;
+`;
+
+const StyledInput = styled(Input)`
+  width: 80%;
+  max-width: 350px;
+  height: 40px;
+  margin: 5px;
+  font-size: 1.9rem;
+`;
 
 const User = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  const [isEdit, setIsEdit] = useState(false);
   const [isUserLogin, setIsUserLogin] = useState(false);
   const [userInfo, setUserInfo] = useState({});
   let translationList = useSelector((state) => state.tListReducer);
@@ -127,6 +154,8 @@ const User = () => {
     }
   }, [userInfo, token, dispatch]);
 
+  const onSubmit = async (data, e) => {};
+
   return (
     <div>
       {isUserLogin ? (
@@ -135,13 +164,57 @@ const User = () => {
             Hello <StyledHeaderSpan>{userInfo.name}</StyledHeaderSpan>!
           </StyledHeader>
           <StyledUserInfoWrapper>
-            <StyledSecondHeader>UserInfo:</StyledSecondHeader>
-            <StyledParagraphMain>
-              name: <StyledSpan>{userInfo.name}</StyledSpan>
-            </StyledParagraphMain>
-            <StyledParagraphMain>
-              email: <StyledSpan>{userInfo.email}</StyledSpan>
-            </StyledParagraphMain>
+            <StyledUserInfoHeader>
+              <StyledSecondHeader>
+                UserInfo:
+                <StyledIcon
+                  className="material-icons edit"
+                  // onClick={() => setIsEdit((prev) => !prev)}
+                >
+                  edit
+                </StyledIcon>
+              </StyledSecondHeader>
+            </StyledUserInfoHeader>
+            {isEdit ? (
+              <div>
+                <StyledInput
+                  placeholder="name"
+                  {...register("name", {
+                    required: true,
+                  })}
+                />
+                <StyledInput
+                  placeholder="email"
+                  {...register("email", {
+                    required: true,
+                    pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                  })}
+                />
+                <StyledInput
+                  placeholder="new password"
+                  type="password"
+                  {...register("password", {
+                    required: true,
+                    pattern: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{5,}$/,
+                  })}
+                />
+                <span onClick={handleSubmit(onSubmit)} className="save">
+                  save
+                </span>
+              </div>
+            ) : (
+              <>
+                <StyledParagraphMain>
+                  name: <StyledSpan>{userInfo.name}</StyledSpan>
+                </StyledParagraphMain>
+                <StyledParagraphMain>
+                  email: <StyledSpan>{userInfo.email}</StyledSpan>
+                </StyledParagraphMain>
+                <StyledParagraphMain>
+                  password: <StyledSpan>****</StyledSpan>
+                </StyledParagraphMain>
+              </>
+            )}
           </StyledUserInfoWrapper>
           <StyledTranslationWrapper>
             <StyledSecondHeader>Stats:</StyledSecondHeader>
@@ -166,7 +239,7 @@ const User = () => {
         <StyledWrapper
           animate={{ opacity: 1 }}
           initial={{ opacity: 0 }}
-          transition={{ duration: 0.5, delay: 0.1 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
         >
           <StyledLink to="/login">Login</StyledLink>
           <StyledParagraph>or</StyledParagraph>

@@ -21,6 +21,16 @@ html{
   .material-icons {
     font-size:36px;
   }
+  .edit{
+    font-size:20px;
+    cursor: pointer;
+  }
+  .save{
+    font-weight: bold;
+    margin-left: 2%;
+    border-bottom: 1px solid gray;
+    cursor: pointer;
+  }
 
 
 `;

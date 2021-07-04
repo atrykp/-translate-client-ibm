@@ -18,7 +18,6 @@ import {
   editWordRequest,
   editWordSuccess,
 } from "../actions/tList-actions";
-import { userLogoutAction } from "./userLoginAction";
 
 export const userTListAction = (token) => async (dispatch) => {
   try {
