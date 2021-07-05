@@ -6,6 +6,9 @@ export const USER_LOGIN_REQUEST = "USER_LOGIN_REQUEST";
 export const USER_LOGIN_SUCCESS = "USER_LOGIN_SUCCESS";
 export const USER_LOGIN_FAIL = "USER_LOGIN_FAIL";
 export const USER_LOGOUT = "USER_LOGOUT";
+export const EDIT_USER_REQUEST = "EDIT_USER_REQUEST";
+export const EDIT_USER_SUCCESS = "EDIT_USER_SUCCESS";
+export const EDIT_USER_FAIL = "EDIT_USER_FAIL";
 
 export const registerRequest = () => ({
   type: USER_REGISTER_REQUEST,
@@ -34,4 +37,15 @@ export const loginFail = (error) => ({
 });
 export const userLogout = () => ({
   type: USER_LOGOUT,
+});
+
+export const editUserRequest = () => ({
+  type: EDIT_USER_REQUEST,
+});
+export const editUserSuccess = () => ({
+  type: EDIT_USER_SUCCESS,
+});
+export const editUserFail = (error) => ({
+  type: EDIT_USER_FAIL,
+  payload: error.message,
 });

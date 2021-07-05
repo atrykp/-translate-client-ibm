@@ -13,6 +13,9 @@ import { Link, useHistory } from "react-router-dom";
 import Paragraph from "../../components/Atoms/Paragraph/Paragraph";
 import Input from "../../components/Atoms/Input/Input";
 import ErrorBar from "../../components/Atoms/ErrorBar/ErrorBar";
+import { updateUserAction } from "../../thunk-actions/userActions";
+import { updateModalStatus } from "../../actions/actions";
+import { NOTIFICATION } from "../../reducers/modalsReducer";
 
 const StyledWrapper = styled(motion.div)`
   width: 100%;
@@ -161,8 +164,35 @@ const User = () => {
     }
   }, [userInfo, token, dispatch]);
 
-  const onSubmit = async (data, e) => {
-    console.log(errors);
+  const onSubmit = async (data) => {
+    if (!Object.keys(data).length) return setIsEdit(false);
+    console.log(data);
+
+    const userInfo = {};
+    for (const key in data) {
+      if (data[key]) {
+        userInfo[key] = data[key];
+      }
+    }
+    dispatch(updateUserAction(token, userInfo));
+    setIsEdit(false);
+    dispatch(
+      updateModalStatus(NOTIFICATION, {
+        content: "Saved",
+        isActive: true,
+      })
+    );
+    removeNotification();
+  };
+  const removeNotification = () => {
+    setTimeout(() => {
+      dispatch(
+        updateModalStatus("notification", {
+          content: "",
+          isActive: false,
+        })
+      );
+    }, 1450);
   };
 
   return (

@@ -7,6 +7,9 @@ import {
   USER_LOGIN_SUCCESS,
   USER_LOGIN_FAIL,
   USER_LOGOUT,
+  EDIT_USER_REQUEST,
+  EDIT_USER_SUCCESS,
+  EDIT_USER_FAIL,
 } from "../actions/user-actions";
 
 const initialState = {
@@ -51,6 +54,24 @@ export const userLoginReducer = (state = userInfoStore, action) => {
       return { ...state, error: action.payload, loading: false };
     case USER_LOGOUT:
       return { ...state, ...loginInitialState };
+    default:
+      return state;
+  }
+};
+
+export const editUserReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case EDIT_USER_REQUEST:
+      return { ...state, loading: true };
+    case EDIT_USER_SUCCESS:
+      return { ...state, loading: false, success: true };
+    case EDIT_USER_FAIL:
+      return {
+        ...state,
+        error: action.payload,
+        loading: false,
+        success: false,
+      };
     default:
       return state;
   }
