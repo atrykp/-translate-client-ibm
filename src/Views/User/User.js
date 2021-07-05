@@ -12,6 +12,7 @@ import MainTemplate from "../../templates/MainTemplate";
 import { Link, useHistory } from "react-router-dom";
 import Paragraph from "../../components/Atoms/Paragraph/Paragraph";
 import Input from "../../components/Atoms/Input/Input";
+import ErrorBar from "../../components/Atoms/ErrorBar/ErrorBar";
 
 const StyledWrapper = styled(motion.div)`
   width: 100%;
@@ -104,6 +105,11 @@ const StyledInput = styled(Input)`
   font-size: 1.9rem;
 `;
 
+const variants = {
+  open: { opacity: 1, y: 0 },
+  close: { opacity: 0, y: -40 },
+};
+
 const User = () => {
   const {
     register,
@@ -112,6 +118,7 @@ const User = () => {
   } = useForm();
 
   const [isEdit, setIsEdit] = useState(false);
+  const [isError, setIsError] = useState(false);
   const [isUserLogin, setIsUserLogin] = useState(false);
   const [userInfo, setUserInfo] = useState({});
   let translationList = useSelector((state) => state.tListReducer);
@@ -154,7 +161,9 @@ const User = () => {
     }
   }, [userInfo, token, dispatch]);
 
-  const onSubmit = async (data, e) => {};
+  const onSubmit = async (data, e) => {
+    console.log(errors);
+  };
 
   return (
     <div>
@@ -163,13 +172,21 @@ const User = () => {
           <StyledHeader>
             Hello <StyledHeaderSpan>{userInfo.name}</StyledHeaderSpan>!
           </StyledHeader>
+          <ErrorBar
+            animate={
+              errors.name || errors.email || errors.password ? "open" : "close"
+            }
+            variants={variants}
+          >
+            Check your input data
+          </ErrorBar>
           <StyledUserInfoWrapper>
             <StyledUserInfoHeader>
               <StyledSecondHeader>
                 UserInfo:
                 <StyledIcon
                   className="material-icons edit"
-                  // onClick={() => setIsEdit((prev) => !prev)}
+                  onClick={() => setIsEdit((prev) => !prev)}
                 >
                   edit
                 </StyledIcon>
@@ -179,14 +196,13 @@ const User = () => {
               <div>
                 <StyledInput
                   placeholder="name"
-                  {...register("name", {
-                    required: true,
-                  })}
+                  defaultValue={userInfo.name}
+                  {...register("name")}
                 />
                 <StyledInput
                   placeholder="email"
+                  defaultValue={userInfo.email}
                   {...register("email", {
-                    required: true,
                     pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
                   })}
                 />
@@ -194,7 +210,6 @@ const User = () => {
                   placeholder="new password"
                   type="password"
                   {...register("password", {
-                    required: true,
                     pattern: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{5,}$/,
                   })}
                 />

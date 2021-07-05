@@ -9,6 +9,7 @@ import RoundButton from "../../components/Atoms/RoundButton/RoundButton";
 import Dropdown from "../../components/Organisms/Dropdown/Dropdown";
 import Output from "../../components/Organisms/Output/Output";
 import MainTemplate from "../../templates/MainTemplate";
+import ErrorBar from "../../components/Atoms/ErrorBar/ErrorBar";
 
 import findInMyArray from "../../helpers/findInMyArray";
 import useReduxStore from "../../hooks/useReduxStore";
@@ -185,9 +186,9 @@ const MainPage = () => {
           </StyledDropdownWrapper>
           <StyledInput onChange={() => handleChange()} ref={translateInput} />
 
-          <StyledError animate={isError ? "open" : "close"} variants={variants}>
+          <ErrorBar animate={isError ? "open" : "close"} variants={variants}>
             input is required
-          </StyledError>
+          </ErrorBar>
 
           <StyledButton onClick={handleTranslate}>Translate</StyledButton>
           <Output
