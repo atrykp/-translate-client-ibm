@@ -16,6 +16,8 @@ import ErrorBar from "../../components/Atoms/ErrorBar/ErrorBar";
 import { updateUserAction } from "../../thunk-actions/userActions";
 import { updateModalStatus } from "../../actions/actions";
 import { NOTIFICATION } from "../../reducers/modalsReducer";
+import { userTListAction } from "../../thunk-actions/userTListAction";
+import { getCardsListAction } from "../../thunk-actions/userFlashcardsAction";
 
 const StyledWrapper = styled(motion.div)`
   width: 100%;
@@ -121,7 +123,6 @@ const User = () => {
   } = useForm();
 
   const [isEdit, setIsEdit] = useState(false);
-  const [isError, setIsError] = useState(false);
   const [isUserLogin, setIsUserLogin] = useState(false);
   const [userInfo, setUserInfo] = useState({});
   let translationList = useSelector((state) => state.tListReducer);
@@ -135,6 +136,14 @@ const User = () => {
     },
   } = useReduxStore();
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    const getData = async () => {
+      await dispatch(userTListAction(token));
+      await dispatch(getCardsListAction(token));
+    };
+    getData();
+  }, [token, dispatch]);
 
   useEffect(() => {
     const config = {
@@ -166,7 +175,6 @@ const User = () => {
 
   const onSubmit = async (data) => {
     if (!Object.keys(data).length) return setIsEdit(false);
-    console.log(data);
 
     const userInfo = {};
     for (const key in data) {

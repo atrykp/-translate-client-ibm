@@ -28,18 +28,16 @@ const StyledOutput = styled.div`
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
 `;
 const StyledSpan = styled.span`
-  position: absolute;
   color: ${({ theme, active }) =>
     active ? theme.colors.secondary : theme.colors.mediumTxt};
-  right: ${({ secondary }) => (secondary ? "20px" : "15px")};
   font-size: ${({ secondary }) => (secondary ? "3rem" : "4rem")};
+  margin-bottom: ${({ secondary }) => secondary && "5px"};
   cursor: pointer;
   transition: 0.2s ease-in-out;
 
   &:active {
     color: ${({ theme }) => theme.colors.secondary};
   }
-  ${({ secondary }) => (secondary ? "bottom:10px" : "top:10px")}
 `;
 
 const StyledSpeaker = styled(StyledSpan)`
@@ -54,6 +52,28 @@ const StyledCounterWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+`;
+
+const StyledLabel = styled.p`
+  color: ${({ theme }) => theme.colors.mediumTxt};
+  font-size: 1.2rem;
+  margin-top: 2px;
+`;
+
+const StyledListWrapper = styled.div`
+  text-align: center;
+  position: absolute;
+  right: 10px;
+  display: grid;
+  flex-direction: row;
+`;
+const StyledCardWrapper = styled.div`
+  text-align: center;
+  position: absolute;
+  right: 10px;
+  display: grid;
+  flex-direction: row;
+  bottom: 10px;
 `;
 
 const Output = ({
@@ -176,16 +196,22 @@ const Output = ({
       <Header>{!isLoading && toWord}</Header>
       {toWord && (
         <>
-          <StyledSpan
-            onClick={handleClick}
-            className="material-icons"
-            active={isActive}
-          >
-            playlist_add
-          </StyledSpan>
-          <StyledSpan className="material-icons" secondary onClick={addCard}>
-            library_add
-          </StyledSpan>
+          <StyledListWrapper>
+            <StyledSpan
+              onClick={handleClick}
+              className="material-icons"
+              active={isActive}
+            >
+              playlist_add
+            </StyledSpan>
+            <StyledLabel>add to list</StyledLabel>
+          </StyledListWrapper>
+          <StyledCardWrapper>
+            <StyledSpan className="material-icons" secondary onClick={addCard}>
+              library_add
+            </StyledSpan>
+            <StyledLabel>add flashcard</StyledLabel>
+          </StyledCardWrapper>
           {toLang === "en" && (
             <StyledSpeaker
               className="material-icons"
