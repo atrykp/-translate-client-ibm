@@ -13,6 +13,7 @@ import {
   saveWordAction,
 } from "../../../thunk-actions/userTListAction";
 import { addFlashCardAction } from "../../../thunk-actions/userFlashcardsAction";
+import { useRemoveNotification } from "../../../hooks/useRemoveNotification";
 
 const StyledOutput = styled.div`
   position: relative;
@@ -92,6 +93,8 @@ const Output = ({
     },
   } = useReduxStore();
 
+  const removeNotification = useRemoveNotification();
+
   const { counter, toWord, _id, fromLang, toLang, fromWord } =
     translatedObj || {};
 
@@ -146,18 +149,7 @@ const Output = ({
         })
       );
     }
-    removeNotification();
-  };
-
-  const removeNotification = () => {
-    setTimeout(() => {
-      dispatch(
-        updateModalStatus("notification", {
-          content: "",
-          isActive: false,
-        })
-      );
-    }, 1450);
+    removeNotification(1450);
   };
 
   const addCard = () => {

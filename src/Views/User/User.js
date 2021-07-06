@@ -18,6 +18,8 @@ import { updateModalStatus } from "../../actions/actions";
 import { NOTIFICATION } from "../../reducers/modalsReducer";
 import { userTListAction } from "../../thunk-actions/userTListAction";
 import { getCardsListAction } from "../../thunk-actions/userFlashcardsAction";
+import { useRemoveNotification } from "../../hooks/useRemoveNotification";
+import { useCallback } from "react";
 
 const StyledWrapper = styled(motion.div)`
   width: 100%;
@@ -122,6 +124,8 @@ const User = () => {
     formState: { errors },
   } = useForm();
 
+  const removeNotification = useRemoveNotification();
+
   const [isEdit, setIsEdit] = useState(false);
   const [isUserLogin, setIsUserLogin] = useState(false);
   const [userInfo, setUserInfo] = useState({});
@@ -137,6 +141,30 @@ const User = () => {
   } = useReduxStore();
   const dispatch = useDispatch();
 
+  const getUser = useCallback(async () => {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    try {
+      const { data } = await axios.get(
+        `https://translate-app-serv.herokuapp.com/api/users/user`,
+        config
+      );
+
+      if (data) {
+        setUserInfo(data);
+        setIsUserLogin(true);
+      } else {
+        dispatch(userLogoutAction());
+      }
+    } catch (error) {
+      setIsUserLogin(false);
+    }
+  }, [dispatch, token]);
+
   useEffect(() => {
     const getData = async () => {
       await dispatch(userTListAction(token));
@@ -146,32 +174,10 @@ const User = () => {
   }, [token, dispatch]);
 
   useEffect(() => {
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    };
-    const getUser = async () => {
-      try {
-        const { data } = await axios.get(
-          `https://translate-app-serv.herokuapp.com/api/users/user`,
-          config
-        );
-        if (data) {
-          setUserInfo(data);
-          setIsUserLogin(true);
-        } else {
-          dispatch(userLogoutAction());
-        }
-      } catch (error) {
-        setIsUserLogin(false);
-      }
-    };
     if (!userInfo._id) {
       getUser();
     }
-  }, [userInfo, token, dispatch]);
+  }, [userInfo, token, dispatch, getUser]);
 
   const onSubmit = async (data) => {
     if (!Object.keys(data).length) return setIsEdit(false);
@@ -182,25 +188,16 @@ const User = () => {
         userInfo[key] = data[key];
       }
     }
-    dispatch(updateUserAction(token, userInfo));
+    await dispatch(updateUserAction(token, userInfo));
     setIsEdit(false);
+    getUser();
     dispatch(
       updateModalStatus(NOTIFICATION, {
         content: "Saved",
         isActive: true,
       })
     );
-    removeNotification();
-  };
-  const removeNotification = () => {
-    setTimeout(() => {
-      dispatch(
-        updateModalStatus("notification", {
-          content: "",
-          isActive: false,
-        })
-      );
-    }, 1450);
+    removeNotification(1450);
   };
 
   return (

@@ -17,6 +17,7 @@ import {
   EDIT_MODAL,
   FLASH_CARDS,
 } from "../../../reducers/modalsReducer";
+import { useRemoveNotification } from "../../../hooks/useRemoveNotification";
 
 const StyledWrapper = styled.div`
   position: relative;
@@ -102,6 +103,7 @@ const FlashCard = ({ cardContent }) => {
   const dispatch = useDispatch();
 
   const { userLoginReducer: user } = useReduxStore();
+  const removeNotification = useRemoveNotification();
 
   const removeCard = () => {
     dispatch(deleteCardAction(user.user.token, _id));
@@ -111,7 +113,7 @@ const FlashCard = ({ cardContent }) => {
         isActive: true,
       })
     );
-    removeNotification();
+    removeNotification(1450);
   };
 
   const updateCardStatus = () => {
@@ -131,17 +133,7 @@ const FlashCard = ({ cardContent }) => {
         })
       );
     }
-    removeNotification();
-  };
-  const removeNotification = () => {
-    setTimeout(() => {
-      dispatch(
-        updateModalStatus(NOTIFICATION, {
-          content: "",
-          isActive: false,
-        })
-      );
-    }, 1450);
+    removeNotification(1450);
   };
 
   const changeEditModalActivity = () => {

@@ -17,6 +17,7 @@ import {
   TRANSLATION_ELEMENTS,
   NOTIFICATION,
 } from "../../../reducers/modalsReducer";
+import { useRemoveNotification } from "../../../hooks/useRemoveNotification";
 
 const StyledBackground = styled.div`
   position: fixed;
@@ -85,6 +86,7 @@ const EditModal = () => {
   const [toContent, setToContent] = useState("");
 
   const dispatch = useDispatch();
+  const removeNotification = useRemoveNotification();
 
   const [editModal] = useReduxStore(EDIT_MODAL);
   const { fromWord, toWord, _id, section } = editModal;
@@ -98,17 +100,6 @@ const EditModal = () => {
 
   const closeEditModal = () => {
     dispatch(updateModalStatus(EDIT_MODAL, { isActive: false }));
-  };
-
-  const removeNotification = () => {
-    setTimeout(() => {
-      dispatch(
-        updateModalStatus(NOTIFICATION, {
-          content: "",
-          isActive: false,
-        })
-      );
-    }, 1450);
   };
 
   const saveNewContent = () => {
@@ -130,7 +121,7 @@ const EditModal = () => {
         isActive: true,
       })
     );
-    removeNotification();
+    removeNotification(1450);
   };
   return (
     <>

@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux";
 import { updateModalStatus } from "../../../actions/actions";
 import { removeWordAction } from "../../../thunk-actions/userTListAction";
 import useReduxStore from "../../../hooks/useReduxStore";
+import { useRemoveNotification } from "../../../hooks/useRemoveNotification";
 
 const StyledWrapper = styled(motion.div)`
   display: grid;
@@ -85,6 +86,7 @@ const TranslationElement = ({ translationObj }) => {
   const { userLoginReducer: user } = useReduxStore();
   const dispatch = useDispatch();
   const { fromWord, toWord, fromLang, toLang, _id, counter } = translationObj;
+  const removeNotification = useRemoveNotification();
 
   const removeItem = () => {
     dispatch(removeWordAction(user.user.token, _id));
@@ -94,17 +96,7 @@ const TranslationElement = ({ translationObj }) => {
         isActive: true,
       })
     );
-    removeNotification();
-  };
-  const removeNotification = () => {
-    setTimeout(() => {
-      dispatch(
-        updateModalStatus("notification", {
-          content: "",
-          isActive: false,
-        })
-      );
-    }, 1450);
+    removeNotification(1450);
   };
 
   const changeEditModalStatus = () => {
