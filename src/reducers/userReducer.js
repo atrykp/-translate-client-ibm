@@ -10,6 +10,9 @@ import {
   EDIT_USER_REQUEST,
   EDIT_USER_SUCCESS,
   EDIT_USER_FAIL,
+  REMOVE_USER_REQUEST,
+  REMOVE_USER_SUCCESS,
+  REMOVE_USER_FAIL,
 } from "../actions/user-actions";
 
 const initialState = {
@@ -66,6 +69,23 @@ export const editUserReducer = (state = initialState, action) => {
     case EDIT_USER_SUCCESS:
       return { ...state, loading: false, success: true };
     case EDIT_USER_FAIL:
+      return {
+        ...state,
+        error: action.payload,
+        loading: false,
+        success: false,
+      };
+    default:
+      return state;
+  }
+};
+export const removeUserReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case REMOVE_USER_REQUEST:
+      return { ...state, loading: true };
+    case REMOVE_USER_SUCCESS:
+      return { ...state, loading: false, success: true };
+    case REMOVE_USER_FAIL:
       return {
         ...state,
         error: action.payload,

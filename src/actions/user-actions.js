@@ -9,6 +9,9 @@ export const USER_LOGOUT = "USER_LOGOUT";
 export const EDIT_USER_REQUEST = "EDIT_USER_REQUEST";
 export const EDIT_USER_SUCCESS = "EDIT_USER_SUCCESS";
 export const EDIT_USER_FAIL = "EDIT_USER_FAIL";
+export const REMOVE_USER_REQUEST = "REMOVE_USER_REQUEST";
+export const REMOVE_USER_SUCCESS = "REMOVE_USER_SUCCESS";
+export const REMOVE_USER_FAIL = "REMOVE_USER_FAIL";
 
 export const registerRequest = () => ({
   type: USER_REGISTER_REQUEST,
@@ -47,5 +50,15 @@ export const editUserSuccess = () => ({
 });
 export const editUserFail = (error) => ({
   type: EDIT_USER_FAIL,
+  payload: error.message,
+});
+export const removeUserRequest = () => ({
+  type: REMOVE_USER_REQUEST,
+});
+export const removeUserSuccess = () => ({
+  type: REMOVE_USER_SUCCESS,
+});
+export const removeUserFail = (error) => ({
+  type: REMOVE_USER_FAIL,
   payload: error.message,
 });

@@ -13,13 +13,17 @@ import { Link, useHistory } from "react-router-dom";
 import Paragraph from "../../components/Atoms/Paragraph/Paragraph";
 import Input from "../../components/Atoms/Input/Input";
 import ErrorBar from "../../components/Atoms/ErrorBar/ErrorBar";
-import { updateUserAction } from "../../thunk-actions/userActions";
+import {
+  removeUserAction,
+  updateUserAction,
+} from "../../thunk-actions/userActions";
 import { updateModalStatus } from "../../actions/actions";
 import { NOTIFICATION } from "../../reducers/modalsReducer";
 import { userTListAction } from "../../thunk-actions/userTListAction";
 import { getCardsListAction } from "../../thunk-actions/userFlashcardsAction";
 import { useRemoveNotification } from "../../hooks/useRemoveNotification";
 import { useCallback } from "react";
+import { userLogout } from "../../actions/user-actions";
 
 const StyledWrapper = styled(motion.div)`
   width: 100%;
@@ -111,6 +115,18 @@ const StyledInput = styled(Input)`
   margin: 5px;
   font-size: 1.9rem;
 `;
+const StyledLabel = styled.p`
+  color: ${({ theme }) => theme.colors.mediumTxt};
+  font-size: 1.2rem;
+  margin-top: 2px;
+`;
+const StyledRemoveUser = styled.div`
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  margin-right: 5px;
+  text-align: center;
+`;
 
 const variants = {
   open: { opacity: 1, y: 0 },
@@ -199,6 +215,10 @@ const User = () => {
     );
     removeNotification(1450);
   };
+  const removeAcount = async () => {
+    await dispatch(removeUserAction(token));
+    dispatch(userLogout());
+  };
 
   return (
     <div>
@@ -227,6 +247,9 @@ const User = () => {
                 </StyledIcon>
               </StyledSecondHeader>
             </StyledUserInfoHeader>
+            <StyledRemoveUser>
+              <StyledLabel onClick={removeAcount}>Remove account</StyledLabel>
+            </StyledRemoveUser>
             {isEdit ? (
               <div>
                 <StyledInput
