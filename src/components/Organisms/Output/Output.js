@@ -166,7 +166,7 @@ const Output = ({
         isActive: true,
       })
     );
-    removeNotification();
+    removeNotification(1450);
   };
 
   const handleListen = async () => {
