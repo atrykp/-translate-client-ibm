@@ -17,6 +17,7 @@ import {
   removeUserAction,
   updateUserAction,
 } from "../../thunk-actions/userActions";
+import ConfirmModal from "../../components/Organisms/ConfirmModal/ConfirmModal";
 import { updateModalStatus } from "../../actions/actions";
 import { NOTIFICATION } from "../../reducers/modalsReducer";
 import { userTListAction } from "../../thunk-actions/userTListAction";
@@ -97,6 +98,7 @@ const StyledButton = styled.button`
   font-size: 1.8rem;
   background-color: transparent;
   color: ${({ theme }) => theme.colors.mediumTxt};
+  cursor: pointer;
 `;
 const StyledIcon = styled.span`
   font-size: 20px;
@@ -119,6 +121,7 @@ const StyledLabel = styled.p`
   color: ${({ theme }) => theme.colors.mediumTxt};
   font-size: 1.2rem;
   margin-top: 2px;
+  cursor: pointer;
 `;
 const StyledRemoveUser = styled.div`
   position: absolute;
@@ -144,6 +147,7 @@ const User = () => {
 
   const [isEdit, setIsEdit] = useState(false);
   const [isUserLogin, setIsUserLogin] = useState(false);
+  const [isModal, setIsModal] = useState(false);
   const [userInfo, setUserInfo] = useState({});
   let translationList = useSelector((state) => state.tListReducer);
   const history = useHistory();
@@ -216,8 +220,10 @@ const User = () => {
     removeNotification(1450);
   };
   const removeAcount = async () => {
+    setIsModal(false);
     await dispatch(removeUserAction(token));
     dispatch(userLogout());
+    history.push("/");
   };
 
   return (
@@ -248,7 +254,18 @@ const User = () => {
               </StyledSecondHeader>
             </StyledUserInfoHeader>
             <StyledRemoveUser>
-              <StyledLabel onClick={removeAcount}>Remove account</StyledLabel>
+              <StyledLabel
+                onClick={() => setIsModal((prevValue) => !prevValue)}
+              >
+                Remove account
+              </StyledLabel>
+              {isModal && (
+                <ConfirmModal
+                  text={"Do you want remove your account?"}
+                  deny={setIsModal}
+                  confirm={removeAcount}
+                />
+              )}
             </StyledRemoveUser>
             {isEdit ? (
               <div>
