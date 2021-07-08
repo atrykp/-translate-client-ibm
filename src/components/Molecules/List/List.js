@@ -42,7 +42,6 @@ const List = ({ setLanguage, isActive, setIsActive }) => {
     let response = await fetch(
       `https://translate-app-serv.herokuapp.com/translator`
     );
-    // let response = await fetch(`http://localhost:5000/translator`);
     let languagesObj = await response.json();
     languagesObj.result.languages.forEach((element) =>
       arrayLanguage.push({

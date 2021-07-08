@@ -22,7 +22,6 @@ import {
 import { getWordByIdReset } from "../../actions/tList-actions";
 
 import swap from "../../assets/Icons/swap.svg";
-import { userLogoutAction } from "../../thunk-actions/userLoginAction";
 
 const StyledWrapper = styled.div`
   min-height: 95vh;
@@ -61,14 +60,6 @@ const StyledInput = styled(Input)`
   justify-self: center;
   align-self: start;
   height: 50px;
-`;
-const StyledError = styled(motion.p)`
-  font-size: 1.2rem;
-  position: absolute;
-  background-color: red;
-  width: 100%;
-  color: white;
-  text-align: center;
 `;
 
 const variants = {

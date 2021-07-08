@@ -190,8 +190,10 @@ const User = () => {
       await dispatch(userTListAction(token));
       await dispatch(getCardsListAction(token));
     };
-    getData();
-  }, [token, dispatch]);
+    if (isUserLogin) {
+      getData();
+    }
+  }, [token, dispatch, isUserLogin]);
 
   useEffect(() => {
     if (!userInfo._id) {
