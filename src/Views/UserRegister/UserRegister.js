@@ -97,7 +97,7 @@ const UserRegister = () => {
 
   const onSubmit = async (data, e) => {
     dispatch(registerReset());
-    dispatch(userRegisterAction(data));
+    dispatch(userRegisterAction({ ...data, name: data.name.trim() }));
   };
 
   return (
@@ -119,10 +119,14 @@ const UserRegister = () => {
                 <StyledInput
                   {...register("name", {
                     required: true,
+                    minLength: 3,
+                    validate: (value) => {
+                      return value.trim().length >= 3;
+                    },
                   })}
                 />
                 <StyledErrorParagraph>
-                  {errors.name?.type === "required" && "Name is required"}
+                  {errors.name && "Name is required (minLength:3)"}
                 </StyledErrorParagraph>
 
                 <StyledLabelParagraph>Email:</StyledLabelParagraph>
@@ -143,7 +147,7 @@ const UserRegister = () => {
                   type="password"
                   {...register("password", {
                     required: true,
-                    pattern: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{5,}$/,
+                    pattern: /^(?=.*\d)(?=.*[a-z])(?=.*[a-zA-Z]).{5,}$/gm,
                   })}
                 />
                 <StyledErrorParagraph>

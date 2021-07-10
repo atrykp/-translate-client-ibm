@@ -132,8 +132,8 @@ const StyledRemoveUser = styled.div`
 `;
 
 const variants = {
-  open: { opacity: 1, y: 0 },
-  close: { opacity: 0, y: -40 },
+  open: { opacity: 1, y: 40 },
+  close: { opacity: 0, y: 0 },
 };
 
 const User = () => {

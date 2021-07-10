@@ -8,6 +8,8 @@ const ErrorBar = styled(motion.p)`
   width: 100%;
   color: white;
   text-align: center;
+  top: -40px;
+  left: 0;
 `;
 
 export default ErrorBar;
